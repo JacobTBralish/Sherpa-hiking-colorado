@@ -1,0 +1,260 @@
+.NavContainer {
+    background-color: tomato;
+    width: 100vw;
+    height: 142px;
+    line-height: 71px;
+    max-height: 143px;
+    display: flex;
+
+
+    @media(max-width:435px) {
+        height: 80px;
+    }
+
+    .navSubContainer {
+        background-color: tomato;
+        display: flex;
+        position: relative;
+        justify-content: space-between;
+        line-height: 72.5px;
+        margin-right: 70px;
+        margin-left: 30px;
+        height: 143px;
+        // flex-direction: row;
+
+        & button {
+            display: none;
+
+            @media(max-width:435px) {
+                display: initial;
+                position: absolute;
+                z-index: 1;
+                height: 60px;
+                width: 60px;
+                font-size: 24px;
+                border-radius: 50%;
+                // bottom: 30px;
+                right: 0px;
+                background: none;
+                border: none;
+                top: 10px;
+            }
+             
+
+        }
+
+        .logoContainer {
+            border: 1px solid pink;
+            text-decoration: none!important;
+
+            .logoLink {
+                font-size: 24px;
+                // border: $reactBlue 2px solid;
+                width: 40px;
+                height: 40px;
+                text-align: center;
+                margin-top: 21px;
+                transform: rotate(0deg);
+                transition: transform 999s 999s;
+                .logo {
+                    position: relative;
+                    top: -18px;
+                }
+            }
+        }
+
+        .rightNavContainer {
+            border: 1px solid yellow;
+            display: flex;
+
+            .rightNavList,.rightNavExtraListTrails, .rightNavExtraListAccount {
+                color: black;
+                display: flex;
+                flex-direction: row;
+                border: 1px solid purple;
+                list-style: none;
+
+
+                .rightNavListItem, .rightNavExtraListItem {
+                    text-decoration: none;
+                    margin: 6px;
+                }
+
+                .rightNavExtraList {
+
+                    .rightNavExtraListItem {
+
+                    }
+                }
+            }
+        }
+        
+    }
+    .navSubContainer .show {
+        transform: translate(0px, 0px)
+        }
+}
+
+// .navContainer {
+//     width: 100vw;
+//     height: 143px;
+
+
+//     @media(max-width:435px) {
+//         height: 80px;
+//     }
+
+//     .navSubContainer {
+//         background-color: tomato;
+//         display: flex;
+//         position: relative;
+//         justify-content: space-between;
+//         line-height: 72.5px;
+//         margin-right: 70px;
+//         margin-left: 30px;
+//         // flex-direction: row;
+//         // color: $offBlack;
+
+
+//         //hides and displays bitton when shown
+//         & button {
+//             display: none;
+
+//             @media(max-width:435px) {
+//                 display: initial;
+//                 position: absolute;
+//                 z-index: 1;
+//                 height: 60px;
+//                 width: 60px;
+//                 font-size: 24px;
+//                 border-radius: 50%;
+//                 // bottom: 30px;
+//                 right: 0px;
+//                 background: none;
+//                 border: none;
+//                 top: 10px;
+//             }
+             
+
+//         }
+
+//         .navList {
+
+//             #navListItemSocial {
+//                 // line-height: 1em;
+//                 margin: 8px;
+//                 cursor: pointer;
+
+//                 & :hover {
+//                     // color: $reactBlue;
+//                 }
+            
+            
+//                 .socialLinkImage {
+//                     opacity: 0;
+//                     visibility: hidden;
+//                     width: 0;
+//                     // line-height: 72.5px;
+//                     font-size: 1.5em;
+//                     line-height: 1em;
+//                     float: right;
+//                     margin-left: 1.5em;
+//                     list-style: none;
+//                     // margin-bottom: 1.5em;
+//                     // padding-bottom: 2em;
+//                     font-weight: bold;
+//                     margin: 0;
+//                     text-align: center;
+//                     // color: $offBlack;
+//                     transition: all ease-out .3s;      
+
+//                     & a {
+//                         margin: 0 10px;
+//                         line-height: 72.5px;
+//                         // color: $reactBlue;
+
+//                     }
+//                 }
+//             }
+//         }
+
+//         .navList {
+//             display: flex;
+            
+//             // @media(max-width:1200px) {
+//             //     padding-top: 1.5em;
+//             //     padding-bottom: 1.5em; 
+            
+
+//             // }
+
+//             .navListItem {
+                
+//                 // display: inline-block;
+//                 margin: 8px;
+
+//                 & :hover {
+//                     // color: $reactBlue;
+//                 }
+
+                
+//                 & a {
+//                     text-decoration: none;
+//                     // color: $offBlack;
+
+//                 }
+//             }
+//         }
+
+//         #navListItemSocial:hover .socialLinkImage {
+
+//             cursor: pointer;
+//             visibility: visible;
+//             width: 40px;
+//             transition: all ease-in .3s;      
+//             opacity: 1;    
+//         }
+//     }
+
+//     .navSubContainer nav {
+
+//         //hides nav when at this width
+//         @media(max-width:435px) {
+//             // display: none;
+
+//             position: fixed;
+//             /* if you were coming from top it would be top instead of bottom */
+//             top: 0;
+//             right: 0;
+//             // background: $reactBlue;
+//             transform: translate(0px, -700px);
+//             transition: 1s;
+            
+//             & .navList {
+//                 height: 37vh;
+//                 width: 100vw;
+//                 flex-direction: column;
+//                 padding: 10px 0;
+
+
+                
+//                 & .navListItem {
+//                     width: 100vw;
+
+//                     & :hover {
+//                         // color: $offBlack;
+//                     }
+//                 }
+//                 & #navListItemSocial .socialLinkImage a {
+//                     // color: $offBlack;
+//                 }
+                
+
+//             }
+//         }
+//     }
+
+//     .navSubContainer .show {
+//         transform: translate(0px, 0px);
+//         }
+// }

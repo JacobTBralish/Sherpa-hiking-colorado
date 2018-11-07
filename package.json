@@ -2,10 +2,25 @@
   "name": "new-sherpa",
   "version": "0.1.0",
   "private": true,
+  "main": "Server/index.js",
   "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "http-proxy-middleware": "^0.19.0",
+    "massive": "^5.5.1",
+    "moment": "^2.22.2",
+    "node-sass": "^4.10.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-scripts": "2.1.1"
+    "react-geolocation": "^1.0.4",
+    "react-redux": "^5.1.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.1",
+    "redux": "^4.0.1",
+    "redux-promise-middleware": "^5.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

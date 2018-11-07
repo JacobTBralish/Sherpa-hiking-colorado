@@ -1,0 +1,2 @@
+ INSERT INTO sherpa_trails (trail_name, trail_pic, trail_length, ascent, decent, high, low, hours_of_operation, state, city, zip, longitude, latitude) VALUES
+ ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
