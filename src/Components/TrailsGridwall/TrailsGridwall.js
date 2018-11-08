@@ -26,8 +26,7 @@ class TrailsGridwall extends Component {
 
     async componentDidMount() {
         const {fetch, name} = this.props;
-
-        
+        // Nothing is in local storage, so we need to fetch
         if (!this.state[name].length) {
             try {
                 let fetchedTrails = await fetch();
@@ -40,18 +39,19 @@ class TrailsGridwall extends Component {
                 throw (new Error('Cannot get trails!'))
             }
         }
+        // We have everything we need, toggle isLoading to false
+        else {
+            this.setState({ isLoading: false })
+        }
     }
 
     async componentWillReceiveProps(nextProps) {
         const {fetch, name} = nextProps;
 
-        console.log('name: ', name);
-
         if (this.props.name !== name && !this.state[name].length) {
             try {
                 let fetchedTrails = await fetch();
                 console.log('trails: ', fetchedTrails);
-
                 this.setState({
                     [name]: fetchedTrails,
                     isLoading: false
@@ -59,6 +59,10 @@ class TrailsGridwall extends Component {
             } catch (error) {
                 throw (new Error('Cannot get trails!'))
             }
+        }
+        // We have everything we need, toggle isLoading to false
+        else {
+            this.setState({ isLoading: false })
         }
     }
 
@@ -74,24 +78,23 @@ class TrailsGridwall extends Component {
 
     render() {
         console.log(JSON.parse(localStorage.getItem("allTrails")));
-        console.log(this.state[name]);
         const { isLoading, trails, error} = this.state;
         const { chooseTrail, name} = this.props;
         console.log('name: ', name);
-
+        
         let sortedTrails = this.state[name].sort((a, b) => {
             var nameA = a.name.toUpperCase();
             var nameB = b.name.toUpperCase();
             return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
         })
-
+        
         let activePageIndex = parseInt(this.state.activePage, 10);
         let itemsPerPageIndex = parseInt(this.state.itemsPerPage, 10);
-
+        
         let indexOfLastTrail = activePageIndex * itemsPerPageIndex;
         let indexOfFirstTrail = indexOfLastTrail - itemsPerPageIndex;
         let renderedTrails = sortedTrails.slice(indexOfFirstTrail, indexOfLastTrail);
-
+        
         let result = renderedTrails.reduce((unique, o) => {
             if (!unique.some(obj => obj.id === o.id)) {
                 unique.push(o);
@@ -104,8 +107,9 @@ class TrailsGridwall extends Component {
             <TrailCard { ...trail}/>
             </Link >
 
-        })
+})
 
+console.log(this.state[name]);
         return ( 
         <div className = 'gridwallContainer'>
             <div className = 'gridwallSubContainer' >

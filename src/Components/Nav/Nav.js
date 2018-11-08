@@ -36,7 +36,7 @@ class Nav extends Component {
         return ( 
                 <div className='navSubContainer'>
                     <div className='logoContainer'>
-                        <Link className='logoLink' to='/'><div className='logo'>Logo</div></Link>
+                        <Link className='logoLink' to='/'><div className='logo'>SHERPA</div></Link>
                     </div>
 
                     <button onClick={() => this.setState({toggle: !this.state.toggle})}>
