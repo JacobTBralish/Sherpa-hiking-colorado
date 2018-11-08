@@ -1,25 +1,15 @@
-.NavContainer {
-    background-color: tomato;
-    width: 100vw;
-    height: 142px;
-    line-height: 71px;
-    max-height: 143px;
-    display: flex;
 
-
-    @media(max-width:435px) {
-        height: 80px;
-    }
 
     .navSubContainer {
-        background-color: tomato;
         display: flex;
         position: relative;
+        background-color: tomato;
         justify-content: space-between;
         line-height: 72.5px;
         margin-right: 70px;
-        margin-left: 30px;
-        height: 143px;
+        width: 100%;
+        overflow: hidden;
+        // height: 143px;
         // flex-direction: row;
 
         & button {
@@ -66,19 +56,84 @@
         .rightNavContainer {
             border: 1px solid yellow;
             display: flex;
+            flex-direction: row;
 
-            .rightNavList,.rightNavExtraListTrails, .rightNavExtraListAccount {
+
+            .rightNavList {
                 color: black;
                 display: flex;
-                flex-direction: row;
+                margin: 0 25px;
+                // flex-direction: row;
                 border: 1px solid purple;
                 list-style: none;
+                line-height: 72.5px;
+                // align-items: center;
 
 
-                .rightNavListItem, .rightNavExtraListItem {
+                .rightNavListItem {
+                    text-decoration: none;
+                    list-style: none;
+                    margin: 0 10px;
+                }
+
+                .rightNavExtraListTrails {
+                    margin: 0 15px;
+                    height: 100%;
+
+                    .rightNavExtraListItemTrails, .rightNavExtraCitiesList {
+                        display: none;
+                    }
+
+
+                    .rightNavExtraListItemTrails {
+                        display: none;
+
+                    }
+                        .rightNavExtraCitiesList {
+                            display: none;
+
+                            .rightNavExtraListItemCities {
+                                display: none;
+                                margin: 0 10px;
+        
+                            }
+                        }
+                                .rightNavExtraCitiesList:hover .rightNavExtraListItemCities {
+                                    display: flex;
+                                }
+
+                        
+                }
+
+                .rightNavExtraListTrails:hover .rightNavExtraListItemTrails {
+                    display: flex;
+                }
+
+                .rightNavExtraListTrails:hover .rightNavExtraCitiesList {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .rightNavExtraListAccount {
+                    margin: 0 10px;
+                    
+                    .rightNavExtraListItemAccount {
+                        display: none;
+                    }
+
+                }
+                .rightNavExtraListAccount:hover .rightNavExtraListItemAccount {
+                    display: flex;
+                }
+
+
+
+
+                .rightNavListItem {
                     text-decoration: none;
                     margin: 6px;
                 }
+
 
                 .rightNavExtraList {
 
@@ -87,13 +142,16 @@
                     }
                 }
             }
+ 
         }
+
+ 
         
     }
     .navSubContainer .show {
         transform: translate(0px, 0px)
         }
-}
+
 
 // .navContainer {
 //     width: 100vw;

@@ -1,0 +1,82 @@
+.gridwallContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+
+
+    .gridwallSubContainer {
+        flex-direction: column;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        display: flex;
+        width: 80vw;
+        height: 100%;
+        margin: 20px;
+
+        .gridwallTitleContainer {
+            display: flex;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 35px;
+            letter-spacing: .18em;
+            line-height: 1em;
+            text-transform: uppercase;
+            margin: 50px;
+            line-height: 25px;
+            text-align: center;
+            align-content: center;
+            justify-content: center;
+            .gridWallTitle {
+
+            }
+        }
+    }
+
+    .paginationContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .pagination {
+            display: flex;
+
+            & li, a {
+                margin: 10px;
+                text-decoration: none;
+                color: black
+            }
+        }
+
+    }
+}
+
+.cardContainer {
+    width: 1000px;
+    margin: 20px;
+    display: flex;
+    .cardImageContainer {
+        margin: 4px;
+
+
+        .cardImage {
+            overflow: hidden;
+  
+        }
+    }
+.cardInfo {
+    margin: 20px;
+
+    .cardName {
+        font-size: 15px;
+        font-weight: bold;
+        letter-spacing: .0115em;
+    }
+}
+}
+
+// .loadingSpinnerContainer {
+//     position: absolute;
+// }

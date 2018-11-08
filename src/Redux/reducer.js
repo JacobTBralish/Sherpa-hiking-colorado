@@ -8,7 +8,7 @@ const initialState = {
     // chosenCity: '',
     chosenTrail:[],
     oneTrail:[],
-    // trailId: '',
+    trailId: '',
     // citiesList: [],
     trailsList: [],
     // trailReviews: [],
@@ -22,10 +22,10 @@ const LOGGED_IN = 'LOGGED_IN';
 const LOGGED_OUT = 'LOGGED_OUT';
 
 // const CHOSEN_CITY = 'CHOSEN_CITY';
-// const CHOSEN_TRAIL = 'CHOSEN_TRAIL';
+const CHOSEN_TRAIL = 'CHOSEN_TRAIL';
 
 // const GET_CITIES = 'GET_CITIES';
-const GET_TRAILS = 'GET_TRAILS';
+// const GET_TRAILS = 'GET_TRAILS';
 const GET_TRAIL = 'GET_TRAIL';
 
 // const GET_VISITED_TRAIL = 'GET_VISITED_TRAIL';
@@ -56,16 +56,16 @@ export default function reducer (state = initialState, action){
         //     return {...state, statesList: action.payload}
         // case GET_CITIES + `_FULFILLED`:
         //     return {...state, citiesList: action.payload}
-        case `${GET_TRAILS}_PENDING`:
-            return {...state, isLoading: true}
-        case `${GET_TRAILS}_FULFILLED`:
-            return {...state, trailsList: action.payload, isLoading: false}
+        // case `${GET_TRAILS}_PENDING`:
+        //     return {...state, isLoading: true}
+        // case `${GET_TRAILS}_FULFILLED`:
+        //     return {...state, trailsList: action.payload, isLoading: false}
 
 
-        // case GET_TRAIL:
-        //     return {...state, chosenTrail: action.payload}
-        // case CHOSEN_TRAIL:
-        //     return {...state, trailId: action.payload}
+        case GET_TRAIL:
+            return {...state, chosenTrail: action.payload}
+        case CHOSEN_TRAIL:
+            return {...state, trailId: action.payload}
         // case GET_TRAIL_REVIEWS:
         //     return {...state, trailReviews: action.payload}
         // case POST_TRAIL_REVIEWS:
@@ -120,35 +120,20 @@ export function logOut(){
     }
 }
 
-export function getTrails(Data){
-    var loopedProducts = [];
-    for(let i = 0 ; i < Data.length ; i++){
-        axios.get(`https://www.hikingproject.com/data/get-trails?lat=${Data[i].lat}&lon=${Data[i].long}&maxDistance=25&maxResults=500&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`).then((response)=> {
-            
-                loopedProducts.push(response.data.trails[i])
-                })
-    }
-return {
-        type: GET_TRAILS,
-        payload: loopedProducts
-    }
-}
-
 export function getTrail(chosenTrail){
-    // 
 return {
         type: GET_TRAIL,
         payload: chosenTrail
     }
 }
 
-// export function chooseTrail(trailId) {
-//     // 
-//     return {
-//         type: CHOSEN_TRAIL,
-//         payload: trailId
-//     }
-// }
+export function chooseTrail(trailId) {
+    // 
+    return {
+        type: CHOSEN_TRAIL,
+        payload: trailId
+    }
+}
 
 // export function chooseState(item) {
 //     // 

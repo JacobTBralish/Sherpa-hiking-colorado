@@ -1,0 +1,62 @@
+.homeContainer {
+    max-width: 100vw;
+    max-height: 100%;
+    width: 100vw;
+    height: 100%;
+    display: flex;
+
+
+
+    .homeSubContainer {
+        align-items: center;
+        align-content: center;
+        display: flex;
+        max-width: 100vw;
+        max-height: 100%;
+        width: 100vw;
+        height: 100%;
+        flex-direction: column;
+
+        .welcomeMessageContainer {
+            display: flex;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 35px;
+            letter-spacing: .18em;
+            line-height: 1em;
+            text-transform: uppercase;
+            margin: 50px;
+            line-height: 25px;
+            text-align: center;
+            align-content: center;
+
+        
+
+            .welcomeMessage {
+
+                .welcomeMessagePicture {
+                    width: 65px;
+                    height: 40px;
+                    margin: auto;
+
+                }
+            }
+        }
+
+        .imageContainer {
+            max-width: 80vw;
+            max-height: 60%;
+            width: 80vw;
+            height: 60%;
+            .homeImage {
+                max-width: 80vw;
+                max-height: 100%;
+                width: 80vw;
+                height: 100%;
+
+            }
+        }
+
+
+    }
+}

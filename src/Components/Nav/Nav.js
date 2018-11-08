@@ -42,25 +42,28 @@ class Nav extends Component {
                     <button onClick={() => this.setState({toggle: !this.state.toggle})}>
                         <i className="fas fa-bars"></i>
                     </button>
+                    
                     <nav className={this.state.toggle ? 'show' : ''}>
                         <div className='rightNavContainer'>
                             <ul className='rightNavList'>
                                 <li className='rightNavListItem'><Link to='/'>Home</Link></li>
-                                <ul className='rightNavExtraListTrails'><Link to='/Trails Gridwall'>Trails</Link>
+                                <ul className='rightNavExtraListTrails'><Link to='/All Trails'>Trails</Link>
+                                    <li className='rightNavExtraListItemTrails'><Link to=''>Trails near me</Link></li>
+                                    <ul className='rightNavExtraCitiesList'><Link to=''>Trails by city</Link>
+                                        <li className='rightNavExtraListItemCities'><Link to='/'>Estes Park</Link></li>
+                                    </ul>
+                                    {/* <li className='rightNavExtraListItem'><Link to=''></Link></li>
                                     <li className='rightNavExtraListItem'><Link to=''></Link></li>
-                                    <li className='rightNavExtraListItem'><Link to=''></Link></li>
-                                    <li className='rightNavExtraListItem'><Link to=''></Link></li>
-                                    <li className='rightNavExtraListItem'><Link to=''></Link></li>
-                                    <li className='rightNavExtraListItem'><Link to=''></Link></li>
+                                    <li className='rightNavExtraListItem'><Link to=''></Link></li> */}
                                 </ul>
                                 {!user ? 
                                 <li className='rightNavListItem' onClick={() => this.login()}>Sign In</li>
                                 :
                                 <ul className='rightNavExtraListAccount'><Link to='/'>Account</Link>
-                                    <li className='rightNavExtraListItem'><Link to='/'>Trails to visit</Link></li>
-                                    <li className='rightNavExtraListItem'><Link to='/'>Favorited trails</Link></li>
-                                    <li className='rightNavExtraListItem'><Link to='/'>Account settings</Link></li>
-                                    <li onClick={() => this.logout()}>Log out</li>
+                                    <li className='rightNavExtraListItemAccount'><Link to='/'>Trails to visit</Link></li>
+                                    <li className='rightNavExtraListItemAccount'><Link to='/'>Favorited trails</Link></li>
+                                    <li className='rightNavExtraListItemAccount'><Link to='/'>Account settings</Link></li>
+                                    <li className='rightNavExtraListItemAccount' onClick={() => this.logout()}>Log out</li>
                                 </ul>
                                 }
                             </ul>

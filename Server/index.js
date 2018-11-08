@@ -1,16 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
-// const cloudinary = require('cloudinary');
 const bodyParser = require('body-parser');
 const massive = require('massive');
-// const pC = require('./profile_controller');
-// const tC = require('./trail_controller');
-// const vC = require('./visited_controller');
-// const rC = require('./review_controller');
-const fs = require('fs')
 const axios = require('axios');
-const COLatLong = require('../src/data.json')
+// const cloudinary = require('cloudinary');
+// const fs = require('fs')
+// const COLatLong = require('../src/data.json')
 
 const app = express();
 app.use(bodyParser.json());
@@ -64,11 +60,10 @@ app.get('/auth/callback', (req,res) => {
             console.log('response.data.name: ', response.data);
             const userArray = [
                   auth0Id,
+                  response.data.picture,
                   response.data.given_name,
                   response.data.family_name,
                   response.data.name,
-                  response.data.picture,
-                  response.data.gender,
                   response.data.email,
               ];
               return db.create_user(userArray).then(newUser => {console.log(newUser,'create user has fired')

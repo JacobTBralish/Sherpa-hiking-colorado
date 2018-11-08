@@ -1,87 +1,144 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import COLatLong from '../../data.json';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+// import axios from 'axios';
+// import COLatLong from '../../data.json';
+import {connect} from 'react-redux';
 import TrailCard from '../TrailCard/TrailCard';
-// import { getTrails } from '../../Redux/reducer';
+import Pagination from 'react-js-pagination';
+import {Link} from 'react-router-dom';
+import {chooseTrail} from '../../Redux/reducer';
+import LoadingSpinner from '../../LoadingSpinner';
+
+import './Trails.scss';
 
 class TrailsGridwall extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
-            trails: [],
+        this.state = {
+            allTrails: JSON.parse(localStorage.getItem("allTrails")) || [],
+            // trailsByCity: JSON.parse(localStorage.getItem('people')) || [],
+            // trailsNearMe: JSON.parse(localStorage.getItem('people')) || [],
             isLoading: true,
-            error: null
-         }
+            error: null,
+            activePage: 1,
+            itemsPerPage: 25
+        }
     }
 
+    async componentDidMount() {
+        const {fetch, name} = this.props;
 
-
-
-    componentDidMount() {
-
-        let loopedTrails = [];
-        for(let i = 0 ; i < COLatLong.length ; i++){
-            axios.get(`https://www.hikingproject.com/data/get-trails?lat=${COLatLong[i].lat}&lon=${COLatLong[i].long}&maxDistance=25&maxResults=500&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`).then((response)=> {
-                if (response.data.trails.length > 0){
-                loopedTrails.push(...response.data.trails)
-                // console.log('loopedTrails: ', loopedTrails);
+        
+        if (!this.state[name].length) {
+            try {
+                let fetchedTrails = await fetch();
+                console.log('trails: ', fetchedTrails);
+                this.setState({
+                    [name]: fetchedTrails,
+                    isLoading: false
+                }, localStorage.setItem([name], JSON.stringify(fetchedTrails)))
+            } catch (error) {
+                throw (new Error('Cannot get trails!'))
             }
+        }
+    }
+
+    async componentWillReceiveProps(nextProps) {
+        const {fetch, name} = nextProps;
+
+        console.log('name: ', name);
+
+        if (this.props.name !== name && !this.state[name].length) {
+            try {
+                let fetchedTrails = await fetch();
+                console.log('trails: ', fetchedTrails);
+
+                this.setState({
+                    [name]: fetchedTrails,
+                    isLoading: false
+                }, localStorage.setItem([name], JSON.stringify(fetchedTrails)))
+            } catch (error) {
+                throw (new Error('Cannot get trails!'))
+            }
+        }
+    }
+
+    handlePageChange = (pageNumber) => {
+        console.log(`active page is ${pageNumber}`);
+        this.setState({
+            activePage: pageNumber
+        });
+        window.scrollTo(0, 0);
+    }
+
+
+
+    render() {
+        console.log(JSON.parse(localStorage.getItem("allTrails")));
+        console.log(this.state[name]);
+        const { isLoading, trails, error} = this.state;
+        const { chooseTrail, name} = this.props;
+        console.log('name: ', name);
+
+        let sortedTrails = this.state[name].sort((a, b) => {
+            var nameA = a.name.toUpperCase();
+            var nameB = b.name.toUpperCase();
+            return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
         })
-        }
-        axios.all([loopedTrails]).then(axios.spread((trails) => {
-            // console.log('trails: ', trails);
-            // var result = trails.reduce((unique, o) => {
-            //     if(!unique.some(obj => obj.id === o.id)) {
-            //       unique.push(o);
-            //     }
-            //     // return unique;
-            // },[]);
-            this.setState({ trails, isLoading: false });
-     
-         })).catch(error => {
-             console.log(error);
-         })
-    }
 
+        let activePageIndex = parseInt(this.state.activePage, 10);
+        let itemsPerPageIndex = parseInt(this.state.itemsPerPage, 10);
 
-    render() { 
-        const { isLoading, trails, error } = this.state;
-        
-        if (!trails && isLoading) {
-            return <div> Loading... </div>
-        }
-        
-        var mappedTrailCard = trails.map((trail, i) => {
-            return <div>
-                <p>{trail.name}</p>
-            </div>
-            {/* <TrailCard {...trail}/> */}
-         })
-         console.log('HERE IS YOUR TRAILS LIST ------------- ', trails);
-        // console.log('HERE IS YOUR TRAILS LIST ------------- ', this.props.trailsList);
+        let indexOfLastTrail = activePageIndex * itemsPerPageIndex;
+        let indexOfFirstTrail = indexOfLastTrail - itemsPerPageIndex;
+        let renderedTrails = sortedTrails.slice(indexOfFirstTrail, indexOfLastTrail);
+
+        let result = renderedTrails.reduce((unique, o) => {
+            if (!unique.some(obj => obj.id === o.id)) {
+                unique.push(o);
+            }
+            return unique;
+        }, [])
+        var mappedTrailCard = result.map((trail, i) => {
+            return <Link key = {i}onClick = {() => chooseTrail(trail.id)}
+            to = {`/Trail/${trail.id}`}>
+            <TrailCard { ...trail}/>
+            </Link >
+
+        })
+
         return ( 
-        <div>
-            {/* {error
-            ? <div>Oh no! There was an error loading the trails. Please try again later.</div>
-            : (isLoading || !trails.length)
-              ? <div>Loading...</div>
-              : 
-            } */}
-            {mappedTrailCard}
-            {/* Trails Gridwall */}
-        </div> );
+        <div className = 'gridwallContainer'>
+            <div className = 'gridwallSubContainer' >
+                <div className = 'gridwallTitleContainer' >
+                    <h1 className = 'gridWallTitle' > All Trails </h1> 
+            </div> 
+                {error
+                    ?
+                    <div> Oh no!There was an error loading the trails.Please try again later. </div>
+                    : (isLoading || !this.state[name].length) ?
+                    <LoadingSpinner />
+                    : mappedTrailCard
+                    } 
+            </div> 
+            <div className = 'paginationContainer'>
+            <Pagination activePage = {this.state.activePage}
+            itemsCountPerPage = {25}
+            totalItemsCount = {this.state[name].length}
+            pageRangeDisplayed = {5}
+            onChange = {this.handlePageChange}/>
+                </div> 
+            </div> );
+        }
     }
-}
 
-const mapStateToProps = state => {
-    return {
-        trailsList: state.trailsList,
+    const mapStateToProps = state => {
+        return {
+            trailsList: state.trailsList,
+        }
     }
-} 
 
-const mapDispatchToProps = {
-    // getTrails,
-}
+    const mapDispatchToProps = {
+        chooseTrail
+    }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrailsGridwall);
+    export default connect(mapStateToProps, mapDispatchToProps)(TrailsGridwall);

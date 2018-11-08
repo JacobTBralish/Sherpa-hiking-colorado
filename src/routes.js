@@ -12,6 +12,7 @@ import TrailView from './Components/TrailView/TrailView';
 // import CreateProfile from './Components/Profile/CreateProfile';
 // import EditProfile from './Components/Profile/EditProfile';
 
+import { getAllTrails } from '../src/APICalls';
 
 
 export default (
@@ -20,7 +21,9 @@ export default (
         {/* <Route path='/Trails Gridwall' render={() => {
             <TrailsGridwall />
         }} component={TrailsGridwall} /> */}
-        <Route path='/Trails Gridwall' component={TrailsGridwall} />
+        <Route path='/All Trails' render={() => (
+            <TrailsGridwall fetch={getAllTrails} name="allTrails"/>
+        )}/>
         <Route path='/Trail/:id' component={TrailView} />
         {/* <Route path='/city' component={City} />
         <Route path='/trails' component={Trails} />
