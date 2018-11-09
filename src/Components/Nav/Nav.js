@@ -50,7 +50,16 @@ class Nav extends Component {
                                 <ul className='rightNavExtraListTrails'><Link to='/All Trails'>Trails</Link>
                                     <li className='rightNavExtraListItemTrails'><Link to=''>Trails near me</Link></li>
                                     <ul className='rightNavExtraCitiesList'><Link to=''>Trails by city</Link>
-                                        <li className='rightNavExtraListItemCities'><Link to='/'>Estes Park</Link></li>
+                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Alamosa'>Alamosa</Link></li>
+                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Aspen'>Aspen</Link></li>
+                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Boulder'>Boulder</Link></li>
+                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Breckenridge'>Breckenridge</Link></li>
+                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Colorado Springs'>Colorado Springs</Link></li>
+                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Denver'>Denver</Link></li>
+                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Estes Park'>Estes Park</Link></li>
+                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Leadville'>Leadville</Link></li>
+                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Rifle'>Rifle</Link></li>
+                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Telluride'>Telluride</Link></li>
                                     </ul>
                                     {/* <li className='rightNavExtraListItem'><Link to=''></Link></li>
                                     <li className='rightNavExtraListItem'><Link to=''></Link></li>

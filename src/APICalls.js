@@ -16,3 +16,10 @@ for(let i = 0 ; i < COLatLong.length ; i++){
     }
     return loopedTrails
 }
+
+export const getTrailsNearCity = async (lat, long) => {
+    let response = await axios.get(`https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${long}&maxDistance=50&maxResults=500&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`)
+    let { trails } = response.data;
+    console.log('trails: ', trails);
+        return trails
+}

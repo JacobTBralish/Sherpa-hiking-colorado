@@ -15,8 +15,17 @@ class TrailsGridwall extends Component {
         super(props);
         this.state = {
             allTrails: JSON.parse(localStorage.getItem("allTrails")) || [],
-            // trailsByCity: JSON.parse(localStorage.getItem('people')) || [],
-            // trailsNearMe: JSON.parse(localStorage.getItem('people')) || [],
+            trailsNearEstesPark: JSON.parse(localStorage.getItem("estesPark")) || [],
+            trailsNearAspen: JSON.parse(localStorage.getItem("aspen")) || [],
+            trailsNearTelluride: JSON.parse(localStorage.getItem("telluride")) || [],
+            trailsNearColoradoSprings: JSON.parse(localStorage.getItem("coloradoSprings")) || [],
+            trailsNearAlamosa: JSON.parse(localStorage.getItem("alamosa")) || [],
+            trailsNearLeadville: JSON.parse(localStorage.getItem("leadville")) || [],
+            trailsNearDenver: JSON.parse(localStorage.getItem("denver")) || [],
+            trailsNearBreckenridge: JSON.parse(localStorage.getItem("breckenridge")) || [],
+            trailsNearRifle: JSON.parse(localStorage.getItem("rifle")) || [],
+            trailsNearBoulder: JSON.parse(localStorage.getItem("boulder")) || [],
+            trailsNearMe: JSON.parse(localStorage.getItem('people')) || [],
             isLoading: true,
             error: null,
             activePage: 1,
@@ -25,9 +34,32 @@ class TrailsGridwall extends Component {
     }
 
     async componentDidMount() {
-        const {fetch, name} = this.props;
+        const {fetch, name, lat, long} = this.props;
+        console.log('fetch: ', fetch);
         // Nothing is in local storage, so we need to fetch
-        if (!this.state[name].length) {
+        if (lat && long){
+            try {
+                let fetchedTrails = await fetch(lat, long);
+                console.log('trails: ', fetchedTrails);
+                this.setState({
+                    [name]: fetchedTrails,
+                    isLoading: false
+                }, localStorage.setItem([name], JSON.stringify(fetchedTrails)))
+            } catch (error) {
+                throw (new Error('Cannot get trails near this city!'))
+            }
+        } else if (!name){
+            try {
+                let fetchedTrails = await fetch();
+                console.log('trails: ', fetchedTrails);
+                this.setState({
+                    trailsNearMe: fetchedTrails,
+                    isLoading: false
+                })
+            } catch (error) {
+                throw (new Error('Cannot get trails near you!'))
+            }
+        } else if(!this.state[name].length) {
             try {
                 let fetchedTrails = await fetch();
                 console.log('trails: ', fetchedTrails);
@@ -46,9 +78,32 @@ class TrailsGridwall extends Component {
     }
 
     async componentWillReceiveProps(nextProps) {
-        const {fetch, name} = nextProps;
-
-        if (this.props.name !== name && !this.state[name].length) {
+        const {fetch, name, lat, long} = nextProps;
+        console.log('fetch: ', fetch);
+        // Nothing is in local storage, so we need to fetch
+        if (this.props.name !== name && lat && long){
+            try {
+                let fetchedTrails = await fetch(lat, long);
+                console.log('fetchedTrails: ', fetchedTrails);
+                this.setState({
+                    [name]: fetchedTrails,
+                    isLoading: false
+                }, localStorage.setItem([name], JSON.stringify(fetchedTrails)))
+            } catch (error) {
+                throw (new Error('Cannot get trails near this city!'))
+            }
+        } else if (this.props.name !== name && !name){
+            try {
+                let fetchedTrails = await fetch();
+                console.log('trails: ', fetchedTrails);
+                this.setState({
+                    trailsNearMe: fetchedTrails,
+                    isLoading: false
+                })
+            } catch (error) {
+                throw (new Error('Cannot get trails near you!'))
+            }
+        } else if (this.props.name !== name && !this.state[name].length) {
             try {
                 let fetchedTrails = await fetch();
                 console.log('trails: ', fetchedTrails);
