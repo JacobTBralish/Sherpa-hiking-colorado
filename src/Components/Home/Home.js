@@ -12,7 +12,7 @@ class Home extends Component {
                 <h1 className='welcomeMessage'>Welcome to Sherpa Hiking Colorado<img className='welcomeMessagePicture' src='https://statesymbolsusa.org/sites/statesymbolsusa.org/files/primary-images/flagofColoradoCO.jpg' /></h1>
             </div>
                 <div className='imageContainer'>
-                    <img className='homeImage' src={HomeImage} alt=''></img>
+                    <img className='homeImage' src={HomeImage} alt={HomeImage}></img>
                 </div>
             </div>
         </div>

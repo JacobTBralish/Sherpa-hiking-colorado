@@ -16,6 +16,7 @@
         width: 100vw;
         height: 100%;
         flex-direction: column;
+        
 
         .welcomeMessageContainer {
             display: flex;
@@ -47,12 +48,17 @@
             max-width: 80vw;
             max-height: 60%;
             width: 80vw;
-            height: 60%;
+            height: 100%;
+
             .homeImage {
                 max-width: 80vw;
                 max-height: 100%;
                 width: 80vw;
                 height: 100%;
+                background-image: url('../../Image//DaniMaroonBells.jpg');
+
+
+    
 
             }
         }

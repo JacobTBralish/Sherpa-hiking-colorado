@@ -1,4 +1,4 @@
-
+@import '../../colors.scss';
 
     .navSubContainer {
         display: flex;
@@ -52,6 +52,7 @@
                 .logo {
                     position: relative;
                     top: -18px;
+                    color: $blackText;
                 }
             }
         }
@@ -60,16 +61,17 @@
             border: 1px solid yellow;
             display: flex;
             flex-direction: row;
+            text-decoration: none;
 
 
             .rightNavList {
-                color: black;
                 display: flex;
                 margin: 0 25px;
                 // flex-direction: row;
                 border: 1px solid purple;
                 list-style: none;
                 line-height: 72.5px;
+                color: $blackText;
                 // align-items: center;
 
 
@@ -77,11 +79,19 @@
                     text-decoration: none;
                     list-style: none;
                     margin: 0 10px;
+                    color: $blackText;
+                    & a {
+                        color: $blackText;
+                    }
                 }
 
                 .rightNavExtraListTrails {
                     margin: 0 15px;
                     height: 100%;
+
+                    & a {
+                        color: $blackText;
+                    }
 
                     .rightNavExtraListItemTrails, .rightNavExtraCitiesList {
                         display: none;
@@ -98,6 +108,7 @@
                             .rightNavExtraListItemCities {
                                 display: none;
                                 margin: 0 10px;
+                                color: $blackText;
         
                             }
                         }
@@ -122,6 +133,7 @@
                     
                     .rightNavExtraListItemAccount {
                         display: none;
+                        color: $blackText;
                     }
 
                 }
@@ -135,6 +147,7 @@
                 .rightNavListItem {
                     text-decoration: none;
                     margin: 6px;
+                    color: $blackText;
                 }
 
 

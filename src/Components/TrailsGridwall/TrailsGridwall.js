@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-// import axios from 'axios';
-// import COLatLong from '../../data.json';
 import {connect} from 'react-redux';
 import TrailCard from '../TrailCard/TrailCard';
 import Pagination from 'react-js-pagination';
@@ -25,16 +23,35 @@ class TrailsGridwall extends Component {
             trailsNearBreckenridge: JSON.parse(localStorage.getItem("breckenridge")) || [],
             trailsNearRifle: JSON.parse(localStorage.getItem("rifle")) || [],
             trailsNearBoulder: JSON.parse(localStorage.getItem("boulder")) || [],
-            trailsNearMe: JSON.parse(localStorage.getItem('people')) || [],
+            trailsNearMe: [],
             isLoading: true,
             error: null,
             activePage: 1,
-            itemsPerPage: 25
+            itemsPerPage: 26,
+            latitude: '',
+            longitude: ''
         }
     }
 
+    // getGeoLocation = () => {
+    //     navigator.geolocation.getCurrentPosition(
+    //         (position) => {
+    //           console.log("wokeeey");
+    //           console.log(position);
+    //           this.setState({
+    //             latitude: position.coords.latitude,
+    //             longitude: position.coords.longitude,
+    //             error: null,
+    //           });
+    //         },
+    //         (error) => this.setState({ error: error.message }),
+    //         { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+    //       );
+    // }
+
     async componentDidMount() {
         const {fetch, name, lat, long} = this.props;
+        console.log('name: ', name);
         console.log('fetch: ', fetch);
         // Nothing is in local storage, so we need to fetch
         if (lat && long){
@@ -50,7 +67,7 @@ class TrailsGridwall extends Component {
             }
         } else if (!name){
             try {
-                let fetchedTrails = await fetch();
+                let fetchedTrails = await fetch(this.state.latitude, this.state.longitude);
                 console.log('trails: ', fetchedTrails);
                 this.setState({
                     trailsNearMe: fetchedTrails,
@@ -70,18 +87,18 @@ class TrailsGridwall extends Component {
             } catch (error) {
                 throw (new Error('Cannot get trails!'))
             }
-        }
         // We have everything we need, toggle isLoading to false
-        else {
+        } else {
             this.setState({ isLoading: false })
         }
     }
 
     async componentWillReceiveProps(nextProps) {
         const {fetch, name, lat, long} = nextProps;
+        console.log('name: ', name);
         console.log('fetch: ', fetch);
         // Nothing is in local storage, so we need to fetch
-        if (this.props.name !== name && lat && long){
+        if (lat && long){
             try {
                 let fetchedTrails = await fetch(lat, long);
                 console.log('fetchedTrails: ', fetchedTrails);
@@ -121,6 +138,8 @@ class TrailsGridwall extends Component {
         }
     }
 
+    
+
     handlePageChange = (pageNumber) => {
         console.log(`active page is ${pageNumber}`);
         this.setState({
@@ -133,16 +152,19 @@ class TrailsGridwall extends Component {
 
     render() {
         console.log(JSON.parse(localStorage.getItem("allTrails")));
-        const { isLoading, trails, error} = this.state;
+        const { isLoading, error, trailsNearMe} = this.state;
+        console.log('trailsNearMe: ', trailsNearMe);
+        
         const { chooseTrail, name} = this.props;
         console.log('name: ', name);
-        
+
+        //Sorts the trails in alphabetical order
         let sortedTrails = this.state[name].sort((a, b) => {
             var nameA = a.name.toUpperCase();
             var nameB = b.name.toUpperCase();
             return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
         })
-        
+        //handles the splicing of data for pagination
         let activePageIndex = parseInt(this.state.activePage, 10);
         let itemsPerPageIndex = parseInt(this.state.itemsPerPage, 10);
         
@@ -150,12 +172,14 @@ class TrailsGridwall extends Component {
         let indexOfFirstTrail = indexOfLastTrail - itemsPerPageIndex;
         let renderedTrails = sortedTrails.slice(indexOfFirstTrail, indexOfLastTrail);
         
+        //Removes the duplicated trails from overlapping radius of latitude and longitude
         let result = renderedTrails.reduce((unique, o) => {
             if (!unique.some(obj => obj.id === o.id)) {
                 unique.push(o);
             }
             return unique;
-        }, [])
+        }, []);
+
         var mappedTrailCard = result.map((trail, i) => {
             return <Link key = {i}onClick = {() => chooseTrail(trail.id)}
             to = {`/Trail/${trail.id}`}>
@@ -168,8 +192,13 @@ console.log(this.state[name]);
         return ( 
         <div className = 'gridwallContainer'>
             <div className = 'gridwallSubContainer' >
-                <div className = 'gridwallTitleContainer' >
-                    <h1 className = 'gridWallTitle' > All Trails </h1> 
+                <div className = 'gridwallHeaderContainer' >
+                <div className='titleImageContainer'>
+                    <img className='titleImage' src={this.props.image}></img>
+                </div>
+                <div className='gridwallTitleContainer'>
+                    <h1 className = 'gridWallTitle' >{this.props.city ? this.props.city : "All Trails"}</h1> 
+                </div>
             </div> 
                 {error
                     ?
@@ -181,7 +210,7 @@ console.log(this.state[name]);
             </div> 
             <div className = 'paginationContainer'>
             <Pagination activePage = {this.state.activePage}
-            itemsCountPerPage = {25}
+            itemsCountPerPage = {26}
             totalItemsCount = {this.state[name].length}
             pageRangeDisplayed = {5}
             onChange = {this.handlePageChange}/>

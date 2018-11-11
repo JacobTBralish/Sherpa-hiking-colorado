@@ -48,7 +48,7 @@ class Nav extends Component {
                             <ul className='rightNavList'>
                                 <li className='rightNavListItem'><Link to='/'>Home</Link></li>
                                 <ul className='rightNavExtraListTrails'><Link to='/All Trails'>Trails</Link>
-                                    <li className='rightNavExtraListItemTrails'><Link to=''>Trails near me</Link></li>
+                                    <li className='rightNavExtraListItemTrails'><Link to='/Trails Near Me'>Trails near me</Link></li>
                                     <ul className='rightNavExtraCitiesList'><Link to=''>Trails by city</Link>
                                         <li className='rightNavExtraListItemCities'><Link to='/Trails Near Alamosa'>Alamosa</Link></li>
                                         <li className='rightNavExtraListItemCities'><Link to='/Trails Near Aspen'>Aspen</Link></li>

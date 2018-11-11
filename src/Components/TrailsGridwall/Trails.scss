@@ -1,3 +1,5 @@
+@import '../../colors.scss';
+
 .gridwallContainer {
     display: flex;
     align-items: center;
@@ -7,7 +9,7 @@
 
 
     .gridwallSubContainer {
-        flex-direction: column;
+        flex-direction: row;
         justify-content: space-evenly;
         flex-wrap: wrap;
         display: flex;
@@ -15,7 +17,8 @@
         height: 100%;
         margin: 20px;
 
-        .gridwallTitleContainer {
+        .gridwallHeaderContainer {
+            position: relative;
             display: flex;
             font-weight: 700;
             font-style: normal;
@@ -28,8 +31,36 @@
             text-align: center;
             align-content: center;
             justify-content: center;
-            .gridWallTitle {
+            width: 100%;
+            height: 50%;
+            flex-direction: column;
 
+            .titleImageContainer {
+                position: relative;
+                max-width: 100%;
+                max-height: 75%;
+                width: 85%;
+                height: 50%;
+                .titleImage {
+                    width: 1100px;
+                    height: 35%;
+                    max-height: 600px;
+
+                }
+            }
+
+            .gridwallTitleContainer {
+                display: flex;
+                position: absolute;
+                z-index: 5;
+                flex-direction: row;
+                top: 80px;
+                right: 10px;
+                .gridWallTitle {
+                    color: white;
+                    font-size: 3em;
+                    text-shadow: .25px .25px .25px black;
+                }
             }
         }
     }
@@ -46,7 +77,7 @@
             & li, a {
                 margin: 10px;
                 text-decoration: none;
-                color: black
+                color: $blackText;
             }
         }
 
@@ -54,20 +85,34 @@
 }
 
 .cardContainer {
-    width: 1000px;
+    width: 400px;
     margin: 20px;
     display: flex;
+    position: relative;
+    justify-content: center;
     .cardImageContainer {
-        margin: 4px;
+        overflow: hidden;
+        display: flex;
+        width: 300px;
+        height: 300px;
+        max-width: 300px;
+        max-height: 300px;
+        margin: 0;
+        justify-content: center;
 
-
+        
         .cardImage {
-            overflow: hidden;
-  
+            // overflow: hidden;
+            // height: 250px;
+            
         }
     }
-.cardInfo {
+    .cardInfo {
+    text-shadow: .25px .25px .25px black;
+    color: white;
     margin: 20px;
+    position: absolute;
+    width: 50%;
 
     .cardName {
         font-size: 15px;
@@ -77,6 +122,102 @@
 }
 }
 
-// .loadingSpinnerContainer {
-//     position: absolute;
-// }
+.trailViewContainer {
+    height: 100%;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    .trailViewImageContainer {
+        width: 90vw;
+        height: 25%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+
+        @media( max-width: 800px){
+            width: 100vw;
+        }
+
+        .trailViewImage {
+            width: 90%;
+            height: 100%;
+            margin: 40px auto;
+
+        @media( max-width: 800px){
+            width: 100vw;
+
+
+        }
+        }
+    }
+
+    .trailViewInfo {
+        width: 90vw;
+        height: 25%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        text-decoration: none;
+        color: $blackText;
+
+
+        @media( max-width: 650px){
+            width: 100vw;
+        }
+        .trailViewNameContainer {
+            margin: 35px;
+
+
+        @media( max-width: 650px){
+            width: 100vw;
+        }
+            .trailViewName {
+                font-size: 45px;
+
+                @media( max-width: 650px){
+                    font-size: 32px;
+                }
+            }
+        }
+
+        .trailViewLocationContainer {
+            margin: 25px 35px;
+
+            .trailViewLocation {
+                font-size: 20px;
+                padding-top: 8px;
+                @media( max-width: 650px){
+                    font-size: 17px;
+                }
+            }
+        }
+
+        .trailViewSummaryContainer {
+            margin: 25px 35px;
+
+            .trailViewSummary {
+                font-size: 20px;
+                padding-top: 8px;
+                @media( max-width: 650px){
+                    font-size: 17px;
+                }
+
+
+            }
+        }
+
+        label {
+            font-size: 30px;
+            font-weight: 800;
+            
+
+            @media( max-width: 650px){
+                font-size: 20px;
+            }
+        }
+    }
+}
