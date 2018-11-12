@@ -3,14 +3,14 @@
     .navSubContainer {
         display: flex;
         position: relative;
-        background-color: tomato;
+        background-color: none;
         justify-content: space-between;
         line-height: 72.5px;
         margin-right: 70px;
         width: 100%;
-        overflow: hidden;
-        // height: 143px;
-        // flex-direction: row;
+        padding: 0 50px;
+        font-size: 16px;
+        text-decoration: none;
 
         & button {
             display: none;
@@ -35,7 +35,6 @@
 
         .logoContainer {
             display: flex;
-            border: 1px solid pink;
             text-decoration: none!important;
             margin: 0 20px;
             align-items: center;
@@ -43,7 +42,7 @@
             // width: 80px;
 
             .logoLink {
-                font-size: 24px;
+                font-size: 30px;
                 width: 40px;
                 height: 40px;
                 text-align: center;
@@ -57,278 +56,119 @@
             }
         }
 
-        .rightNavContainer {
-            border: 1px solid yellow;
-            display: flex;
-            flex-direction: row;
-            text-decoration: none;
 
+        .rightNavContainer {
+            
+
+            .rightNavList > li {
+                margin: 0 25px;
+            }
 
             .rightNavList {
                 display: flex;
                 margin: 0 25px;
-                // flex-direction: row;
-                border: 1px solid purple;
                 list-style: none;
                 line-height: 72.5px;
-                color: $blackText;
-                // align-items: center;
 
+                
+// ==============================================corret below for fixed nav bar=========================================\\
 
-                .rightNavListItem {
-                    text-decoration: none;
+                // Set the parent <li>’s CSS position property to ‘relative’.
+
+                ul {
                     list-style: none;
-                    margin: 0 10px;
-                    color: $blackText;
-                    & a {
-                        color: $blackText;
+                    padding: 0;
+                    // margin: 0;
+                    background: white;
+                    z-index: 5;
+                    box-shadow: #c8c8c8 .5px .5px .5px .5px;
+
+                    & :before, :after {
+                        content: " "; /* 1 */
+                        display: table; /* 2 */
                     }
-                }
-
-                .rightNavExtraListTrails {
-                    margin: 0 15px;
-                    height: 100%;
-
-                    & a {
-                        color: $blackText;
-                    }
-
-                    .rightNavExtraListItemTrails, .rightNavExtraCitiesList {
-                        display: none;
+                // Simple clearfix.
+                    & :after {
+                        clear: both;
                     }
 
-
-                    .rightNavExtraListItemTrails {
-                        display: none;
-
-                    }
-                        .rightNavExtraCitiesList {
-                            display: none;
-
-                            .rightNavExtraListItemCities {
-                                display: none;
-                                margin: 0 10px;
-                                color: $blackText;
-        
-                            }
-                        }
-                                .rightNavExtraCitiesList:hover .rightNavExtraListItemCities {
-                                    display: flex;
-                                }
-
+                    & li {
+                        display: block;
+                        position: relative;
+                        float: left;
+                        background: white;
+                        cursor: pointer;
                         
+                  }
+                  
+                  }
+
+                //   The CSS to hide the sub menus.
+
+                li ul { display: none; }
+
+                ul li a {
+                display: block;
+                padding: 1em;
+                text-decoration: none;
+                white-space: nowrap;
+                color: $blackText;
+
+
                 }
 
-                .rightNavExtraListTrails:hover .rightNavExtraListItemTrails {
-                    display: flex;
-                }
+                ul li a:hover { background: rgb(238, 226, 226); }
 
-                .rightNavExtraListTrails:hover .rightNavExtraCitiesList {
-                    display: flex;
-                    flex-direction: column;
-                }
+                // Displays the dropdown menu on hover.
 
-                .rightNavExtraListAccount {
-                    margin: 0 10px;
+                li:hover > ul {
+                    display: block;
+                    position: absolute;
+                    }
                     
-                    .rightNavExtraListItemAccount {
-                        display: none;
-                        color: $blackText;
+                li:hover li { float: none; }
+                
+                //changes dropdown background
+                li:hover a { background: white; }
+                
+                li:hover li a:hover { background: rgb(194, 5, 5); }
+                
+                .main-navigation li ul li { border-top: 0; }
+
+                //   Displays second level dropdown menus to the right of the first level dropdown menu.
+
+                ul ul ul {
+                    left: 100%;
+                    top: 0;
                     }
 
-                }
-                .rightNavExtraListAccount:hover .rightNavExtraListItemAccount {
-                    display: flex;
-                }
 
-
-
-
-                .rightNavListItem {
-                    text-decoration: none;
-                    margin: 6px;
-                    color: $blackText;
-                }
-
-
-                .rightNavExtraList {
-
-                    .rightNavExtraListItem {
-
-                    }
-                }
+                
             }
- 
+            .rightNavListItem, .rightNavExtraListItemCities {
+                height: 50px;
+                line-height: 25px;
+                
+    
+            }
         }
 
- 
+        .searchContainer {
+
+            & input {
+                width: 200px;
+                font-size: 16px;
+            }
+        }
         
     }
-    .navSubContainer .show {
-        transform: translate(0px, 0px)
-        }
+    
+    
+    
+    // }
+    // .navSubContainer .show {
+        //     transform: translate(0px, 0px)
+        //     }
+        
+// ==============================================corret above for fixed nav bar=========================================\\
 
-
-// .navContainer {
-//     width: 100vw;
-//     height: 143px;
-
-
-//     @media(max-width:435px) {
-//         height: 80px;
-//     }
-
-//     .navSubContainer {
-//         background-color: tomato;
-//         display: flex;
-//         position: relative;
-//         justify-content: space-between;
-//         line-height: 72.5px;
-//         margin-right: 70px;
-//         margin-left: 30px;
-//         // flex-direction: row;
-//         // color: $offBlack;
-
-
-//         //hides and displays bitton when shown
-//         & button {
-//             display: none;
-
-//             @media(max-width:435px) {
-//                 display: initial;
-//                 position: absolute;
-//                 z-index: 1;
-//                 height: 60px;
-//                 width: 60px;
-//                 font-size: 24px;
-//                 border-radius: 50%;
-//                 // bottom: 30px;
-//                 right: 0px;
-//                 background: none;
-//                 border: none;
-//                 top: 10px;
-//             }
-             
-
-//         }
-
-//         .navList {
-
-//             #navListItemSocial {
-//                 // line-height: 1em;
-//                 margin: 8px;
-//                 cursor: pointer;
-
-//                 & :hover {
-//                     // color: $reactBlue;
-//                 }
-            
-            
-//                 .socialLinkImage {
-//                     opacity: 0;
-//                     visibility: hidden;
-//                     width: 0;
-//                     // line-height: 72.5px;
-//                     font-size: 1.5em;
-//                     line-height: 1em;
-//                     float: right;
-//                     margin-left: 1.5em;
-//                     list-style: none;
-//                     // margin-bottom: 1.5em;
-//                     // padding-bottom: 2em;
-//                     font-weight: bold;
-//                     margin: 0;
-//                     text-align: center;
-//                     // color: $offBlack;
-//                     transition: all ease-out .3s;      
-
-//                     & a {
-//                         margin: 0 10px;
-//                         line-height: 72.5px;
-//                         // color: $reactBlue;
-
-//                     }
-//                 }
-//             }
-//         }
-
-//         .navList {
-//             display: flex;
-            
-//             // @media(max-width:1200px) {
-//             //     padding-top: 1.5em;
-//             //     padding-bottom: 1.5em; 
-            
-
-//             // }
-
-//             .navListItem {
-                
-//                 // display: inline-block;
-//                 margin: 8px;
-
-//                 & :hover {
-//                     // color: $reactBlue;
-//                 }
-
-                
-//                 & a {
-//                     text-decoration: none;
-//                     // color: $offBlack;
-
-//                 }
-//             }
-//         }
-
-//         #navListItemSocial:hover .socialLinkImage {
-
-//             cursor: pointer;
-//             visibility: visible;
-//             width: 40px;
-//             transition: all ease-in .3s;      
-//             opacity: 1;    
-//         }
-//     }
-
-//     .navSubContainer nav {
-
-//         //hides nav when at this width
-//         @media(max-width:435px) {
-//             // display: none;
-
-//             position: fixed;
-//             /* if you were coming from top it would be top instead of bottom */
-//             top: 0;
-//             right: 0;
-//             // background: $reactBlue;
-//             transform: translate(0px, -700px);
-//             transition: 1s;
-            
-//             & .navList {
-//                 height: 37vh;
-//                 width: 100vw;
-//                 flex-direction: column;
-//                 padding: 10px 0;
-
-
-                
-//                 & .navListItem {
-//                     width: 100vw;
-
-//                     & :hover {
-//                         // color: $offBlack;
-//                     }
-//                 }
-//                 & #navListItemSocial .socialLinkImage a {
-//                     // color: $offBlack;
-//                 }
-                
-
-//             }
-//         }
-//     }
-
-//     .navSubContainer .show {
-//         transform: translate(0px, 0px);
-//         }
-// }

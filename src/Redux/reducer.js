@@ -4,6 +4,8 @@ const initialState = {
     user: [],
     profile: [],
     isLoading: false,
+    latitude: '',
+    longitude: '',
 
     // chosenCity: '',
     chosenTrail:[],
@@ -20,6 +22,7 @@ const initialState = {
 
 const LOGGED_IN = 'LOGGED_IN';
 const LOGGED_OUT = 'LOGGED_OUT';
+const FOUND_LOCATION ='FOUND_LOCATION';
 
 // const CHOSEN_CITY = 'CHOSEN_CITY';
 const CHOSEN_TRAIL = 'CHOSEN_TRAIL';
@@ -45,7 +48,7 @@ export default function reducer (state = initialState, action){
     
     switch(action.type){
         case `${LOGGED_IN}_FULFILLED`:
-        return {...state, user: action.payload}
+            return {...state, user: action.payload}
         case LOGGED_OUT:
             return {...state, user: null}
         // case CHOSEN_STATE:
@@ -62,6 +65,8 @@ export default function reducer (state = initialState, action){
         //     return {...state, trailsList: action.payload, isLoading: false}
 
 
+        case FOUND_LOCATION:
+            return {...state, latitude: action.payload.lat, longitude: action.payload.long}
         case GET_TRAIL:
             return {...state, chosenTrail: action.payload}
         case CHOSEN_TRAIL:
@@ -132,6 +137,13 @@ export function chooseTrail(trailId) {
     return {
         type: CHOSEN_TRAIL,
         payload: trailId
+    }
+}
+
+export function findGeo(lat, long) {
+    return {
+        type: FOUND_LOCATION,
+        payload: {lat, long}
     }
 }
 

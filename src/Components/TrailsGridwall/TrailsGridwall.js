@@ -50,7 +50,7 @@ class TrailsGridwall extends Component {
     // }
 
     async componentDidMount() {
-        const {fetch, name, lat, long} = this.props;
+        const {fetch, name, lat, long, image} = this.props;
         console.log('name: ', name);
         console.log('fetch: ', fetch);
         // Nothing is in local storage, so we need to fetch
@@ -65,12 +65,12 @@ class TrailsGridwall extends Component {
             } catch (error) {
                 throw (new Error('Cannot get trails near this city!'))
             }
-        } else if (!name){
+        } else if (!lat && !long && !image){
             try {
-                let fetchedTrails = await fetch(this.state.latitude, this.state.longitude);
+                let fetchedTrails = await fetch();
                 console.log('trails: ', fetchedTrails);
                 this.setState({
-                    trailsNearMe: fetchedTrails,
+                    [name]: fetchedTrails,
                     isLoading: false
                 })
             } catch (error) {
