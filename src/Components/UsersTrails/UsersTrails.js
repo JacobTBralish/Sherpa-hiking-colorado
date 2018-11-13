@@ -58,7 +58,7 @@ class UsersTrails extends Component {
 
         let usersTrails = this.state[name].map((trail, i) => {
             console.log('trail: ', trail);
-            return <div>
+            return <div key={i}>
                 <div>
                     <img src={trail.trail_image} alt={trail.trail_name} />
                 </div>

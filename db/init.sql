@@ -49,7 +49,7 @@ WHERE EXISTS
   ( SELECT 1
     FROM visited
     WHERE visited.visited_trail_id = save_for_later.saved_trail_id
-AND visited.user_visited_id = save_for_later.user_saved_id);
+AND visited.user_visited_id = $1);
 
 
 
