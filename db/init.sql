@@ -12,8 +12,8 @@ CREATE TABLE sherpa_users (
 CREATE TABLE visited (
     id SERIAL PRIMARY KEY
     ,user_visited_id INTEGER references sherpa_users(id) NOT NULL
-    ,visited_trail_id INTEGER NOT NULL
-    ,trail_name TEXT NOT NULL
+    ,visited_trail_id INTEGER NOT NULL UNIQUE
+    ,trail_name TEXT NOT NULL UNIQUE
     ,trail_image TEXT NOT NULL
     ,trail_location TEXT NOT NULL
     ,trail_difficulty TEXT NOT NULL
@@ -21,16 +21,35 @@ CREATE TABLE visited (
 
 CREATE TABLE save_for_later (
     id SERIAL PRIMARY KEY
-    ,user_visited_id INTEGER references sherpa_users(id) NOT NULL
-    ,visited_trail_id INTEGER NOT NULL
+    ,user_saved_id INTEGER references sherpa_users(id) NOT NULL
+    ,saved_trail_id INTEGER NOT NULL
     ,trail_name TEXT NOT NULL
     ,trail_image TEXT NOT NULL
     ,trail_location TEXT NOT NULL
     ,trail_difficulty TEXT NOT NULL
 );
 
+/* join to find trails user has marked as visited */
+select *
+from visited v
+join sherpa_users su
+on v.user_visited_id = su.id
+where v.user_visited_id = su.id;
 
+/* join to find trails user has marked as save for later */
+select *
+from save_for_later sfl
+join sherpa_users su
+on sfl.user_saved_id = su.id
+where sfl.user_saved_id = su.id;
 
+/* conditional delete for when user already has trail in saved but marks same trail as complete */
+DELETE FROM save_for_later
+WHERE EXISTS
+  ( SELECT 1
+    FROM visited
+    WHERE visited.visited_trail_id = save_for_later.saved_trail_id
+AND visited.user_visited_id = save_for_later.user_saved_id);
 
 
 

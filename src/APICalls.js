@@ -33,7 +33,7 @@ return fixedTrails
 
 export const fetchByGeoLocation = async (lat,long) => {
     let trailsNearBy = [];
-      var response = await axios.get(`https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${long}&maxDistance=50&maxResults=500&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`);
+      let response = await axios.get(`https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${long}&maxDistance=50&maxResults=500&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`);
       var { trails } = response.data
       if (trails.length > 0){
           trails.filter(trail => {
@@ -45,4 +45,15 @@ export const fetchByGeoLocation = async (lat,long) => {
           return 'Sorry! It looks like there are no hiking trails near you.'
       }
       return trailsNearBy
+}
+
+export const fetchSavedTrails = async (userId) => {
+    let response = await axios.get(`/api/saveforlater/${userId}`);
+    return response.data
+    }
+
+
+export const fetchVisitedTrails = async (userId) => {
+    let response = await axios.get(`/api/visited/${userId}`);
+    return response.data
 }

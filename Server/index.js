@@ -4,9 +4,9 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const massive = require('massive');
 const axios = require('axios');
-// const cloudinary = require('cloudinary');
-// const fs = require('fs')
-// const COLatLong = require('../src/data.json')
+const vC = require('./visited-controller/visited-controller');
+const sflC = require('./save-for-later-controller/save-for-later-controller');
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -93,6 +93,14 @@ app.get('/', (req, res) => {
 res.send('endpoint live')
 });
 
+// ================================================ Visted ====================================== \\
+app.get('/api/visited/:id', vC.getVisitedTrails);
+app.post('/api/visited/:id', vC.markAsVisited);
+
+// ================================================ Visted ====================================== \\
+app.get('/api/saveforlater/:id', sflC.getSavedTrails);
+app.post('/api/saveforlater/:id', sflC.saveForLater);
+
 // ================================================ Auth0 Login ====================================== \\
 
 app.get('/api/user-data', (req, res) => {
@@ -107,30 +115,6 @@ app.post('/api/logout', (req, res) => {
     res.json();
 })
 
-
-
-// setTimeout(() => {
-    // var loopedTrails = [];
-    // for(let i = 0 ; i < COLatLong.length ; i++){
-    //     axios.get(`https://www.hikingproject.com/data/get-trails?lat=${COLatLong[i].lat}&lon=${COLatLong[i].long}&maxDistance=25&maxResults=500&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`).then((response)=> {
-    //         if (response.data.trails.length > 0){
-    //         loopedTrails.concat(response.data.trails)
-    //     }
-    // })
-    // }
-    // return axios.all([loopedTrails]).then(axios.spread((trails) => {
-    //     console.log('trails: ', trails);
-    //     // var result = data.reduce((unique, o) => {
-    //     //     if(!unique.some(obj => obj.name === o.name)) {
-    //     //       unique.push(o);
-    //     //     }
-    //     //     // return unique;
-    //     // },[]);
-    //     this.setState({ trails, isLoading: false });
-    
-    //  })).catch(error => {
-    //      console.log(error);
-// }, 86400000)
 
 const PORT = 4000;
 app.listen(PORT, ()=> console.log(`Server listening on port ${PORT}🏄`));

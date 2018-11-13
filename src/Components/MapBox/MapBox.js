@@ -20,6 +20,7 @@ const MapBox = (props) => {
                 <Layer
                 type="circle"
                 id="marker"
+                // layout={{ 'icon-image': 'nature' }}
                 paint={{
                     "circle-color": "#ff5200",
                     "circle-stroke-width": 1,

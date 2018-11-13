@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { logOut, getUser } from '../../Redux/reducer';
@@ -71,10 +71,10 @@ class Nav extends Component {
                                             :
                                         <li><Link to='/'>Account</Link>
                                             <ul>
-                                                <li className='rightNavExtraListItemCities'><Link to='/'>Trails to visit</Link></li>
-                                                <li className='rightNavExtraListItemCities'><Link to='/'>Favorited trails</Link></li>
+                                                <li className='rightNavExtraListItemCities'><Link to='/Your Saved Trails'>Trails to visit</Link></li>
+                                                <li className='rightNavExtraListItemCities'><Link to='/Your Visited Trails'>Visited trails</Link></li>
                                                 <li className='rightNavExtraListItemCities'><Link to='/'>Account settings</Link></li>
-                                                <li className='rightNavExtraListItemCities' onClick={() => this.logout()}>Log out</li>
+                                                <li className='rightNavExtraListItemCities' onClick={() => {this.logout(); this.props.history.push('/');}}>Log out</li>
                                             </ul>
                                         </li>
                                             }
@@ -103,4 +103,4 @@ const mapDispatchToProps = {
 
 }
  
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav));

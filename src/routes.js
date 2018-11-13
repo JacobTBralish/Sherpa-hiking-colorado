@@ -5,7 +5,8 @@ import TrailsGridwall from './Components/TrailsGridwall/TrailsGridwall';
 import trailsNearBy from './Components/TrailsNearBy/TrailsNearBy';
 import TrailView from './Components/TrailView/TrailView';
 
-import { getAllTrails, getTrailsNearCity, fetchByGeoLocation } from '../src/APICalls';
+import { getAllTrails, getTrailsNearCity, fetchByGeoLocation, fetchVisitedTrails, fetchSavedTrails } from '../src/APICalls';
+import UsersTrails from './UsersTrails/UsersTrails';
 
 
 export default (
@@ -48,6 +49,12 @@ export default (
         )}/>
         <Route path='/Trails Near Me' render={() => (
             <TrailsGridwall fetch={fetchByGeoLocation} city="Trails Near You" name="trailsNearMe" />
+        )}/>
+        <Route path='/Your Visited Trails' render={() => (
+            <UsersTrails fetch={fetchVisitedTrails} name="visitedTrails" />
+        )}/>
+        <Route path='/Your Saved Trails' render={() => (
+            <UsersTrails fetch={fetchSavedTrails} name="savedTrails" />
         )}/>
     </Switch>
 )
