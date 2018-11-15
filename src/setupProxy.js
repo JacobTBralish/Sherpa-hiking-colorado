@@ -6,7 +6,8 @@ module.exports = function(app) {
     '/auth/callback',
     '/api/visited/:id',
     '/api/visited/:id',
-    '/api/saveforlater/:id'
+    '/api/saveforlater/:id',
+    '/api/updateuser/:id',
 
 
     ],{ target: 'http://localhost:4000/' }));

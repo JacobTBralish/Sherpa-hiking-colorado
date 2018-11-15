@@ -13,6 +13,7 @@ const initialState = {
 
 const LOGGED_IN = 'LOGGED_IN';
 const LOGGED_OUT = 'LOGGED_OUT';
+const SAVE_NEW_USER_INFO = 'SAVE_NEW_USER_INFO';
 
 const FOUND_LOCATION ='FOUND_LOCATION';
 
@@ -30,15 +31,17 @@ export default function reducer (state = initialState, action){
             return {...state, user: action.payload}
         case LOGGED_OUT:
             return {...state, user: null}
+        case `${SAVE_NEW_USER_INFO}_FULFILLED`:
+            return {...state, user: action.payload}
         case FOUND_LOCATION:
             return {...state, latitude: action.payload.lat, longitude: action.payload.long}
         case GET_TRAIL:
             return {...state, chosenTrail: action.payload}
         case CHOSEN_TRAIL:
             return {...state, trailId: action.payload}
-        case POST_VISITED_TRAIL:
+        case `${POST_VISITED_TRAIL}_FULFILLED`:
             return {...state, trail:action.payload}
-        case SAVE_FOR_LATER:
+        case `${SAVE_FOR_LATER}_FULFILLED`:
             return {...state, trail:action.payload}
     default:
     return state
@@ -98,7 +101,6 @@ return {
     payload: trail
     }
 }
-
 // //----------------------------------------------------------------------SAVED--------------------------------------------------------------\\
 
 export function saveForLater(userId, trailId, trailName, trailImage, trailLocation, trailDifficulty){
@@ -112,11 +114,15 @@ return {
     }
 }
 
+// //----------------------------------------------------------------------USER INFO--------------------------------------------------------------\\
 
-
-// export function getVisitedTrails(visited){
-// return {
-//     type: GET_VISITED_TRAIL,
-//     payload: visited
+// export function saveUserChanges(userId, firstName, lastName, email){
+//     let user = axios.put(`/api/updateuser/${userId}`, { firstName, lastName, email }).then(response => {
+//         console.log('response: ', response);
+//         return response.data
+//     })
+//     return {
+//         type: SAVE_NEW_USER_INFO,
+//         payload: user
 //     }
 // }

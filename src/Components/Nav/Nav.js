@@ -3,14 +3,20 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { logOut, getUser } from '../../Redux/reducer';
+// import AccountSettings from '../AccountSettings/AccountSettings';
+// import PersonalInfo from '../AccountSettings/PersonalInfo';
 
+import './Modal.scss';
 import './Nav.scss';
 
 
 class Nav extends Component {
     constructor(props) {
         super(props);
-        this.state = { toggle: false }
+        this.state = { 
+            toggle: false,
+            isModalOpen: false
+     }
     }
 
     componentDidMount() {
@@ -30,6 +36,17 @@ class Nav extends Component {
         })
     }
 
+
+  openModal() {
+    this.setState({ isModalOpen: true })
+  }
+
+
+closeModal() {
+    this.setState({ isModalOpen: false })
+  }
+
+ 
     render() { 
         let { user } = this.props;
         console.log('user: ', user);
@@ -73,8 +90,8 @@ class Nav extends Component {
                                             <ul>
                                                 <li className='rightNavExtraListItemCities'><Link to='/Your Saved Trails'>Trails to visit</Link></li>
                                                 <li className='rightNavExtraListItemCities'><Link to='/Your Visited Trails'>Visited trails</Link></li>
-                                                <li className='rightNavExtraListItemCities'><Link to='/'>Account settings</Link></li>
-                                                <li className='rightNavExtraListItemCities' onClick={() => {this.logout(); this.props.history.push('/');}}>Log out</li>
+                                                {/* <li id='logoutButton'  onClick={() => this.openModal()} className='rightNavExtraListItemCities'>Account Settings</li> */}
+                                                <li id='logoutButton' className='rightNavExtraListItemCities' onClick={() => {this.logout(); this.props.history.push('/');}}>Log out</li>
                                             </ul>
                                         </li>
                                             }
@@ -83,8 +100,15 @@ class Nav extends Component {
                         </div>
                     </nav>
                     <div className='searchContainer'>
-                        <input placeholder='Search'></input>
+                        {/* <input placeholder='Search'></input> */}
+                        {user ?
+                        <h3>Hey, {user.first_name}!</h3>
+                            :
+                            <h3>Welcome!</h3>
+                        }
+                        <img id='navUserImage' src={user ? user.user_image : null} alt=''></img>
                     </div>
+
                 </div>
          );
     }

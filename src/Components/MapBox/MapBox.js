@@ -1,22 +1,101 @@
-import React from 'react';
-import ReactMapboxGl, {Layer, Feature} from 'react-mapbox-gl';
+import React, { Component } from 'react';
+import ReactMapboxGl, {Layer, Feature, Marker} from 'react-mapbox-gl';
+// import mapboxgl from 'mapbox-gl';
+import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
+
+
 const Map = ReactMapboxGl({
     accessToken: process.env.REACT_APP_MAPBOX
   });
 
-const MapBox = (props) => {
+// const MapBox = (props) => {
     
-    return ( 
-        <>
+//     return ( 
+//         <>
+//             <Map
+//                 style="mapbox://styles/mapbox/dark-v9"
+//                 containerStyle={{
+//                 height: "calc(100vh - 130px)",
+//                 width: "50vw"
+//                 }}
+//                 center={[props.long, props.lat]}
+//                 zoom={[13]}
+//             >
+//                 <Layer
+//                 type="circle"
+//                 id="marker"
+//                 // layout={{ 'icon-image': 'nature' }}
+//                 paint={{
+//                     "circle-color": "#ff5200",
+//                     "circle-stroke-width": 1,
+//                     "circle-stroke-color": "#fff",
+//                     "circle-stroke-opacity": 1
+//                 }}
+//                 >
+//                 <Feature coordinates={[props.long, props.lat]} />
+//                 </Layer>
+//             </Map>
+//         </>
+//      );
+// }
+ 
+// export default MapBox;
+
+class MapBox extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { 
+            latitude: '',
+            longitude: '',
+            error: '',
+            isLoading: true
+         }
+    }
+
+    componentDidMount() {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+              console.log("wokeeey");
+              console.log(position);
+              this.setState({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                error: null,
+              });
+            },
+            (error) => this.setState({ error: error.message }),
+            { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+          );
+    }
+    render() { 
+        const style1 ={"textAlign": "center",
+         "height": "20px",
+         "width": "60px",
+         "fontSize": "8px",
+         "color": "red" ,
+        "backgroundColor": "rgba(255, 255, 255, 0.5)",
+         "borderRadius": "0px 30px 30px 30px"};
+
+         const style2 = {"textAlign": "center",
+          "height": "20px",
+          "width": "46px",
+          "fontSize": "10px",
+          "color": "red" ,
+         "backgroundColor": "rgba(255, 255, 255, 0.5)",
+          "borderRadius": "0px 30px 30px 30px"};
+
+        return ( 
+            <>
             <Map
                 style="mapbox://styles/mapbox/dark-v9"
                 containerStyle={{
-                height: "calc(100vh - 130px)",
-                width: "50vw"
+                height: "calc(80vh - 130px)",
+                width: "80vw"
                 }}
-                center={[props.long, props.lat]}
-                zoom={[13]}
+                center={[this.props.long, this.props.lat]}
+                zoom={[6]}
             >
+            {/* <MapboxDirections /> */}
                 <Layer
                 type="circle"
                 id="marker"
@@ -28,11 +107,26 @@ const MapBox = (props) => {
                     "circle-stroke-opacity": 1
                 }}
                 >
-                <Feature coordinates={[props.long, props.lat]} />
+                <Feature coordinates={[this.props.long, this.props.lat]} />
+                <Feature coordinates={[this.state.longitude, this.state.latitude]} />
+                
                 </Layer>
+                {/* trail location marker */}
+                <Marker
+                    coordinates={[this.props.long, this.props.lat]}
+                    anchor="null">
+                    <div style={style2} /* src={this.props.image} */><p>Trailhead</p></div>
+                    </Marker>
+                    {/* current location marker */}
+                <Marker
+                    coordinates={[this.state.longitude, this.state.latitude]}
+                    anchor="null">
+                    <div style={style1} /* src={this.props.image} */><p>Current location</p></div>
+                    </Marker>
             </Map>
         </>
-     );
+         );
+    }
 }
  
 export default MapBox;

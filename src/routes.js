@@ -4,9 +4,9 @@ import Home from './Components/Home/Home';
 import TrailsGridwall from './Components/TrailsGridwall/TrailsGridwall';
 import trailsNearBy from './Components/TrailsNearBy/TrailsNearBy';
 import TrailView from './Components/TrailView/TrailView';
+import UsersTrails from './Components/UsersTrails/UsersTrails';
 
 import { getAllTrails, getTrailsNearCity, fetchByGeoLocation, fetchVisitedTrails, fetchSavedTrails } from '../src/APICalls';
-import UsersTrails from './UsersTrails/UsersTrails';
 
 
 export default (

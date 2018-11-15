@@ -1,0 +1,33 @@
+@import '../../colors.scss';
+
+.weatherInfoBox {
+    width: 60vw;
+    display: inline-table;
+    border: black solid 1px;
+    max-width: 100px;
+    border-radius: 25%;
+    #weatherTime {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 3px 0 2px 0;
+
+    }
+    .dropdownContent{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        #weatherText {
+            font-size: 12px;
+            margin: 0 0 4px 0;
+        }
+    }
+}
+
+.mappedDayBox {
+    margin: 10px auto;
+}
+
+.weatherTableContainer {
+    margin: 15px 0;
+}

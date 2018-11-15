@@ -1,1 +1,0 @@
-SELECT * FROM sherpa_trails;

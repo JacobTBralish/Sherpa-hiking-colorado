@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { getTrail, postVisitedTrail, saveForLater} from '../../Redux/reducer';
 import LoadingSpinner from '../../LoadingSpinner';
 import MapBox from '../MapBox/MapBox';
+import Weather from '../Weather/Weather';
+
 
 import '../TrailsGridwall/Trails.scss';
 
@@ -59,9 +61,12 @@ class TrailView extends Component {
                         { trail.summary.length > 0 ? '' : <div><button onClick={() => {}}>Add A Summery</button></div> }
                     </div>
                 </div>
-                <div className='mapBoxContainer'>
-                    <MapBox lat={trail.latitude} long={trail.longitude} />
-                </div>
+                <>
+                    <MapBox lat={trail.latitude} long={trail.longitude} image={trail.imgSqSmall} />
+                </>
+                <>
+                    <Weather lat={trail.latitude} long={trail.longitude} />
+                </>
             </div>
         })
         return ( 

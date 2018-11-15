@@ -8,7 +8,7 @@
         line-height: 72.5px;
         margin-right: 70px;
         width: 100%;
-        padding: 0 50px;
+        padding: 0 35px 0 50px;
         font-size: 16px;
         text-decoration: none;
 
@@ -80,7 +80,7 @@
                     padding: 0;
                     // margin: 0;
                     background: white;
-                    z-index: 5;
+                    z-index: 1000;
                     box-shadow: #c8c8c8 .5px .5px .5px .5px;
 
                     & :before, :after {
@@ -131,7 +131,20 @@
                 //changes dropdown background
                 li:hover a { background: white; }
                 
-                li:hover li a:hover { background: rgb(194, 5, 5); color: white; }
+                li:hover li a:hover { background: rgb(194, 5, 5); color: white; cursor: pointer; }
+
+                #logoutButton {
+                    display: block;
+                    padding: 1em;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    color: #2e3031;
+                    cursor: pointer;
+                    
+                    &:hover {
+                        background: rgb(194, 5, 5); color: white; 
+                    }
+                }
                 
                 .main-navigation li ul li { border-top: 0; }
 
@@ -151,13 +164,29 @@
                 
     
             }
+
+            .rightNavList > li, li > a {
+                text-decoration: none;
+                white-space: nowrap;
+                color: #2e3031;
+                cursor: pointer;
+            }
         }
 
         .searchContainer {
+            display: flex;
+            align-items: center;
 
             & input {
+                height: 24px;
                 width: 200px;
                 font-size: 16px;
+            }
+
+            #navUserImage {
+                margin-left: 15px;
+                max-height: 50px;
+                max-width: 50px;
             }
         }
         
@@ -171,4 +200,5 @@
         //     }
         
 // ==============================================corret above for fixed nav bar=========================================\\
+
 

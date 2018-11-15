@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import LoadingSpinner from '../LoadingSpinner';
+import LoadingSpinner from '../../LoadingSpinner';
 import { connect } from 'react-redux';
 
+import './UsersTrails.scss';
 
 class UsersTrails extends Component {
     constructor(props) {
@@ -58,32 +59,29 @@ class UsersTrails extends Component {
 
         let usersTrails = this.state[name].map((trail, i) => {
             console.log('trail: ', trail);
-            return <div key={i}>
-                <div>
+            return <div className='usersTrailsTrailContainer' key={i}>
+                <div className='usersTrailImageContainer'>
                     <img src={trail.trail_image} alt={trail.trail_name} />
                 </div>
-                <div>
-                    <p>{trail.trail_name}</p>
-                    <p>{trail.trail_location}</p>
-                    <p>{trail.trail_difficulty}</p>
+                <div className='usersTrailInfoContainer'>
+                    <h2 className='trailName'>{trail.trail_name}</h2>
+                    <h3 className='trailLocation'>{trail.trail_location}</h3>
+                    <h3 className='trailDifficulty'>{trail.trail_difficulty}</h3>
                 </div>
             </div>
         })
         return ( 
-            <div>
-                Users Trails
-                <div>
-                    <img src={user.user_image} />
-                    <h3>{user.name}</h3>
-                </div>
-                <div>
-                    {error
-                        ?
-                        <div> Oh no!There was an error loading the trails.Please try again later. </div>
-                        : (isLoading || !this.state[name].length) ?
-                        <LoadingSpinner />
-                        : usersTrails
+            <div className='usersTrailsContainer'>
+                <div className='usersTrailsSubContainer'>
+                    <>
+                        {error
+                            ?
+                            <div> Oh no!There was an error loading the trails.Please try again later. </div>
+                            : (isLoading || !this.state[name].length) ?
+                            <LoadingSpinner />
+                            : usersTrails
                         }
+                    </>
                 </div>
             </div>
          );

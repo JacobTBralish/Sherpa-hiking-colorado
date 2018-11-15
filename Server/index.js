@@ -6,6 +6,7 @@ const massive = require('massive');
 const axios = require('axios');
 const vC = require('./visited-controller/visited-controller');
 const sflC = require('./save-for-later-controller/save-for-later-controller');
+const uC = require('./user-controller/user-controller')
 
 
 const app = express();
@@ -96,6 +97,8 @@ res.send('endpoint live')
 // ================================================ Visted ====================================== \\
 app.get('/api/visited/:id', vC.getVisitedTrails);
 app.post('/api/visited/:id', vC.markAsVisited);
+// ================================================ Visted ====================================== \\
+// app.put('/api/updateuser/:id', uC.changeUserInfo);
 
 // ================================================ Visted ====================================== \\
 app.get('/api/saveforlater/:id', sflC.getSavedTrails);
@@ -107,7 +110,6 @@ app.get('/api/user-data', (req, res) => {
     // console.log(req.session.user)
     res.json(req.session.user);
 });
-
 // ================================================= Auth0 Logout ===================================== \\
 
 app.post('/api/logout', (req, res) => {

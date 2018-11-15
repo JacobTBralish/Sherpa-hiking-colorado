@@ -1,0 +1,35 @@
+@import '../../colors.scss';
+
+.usersTrailsContainer {
+    height: 100%;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .usersTrailsSubContainer {
+        height: 100%;
+        width: 90vw;
+        margin: 40px auto;
+    }
+}
+
+.usersTrailsTrailContainer {
+    height: 100%;
+    width: 90vw;
+    .usersTrailImageContainer {
+
+    }
+
+    .usersTrailInfoContainer {
+
+        .trailName {
+
+        }
+        .trailLocation {
+
+        }
+        .trailDifficulty {
+
+        }
+    }
+}
