@@ -1,0 +1,98 @@
+
+.cardContainer {
+    width: 400px;
+    margin: 20px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+
+
+    @media( max-width: 900px){
+        width: 45vw;
+        @media( max-width: 700px){
+            width: 80vw; 
+            @media( max-width: 650px){
+                width: 40vw; 
+            }
+        }
+        
+    }
+    .cardImageContainer {
+        width: 300px;
+        height: 300px;
+        max-width: 300px;
+        max-height: 300px;
+        justify-content: center;
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        margin: 0;
+        border: 5px solid black;
+
+        @media( max-width: 900px){
+            width: 400px;
+            height: 400px;
+            max-width: 400px;
+            max-height: 400px;
+
+            @media( max-width: 700px){
+                width: 500px;
+                height: 500px;
+                max-width: 500px;
+                max-height: 500px;
+
+                @media( max-width: 650px){
+                width: 250px;
+                height: 250px;
+                max-width: 250px;
+                max-height: 250px;   
+                }
+            }
+        }
+
+        
+        .cardImage {
+            margin: 0 auto;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-height: 100%;
+            min-width: 100%;
+            transform: translate(-50%, -50%);
+
+            
+            
+            
+        }
+    }
+    .cardInfo {
+    text-align: center;
+    color: white;
+    padding: 10px;
+    position: relative;
+    width: 500px;
+    height: 40px;
+    background: black;
+
+    @media( max-width: 650px){
+        width: 250px;
+        height: 20px;
+        padding: 3px
+        }
+
+    .cardName {
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: .0115em;
+
+        @media( max-width: 650px){
+            font-size: 14px;
+
+            }
+    }
+}
+}

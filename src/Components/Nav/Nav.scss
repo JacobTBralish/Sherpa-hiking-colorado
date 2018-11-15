@@ -12,25 +12,33 @@
         font-size: 16px;
         text-decoration: none;
 
+        @media( max-width: 700px){
+            padding: 0;
+
+
+        }
         & button {
             display: none;
+            
 
-            @media(max-width:435px) {
+            @media(max-width:500px) {
                 display: initial;
                 position: absolute;
-                z-index: 1;
+                z-index: 50;
                 height: 60px;
                 width: 60px;
                 font-size: 24px;
                 border-radius: 50%;
                 // bottom: 30px;
-                right: 0px;
+                right: 40%;
                 background: none;
                 border: none;
                 top: 10px;
-            }
-             
 
+  
+            }
+            
+            
         }
 
         .logoContainer {
@@ -131,7 +139,7 @@
                 //changes dropdown background
                 li:hover a { background: white; }
                 
-                li:hover li a:hover { background: rgb(194, 5, 5); color: white; cursor: pointer; }
+                li:hover li a:hover { background: $coloradoRed; color: white; cursor: pointer; }
 
                 #logoutButton {
                     display: block;
@@ -142,7 +150,7 @@
                     cursor: pointer;
                     
                     &:hover {
-                        background: rgb(194, 5, 5); color: white; 
+                        background: $coloradoRed; color: white; 
                     }
                 }
                 
@@ -192,12 +200,45 @@
         
     }
     
+    .navSubContainer nav{
+        @media(max-width: 500px) {
+            display: flex;
+            position: fixed;
+            /* if you were coming from top it would be top instead of bottom */
+            top: 0;
+            left: 0;
+            // color: white;
+            background: rgb(189, 189, 189);
+            transform: translate(-700px, 0px);
+            transition: 1s;
+            z-index: 10;
+
+            & .rightNavContainer {
+                height: 100vh;
+                width: 25vw;
+                padding: 10px 0;
+
+                & .rightNavList {
+                    display: flex;
+                    margin: 0 25px;
+                    list-style: none;
+                    line-height: 72.5px;
+                    flex-direction: column;
+
+                }
+            }
+        }
+    }
     
     
-    // }
-    // .navSubContainer .show {
-        //     transform: translate(0px, 0px)
-        //     }
+    .navSubContainer .show1 {
+            transform: translate(0px, 0px)
+            }
+
+            .show1 .show2 {
+                transform: translate(0px, 0px)
+
+            }
         
 // ==============================================corret above for fixed nav bar=========================================\\
 

@@ -5,15 +5,19 @@ import { getTrail, postVisitedTrail, saveForLater} from '../../Redux/reducer';
 import LoadingSpinner from '../../LoadingSpinner';
 import MapBox from '../MapBox/MapBox';
 import Weather from '../Weather/Weather';
+import Modal from '../Modal/Modal';
+import trailRatings from '../../Image/trailRatings.png'
 
 
-import '../TrailsGridwall/Trails.scss';
+
+import './TrailView.scss';
 
 
 class TrailView extends Component {
     state = {
         isLoading: true,
         error: null,
+        isModalOpen: false
     }
 
     componentDidMount() {
@@ -24,6 +28,18 @@ class TrailView extends Component {
             console.log(error, 'Error getting trail.')
         })
     }
+
+    
+  openModal() {
+    this.setState({ isModalOpen: true })
+    
+  }
+
+
+closeModal() {
+    this.setState({ isModalOpen: false })
+  }
+
     render() { 
         let { chosenTrail, user } = this.props;
         console.log('user: ', user);
@@ -37,20 +53,31 @@ class TrailView extends Component {
                         <img className='trailViewImage' src={trail.imgMedium} alt=''></img>
                     </div>
                     <div className='trailViewInfo'>
-                    <div className='trailViewNameContainer'>
-                        <h1 className='trailViewName'>{trail.name}</h1>
-                        {!user ?
-                        <div className='trailsViewButtonCluster'>
-                            <button onClick={() => alert('You must be logged in to add this to your visited list!')}>Visited</button>
-                            <button onClick={() => alert('You must be logged in to save this for later!')}>Save for later</button>
+                        <div className='trailViewNameContainer'>
+                            <h1 className='trailViewName'>{trail.name}</h1>
+                            <label id='trailLabelFix' htmlFor='trailDifficulty'>Trail difficulty rating:</label>
+                            <div className='trailDifficulty'>{trail.difficulty}
+                                <i id='trailRatingQ' className="fas fa-question-circle">
+                                    <div className='trailRatingContainer'>
+                                        <img src={trailRatings} alt=''></img>
+                                    </div>
+                                </i>
+                            </div>
+                            {!user ?
+                            <div className='trailsViewButtonCluster'>
+                                <button onClick={() => alert('You must be logged in to add this to your visited list!')}>Visited</button>
+                                <button onClick={() => alert('You must be logged in to save this for later!')}>Save for later</button>
+                            </div>
+                                :
+                            <div className='trailsViewButtonCluster'>
+                                <button onClick={() => this.props.postVisitedTrail(user.id, trail.id, trail.name, trail.imgMedium, trail.location, trail.difficulty)}>Visited</button>
+                                <button onClick={() => this.props.saveForLater(user.id, trail.id, trail.name, trail.imgMedium, trail.location, trail.difficulty)}>Save for later</button>
+                            </div>
+                            }
+                            <div className='trailsViewButtonCluster'>
+                                <button onClick={() => this.openModal()}>See the weather for this week</button>
+                            </div>
                         </div>
-                            :
-                        <div className='trailsViewButtonCluster'>
-                            <button onClick={() => this.props.postVisitedTrail(user.id, trail.id, trail.name, trail.imgMedium, trail.location, trail.difficulty)}>Visited</button>
-                            <button onClick={() => this.props.saveForLater(user.id, trail.id, trail.name, trail.imgMedium, trail.location, trail.difficulty)}>Save for later</button>
-                        </div>
-                        }
-                    </div>
                     <div className='trailViewLocationContainer'>
                         <label htmlFor='trailViewLocation'> Location:</label>
                         <h3 className='trailViewLocation'>{trail.location}</h3>
@@ -59,13 +86,32 @@ class TrailView extends Component {
                         <label htmlFor='trailViewSummary'> Summary:</label>
                         <h3 className='trailViewSummary'>{trail.summary.length ? trail.summary : "It looks like nobody has left a review on this trail yet! Would you be the first to share your experience?"}</h3>
                         { trail.summary.length > 0 ? '' : <div><button onClick={() => {}}>Add A Summery</button></div> }
+                            <div>
+                                <h3 className='trailViewSummary'>{trail.high && trail.low ? `The hike has an evelvation that starts at ${trail.low}ft and ends at ${trail.high}ft, which is an elevation change of ${trail.high - trail.low}ft.` : null}</h3>
+                            </div>
+                        <div className='trailSummarySubContainer'>
+                            <div>
+                                <label id='trailLabelFix' htmlFor='trailLength'>Length:</label>
+                                <h3 className='trailLength'>{`${trail.length} miles`}</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <>
                     <MapBox lat={trail.latitude} long={trail.longitude} image={trail.imgSqSmall} />
                 </>
-                <>
-                    <Weather lat={trail.latitude} long={trail.longitude} />
+                <>                    
+                    <Modal isOpen={this.state.isModalOpen} onClose={() => this.closeModal()}>
+                        <div>
+                            <div>
+                                <h1>Weather for {trail.name}</h1>
+                            </div>
+                            <div className='personalInfoModalContainer'>
+                                <Weather lat={trail.latitude} long={trail.longitude} />
+                            </div>
+                        </div>
+                    </Modal>
+                
                 </>
             </div>
         })

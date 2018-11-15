@@ -17,7 +17,7 @@ class AccountSettings extends Component {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           zIndex: '9999',
-          background: '#fff'
+          background: '#fff',
         }
   
         if (this.props.width && this.props.height) {
@@ -41,7 +41,7 @@ class AccountSettings extends Component {
           top: '-500px',
           left: '0px',
           zIndex: '9998',
-          background: 'rgba(0, 0, 0, 0.6)'
+          background: 'rgba(0, 0, 0, 0.6)',
         }
   
         if (this.props.backdropStyle) {

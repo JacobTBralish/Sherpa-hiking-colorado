@@ -17,6 +17,12 @@
         height: 100%;
         margin: 20px;
 
+
+        @media( max-width: 900px){
+            width: 100vw;
+            margin: 0
+        }
+
         .gridwallHeaderContainer {
             position: relative;
             display: flex;
@@ -45,6 +51,10 @@
                     width: 100%;
                     height: 45%;
 
+                    @media( max-width: 900px){
+                        width: 100vw;
+                    }
+
                 }
             }
 
@@ -59,6 +69,18 @@
                     color: white;
                     font-size: 3em;
                     text-shadow: .25px .25px .25px black;
+
+                    @media( max-width: 1250px){
+                        font-size: 2.5em;
+
+                        @media( max-width: 1100px){
+                            font-size: 2em;   
+
+                            @media( max-width: 650px){
+                                font-size: 1.5em;   
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -81,158 +103,4 @@
         }
 
     }
-}
-
-.cardContainer {
-    width: 400px;
-    margin: 20px;
-    display: flex;
-    position: relative;
-    justify-content: center;
-    .cardImageContainer {
-        overflow: hidden;
-        display: flex;
-        width: 300px;
-        height: 300px;
-        max-width: 300px;
-        max-height: 300px;
-        margin: 0;
-        justify-content: center;
-
-        
-        .cardImage {
-            // overflow: hidden;
-            // height: 250px;
-            
-        }
-    }
-    .cardInfo {
-    text-shadow: .25px .25px .25px black;
-    color: white;
-    margin: 20px;
-    position: absolute;
-    width: 50%;
-
-    .cardName {
-        font-size: 15px;
-        font-weight: bold;
-        letter-spacing: .0115em;
-    }
-}
-}
-
-.trailViewContainer {
-    height: 100%;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 40px;
-
-    .trailViewImageContainer {
-        // width: 90vw;
-        // height: 25%;
-        // display: flex;
-        justify-content: center;
-        // align-content: center;
-        width: 800px;
-        height: 800px;
-        position: relative;
-        display: inline-block;
-        overflow: hidden;
-        margin: 0;
-        
-
-        @media( max-width: 800px){
-            width: 100vw;
-        }
-
-        .trailViewImage {
-            // width: 90%;
-            // height: 100%;
-            margin: 0 auto;
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-height: 100%;
-            min-width: 100%;
-            transform: translate(-50%, -50%);
-
-        @media( max-width: 800px){
-            width: 100vw;
-
-
-        }
-        }
-    }
-
-    .trailViewInfo {
-        width: 90vw;
-        height: 25%;
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        flex-direction: column;
-        text-decoration: none;
-        color: $blackText;
-
-
-        @media( max-width: 650px){
-            width: 100vw;
-        }
-        .trailViewNameContainer {
-            margin: 35px;
-
-
-        @media( max-width: 650px){
-            width: 100vw;
-        }
-            .trailViewName {
-                font-size: 45px;
-
-                @media( max-width: 650px){
-                    font-size: 32px;
-                }
-            }
-        }
-
-        .trailViewLocationContainer {
-            margin: 25px 35px;
-
-            .trailViewLocation {
-                font-size: 20px;
-                padding-top: 8px;
-                @media( max-width: 650px){
-                    font-size: 17px;
-                }
-            }
-        }
-
-        .trailViewSummaryContainer {
-            margin: 25px 35px;
-
-            .trailViewSummary {
-                font-size: 20px;
-                padding-top: 8px;
-                @media( max-width: 650px){
-                    font-size: 17px;
-                }
-
-
-            }
-        }
-
-        label {
-            font-size: 30px;
-            font-weight: 800;
-            
-
-            @media( max-width: 650px){
-                font-size: 20px;
-            }
-        }
-    }
-
 }

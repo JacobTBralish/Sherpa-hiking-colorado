@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../TrailsGridwall/Trails.scss';
+import './TrailCard.scss';
 
 const TrailCard = (props) => {
     // console.log('props: ', props);

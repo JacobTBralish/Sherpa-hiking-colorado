@@ -7,7 +7,7 @@ module.exports = {
             res.status(200).json(response)
         }).catch(error => {
             res.status(500).json(error)
-            console.log('error: ', error)
+            
             
         })
     },
@@ -18,7 +18,7 @@ module.exports = {
         db.get_saved_trails(id).then(response => {
             res.status(200).json(response)
         }).catch(error => {
-            console.log(error, 'Error getting saved trails')
+            
             res.status(500).json(error);
         })
     }

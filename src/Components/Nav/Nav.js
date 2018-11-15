@@ -15,7 +15,6 @@ class Nav extends Component {
         super(props);
         this.state = { 
             toggle: false,
-            isModalOpen: false
      }
     }
 
@@ -37,18 +36,12 @@ class Nav extends Component {
     }
 
 
-  openModal() {
-    this.setState({ isModalOpen: true })
-  }
-
-
-closeModal() {
-    this.setState({ isModalOpen: false })
-  }
-
  
     render() { 
         let { user } = this.props;
+        let { toggle } = this.state;
+        console.log('toggle: ', toggle);
+
         console.log('user: ', user);
         return ( 
                 <div className='navSubContainer'>
@@ -56,7 +49,7 @@ closeModal() {
                         <Link className='logoLink' to='/'><div className='logo'>SHERPA</div></Link>
                     </div>
 
-                    <button onClick={() => this.setState({toggle: !this.state.toggle})}>
+                    <button onClick={() => this.setState({toggle: !toggle})}>
                         <i className="fas fa-bars"></i>
                     </button>
                     
@@ -108,21 +101,6 @@ closeModal() {
                         }
                         <img id='navUserImage' src={user ? user.user_image : null} alt=''></img>
                     </div>
-                    {/* <>
-                        <AccountSettings isOpen={this.state.isModalOpen} onClose={() => this.closeModal()}>
-                            <div>
-                                <div>
-                                    <h1>Account Settings</h1>
-                                </div>
-                                <div className='personalInfoModalContainer'>
-                                    <PersonalInfo />
-                                </div>
-
-                            </div>
-                            <p>hello</p>
-                            <div><button onClick={() => this.closeModal()}>Close</button></div>
-                        </AccountSettings>
-                    </> */}
                 </div>
          );
     }
