@@ -108,7 +108,21 @@ closeModal() {
                         }
                         <img id='navUserImage' src={user ? user.user_image : null} alt=''></img>
                     </div>
+                    {/* <>
+                        <AccountSettings isOpen={this.state.isModalOpen} onClose={() => this.closeModal()}>
+                            <div>
+                                <div>
+                                    <h1>Account Settings</h1>
+                                </div>
+                                <div className='personalInfoModalContainer'>
+                                    <PersonalInfo />
+                                </div>
 
+                            </div>
+                            <p>hello</p>
+                            <div><button onClick={() => this.closeModal()}>Close</button></div>
+                        </AccountSettings>
+                    </> */}
                 </div>
          );
     }
