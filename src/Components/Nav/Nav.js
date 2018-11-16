@@ -15,11 +15,26 @@ class Nav extends Component {
         super(props);
         this.state = { 
             toggle: false,
-     }
+            latitude: '',
+            longitude: ''
+        }
     }
 
     componentDidMount() {
         this.props.getUser();
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  console.log("wokeeey");
+                  console.log(position);
+                  this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    error: null,
+                  });
+                },
+                (error) => this.setState({ error: error.message }),
+                { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+              );
 
     }
 
@@ -63,10 +78,9 @@ class Nav extends Component {
  
     render() { 
         let { user } = this.props;
-        let { toggle } = this.state;
-        console.log('toggle: ', toggle);
+        let { toggle, latitude, longitude } = this.state;
+        console.log('latitude, longitude: ', latitude, longitude);
 
-        console.log('user: ', user);
         return ( 
                 <div className='navSubContainer'>
                     <button onClick={() => this.setState({toggle: !toggle})}>
@@ -84,7 +98,7 @@ class Nav extends Component {
                                     <li><Link to=''>Trails</Link>
                                         <ul>
                                             <li><Link className='rightNavListItem' to='/All Trails'>All trails</Link></li>
-                                            <li><Link className='rightNavListItem' to=''>Trails near me</Link></li>
+                                            <li><Link className='rightNavListItem' to={{pathname:'/Trails Near Me', state:{lat: latitude, long: longitude}}}>Trails near me</Link></li>
                                             <li><Link className='rightNavListItem' to=''>Trails by city</Link>
                                             
                                                 <ul>

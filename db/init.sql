@@ -29,6 +29,18 @@ CREATE TABLE save_for_later (
     ,trail_difficulty TEXT NOT NULL
 );
 
+CREATE TABLE trail_reviews (
+    id SERIAL PRIMARY KEY
+    ,review_trail_id INTEGER NOT NULL
+    ,trail_name TEXT NOT NULL
+    ,trail_image TEXT
+    ,title VARCHAR(50) NOT NULL
+    ,time TEXT NOT NULL
+    ,body TEXT NOT NULL
+    ,rating DECIMAL NOT NULL
+    ,author_id INTEGER REFERENCES sherpa_users(id) NOT NULL
+);
+
 /* join to find trails user has marked as visited */
 select *
 from visited v

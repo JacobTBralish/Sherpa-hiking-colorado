@@ -35,7 +35,7 @@ return fixedTrails
 
 export const fetchByGeoLocation = async (lat,long) => {
     let trailsNearBy = [];
-      let response = await axios.get(`https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${long}&maxDistance=50&maxResults=500&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`);
+      let response = await axios.get(`https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${long}&maxDistance=25&maxResults=500&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`);
       var { trails } = response.data
       if (trails.length > 0){
           trails.filter(trail => {

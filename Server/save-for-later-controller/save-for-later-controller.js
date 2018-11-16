@@ -5,6 +5,7 @@ module.exports = {
 
         db.post_save_for_later({user_saved_id: userId, saved_trail_id: trailId, trail_name: trailName, trail_image: trailImage, trail_location: trailLocation, trail_difficulty: trailDifficulty}).then(response => {
             res.status(200).json(response)
+            
         }).catch(error => {
             res.status(500).json(error)
             

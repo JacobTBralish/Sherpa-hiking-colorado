@@ -24,7 +24,7 @@ class Home extends Component {
         }
       
         updatePredicate = () => {
-          this.setState({ isDesktop: window.innerWidth > 500 });
+          this.setState({ isDesktop: window.innerWidth > 550 });
         }
     
     render() { 

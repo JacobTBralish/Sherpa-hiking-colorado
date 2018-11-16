@@ -94,6 +94,12 @@ app.get('/', (req, res) => {
 res.send('endpoint live')
 });
 
+//------------------------------------------------------------------------------Trail Controller------------------------------------------------------------------\\
+
+// app.get('/api/trail/:id', tC.getTrailReviewById);
+// app.post('/api/trail/:trailId', tC.postReview);
+// app.delete(`/api/trail/:id`, tC.deleteReview);
+
 // ================================================ Visted ====================================== \\
 app.get('/api/visited/:id', vC.getVisitedTrails);
 app.post('/api/visited/:id', vC.markAsVisited);

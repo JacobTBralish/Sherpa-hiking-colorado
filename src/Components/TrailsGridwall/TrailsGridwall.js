@@ -33,22 +33,6 @@ class TrailsGridwall extends Component {
         }
     }
 
-    // getGeoLocation = () => {
-        // navigator.geolocation.getCurrentPosition(
-        //     (position) => {
-        //       console.log("wokeeey");
-        //       console.log(position);
-        //       this.setState({
-        //         latitude: position.coords.latitude,
-        //         longitude: position.coords.longitude,
-        //         error: null,
-        //       });
-        //     },
-        //     (error) => this.setState({ error: error.message }),
-        //     { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
-        //   );
-    // }
-
     async componentDidMount() {
         const {fetch, name, lat, long, image} = this.props;
         console.log('name: ', name);

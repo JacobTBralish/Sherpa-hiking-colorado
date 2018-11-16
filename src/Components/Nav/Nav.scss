@@ -25,7 +25,7 @@
             display: none;
             
 
-            @media(max-width:500px) {
+            @media(max-width:550px) {
                 display: initial;
                 // position: absolute;
                 // z-index: 30;
@@ -53,7 +53,7 @@
             align-items: center;
             justify-content: center;
             // width: 80px;
-            @media(max-width:500px) {
+            @media(max-width:550px) {
                 display: initial;
                 position: absolute;
                 // z-index: 50;
@@ -92,7 +92,7 @@
 
             .rightNavList > li {
                 margin: 0 25px;
-                @media(max-width: 500px){
+                @media(max-width: 550px){
                     margin: 20px 25px 0px 25px;
                 }
             }
@@ -116,9 +116,7 @@
                     z-index: 1000;
                     box-shadow: #c8c8c8 .5px .5px .5px .5px;
 
-                    @media(max-width: 500px){
-                        margin-top: 6px;
-                    }
+
                     & :before, :after {
                         content: " "; /* 1 */
                         display: table; /* 2 */
@@ -160,7 +158,7 @@
                     display: block;
                     position: absolute;
 
-                    @media(max-width: 500px){
+                    @media(max-width: 550px){
                         left: 0;
                         width: 50vw;
                     }
@@ -170,7 +168,7 @@
                 
                 //changes dropdown background
                 li:hover a { background: white;
-                    @media(max-width: 500px){
+                    @media(max-width: 550px){
                         background: rgb(189, 189, 189);
                     } 
                 }
@@ -199,7 +197,7 @@
                     left: 100%;
                     top: 0;
 
-                    @media(max-width: 500px){
+                    @media(max-width: 550px){
                         left: 50%;
                     }
                 }
@@ -218,7 +216,7 @@
                 height: 50px;
                 line-height: 25px;
 
-                @media(max-width: 500px){
+                @media(max-width: 550px){
                     height: 42px;
                     line-height: 15px;
                     font-size: 16px;
@@ -231,7 +229,7 @@
                 color: #2e3031;
                 cursor: pointer;
 
-                @media(max-width: 500px){
+                @media(max-width: 550px){
                     height: 42px;
                     line-height: 20px;
                     font-size: 16px;
@@ -256,7 +254,8 @@
             }
 
             #welcomeName {
-                @media(max-width: 500px) {
+
+                @media(max-width: 550px) {
                     position: absolute;
                     left: 27%;
                     top: 550%;
@@ -269,7 +268,7 @@
     }
     
     .navSubContainer nav{
-        @media(max-width: 500px) {
+        @media(max-width: 550px) {
             display: flex;
             position: fixed;
             /* if you were coming from top it would be top instead of bottom */
@@ -295,7 +294,7 @@
 
                     & li {
                         height: 50px;
-                        @media(max-width: 500px){
+                        @media(max-width: 550px){
                             height: 40px;
                             line-height: 15px;
                             font-size: 16px;

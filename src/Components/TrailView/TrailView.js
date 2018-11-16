@@ -6,6 +6,7 @@ import LoadingSpinner from '../../LoadingSpinner';
 import MapBox from '../MapBox/MapBox';
 import Weather from '../Weather/Weather';
 import Modal from '../Modal/Modal';
+import Reviews from '../Reviews/Reviews';
 import trailRatings from '../../Image/trailRatings.png'
 
 
@@ -34,7 +35,6 @@ class TrailView extends Component {
     this.setState({ isModalOpen: true })
     
   }
-
 
 closeModal() {
     this.setState({ isModalOpen: false })
@@ -84,8 +84,8 @@ closeModal() {
                     </div>
                     <div className='trailViewSummaryContainer'>
                         <label htmlFor='trailViewSummary'> Summary:</label>
-                        <h3 className='trailViewSummary'>{trail.summary.length ? trail.summary : "It looks like nobody has left a review on this trail yet! Would you be the first to share your experience?"}</h3>
-                        { trail.summary.length > 0 ? '' : <div><button onClick={() => {}}>Add A Summery</button></div> }
+                        <h3 className='trailViewSummary'>{trail.summary.length ? trail.summary : "It looks like nobody has left a summary on this trail yet!"}</h3>
+                        {/* { trail.summary.length > 0 ? '' : <div id='addSummaryButton'><button onClick={() => {}}>Add A Summery</button></div> } */}
                             <div>
                                 <h3 className='trailViewSummary'>{trail.high && trail.low ? `The hike has an evelvation that starts at ${trail.low}ft and ends at ${trail.high}ft, which is an elevation change of ${trail.high - trail.low}ft.` : null}</h3>
                             </div>
@@ -99,6 +99,9 @@ closeModal() {
                 </div>
                 <>
                     <MapBox lat={trail.latitude} long={trail.longitude} image={trail.imgSqSmall} />
+                </>
+                <>
+                    <Reviews trailName={trail.name} image={trail.imgSmallMed} />
                 </>
                 <>                    
                     <Modal isOpen={this.state.isModalOpen} onClose={() => this.closeModal()}>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TrailCard from '../TrailCard/TrailCard';
 import Pagination from 'react-js-pagination';
-import {Link} from 'react-router-dom';
+import { Link, withRouter} from 'react-router-dom';
 import {chooseTrail} from '../../Redux/reducer';
 import LoadingSpinner from '../../LoadingSpinner';
 import {connect} from 'react-redux';
@@ -15,35 +15,34 @@ class GeoLocation extends Component {
             error: null,
             activePage: 1,
             itemsPerPage: 26,
+            latitude: '',
+            longitude: ''
         }
     }
 
 
 
     async componentDidMount() {
-        let { fetch } = this.props;
+        const {fetch} = this.props;
+        console.log('this.props: ', this.props);
         console.log('fetch: ', fetch);
-        try{
-            await navigator.geolocation.getCurrentPosition(
-                (position) => {
-                  console.log("wokeeey");
-                  console.log(position);
-                  let fetchedTrails = fetch(position.coords.latitude, position.coords.longitude);
-                  this.setState({
+        // Nothing is in local storage, so we need to fetch
+            try {
+                let fetchedTrails = await fetch(this.props.location.state.lat, this.props.location.state.long);
+                console.log('trails: ', fetchedTrails);
+                this.setState({
                     trailsNearBy: fetchedTrails,
-                    isLoading: false,
-                  });
-                }, (error) => this.setState({ error: error.message }),
-                    { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
-              );
-            
-        } catch (error) {
-              throw(new Error('Cannot get trails near your location!'))
-          }
+                    isLoading: false
+                })
+            } catch (error) {
+                throw (new Error('Cannot get trails near you!'))
+            }
     }
 
 
     render() { 
+        console.log(this.props);
+        console.log('this: ', this);
         let { trailsNearBy, error, isLoading } = this.state;
         console.log('trailsNearBy: ', trailsNearBy);
 
@@ -82,7 +81,7 @@ class GeoLocation extends Component {
                 {error
                     ?
                     <div> Oh no!There was an error loading the trails.Please try again later. </div>
-                    : (isLoading || trailsNearBy.length) ?
+                    : (isLoading || !trailsNearBy.length) ?
                     <LoadingSpinner />
                     : mappedTrailsNearBy
                     } 
@@ -103,4 +102,4 @@ const mapDispatchToProps = {
     chooseTrail
 }
 
-export default connect(null, mapDispatchToProps)(GeoLocation);
+export default withRouter(connect(null, mapDispatchToProps)(GeoLocation));

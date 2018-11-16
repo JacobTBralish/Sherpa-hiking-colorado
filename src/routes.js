@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from './Components/Home/Home';
 import TrailsGridwall from './Components/TrailsGridwall/TrailsGridwall';
-import trailsNearBy from './Components/TrailsNearBy/TrailsNearBy';
+import TrailsNearBy from './Components/TrailsNearBy/TrailsNearBy';
 import TrailView from './Components/TrailView/TrailView';
 import UsersTrails from './Components/UsersTrails/UsersTrails';
 
@@ -48,7 +48,7 @@ export default (
             <TrailsGridwall fetch={getTrailsNearCity} city="Boulder" name="trailsNearBoulder" lat="40.027443" long="-105.25174" image='https://www.colorado.edu/coloradan/sites/default/files/styles/hero/public/article-image/2010_aerial213_revisedga.jpg?itok=GaX-g_4H'/>
         )}/>
         <Route path='/Trails Near Me' render={() => (
-            <TrailsGridwall fetch={fetchByGeoLocation} city="Trails Near You" name="trailsNearMe" />
+            <TrailsNearBy fetch={fetchByGeoLocation} city="Trails Near You" name="trailsNearMe" />
         )}/>
         <Route path='/Your Visited Trails' render={() => (
             <UsersTrails fetch={fetchVisitedTrails} name="visitedTrails" />

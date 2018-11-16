@@ -12,17 +12,17 @@
 
     .trailViewImageContainer {
         justify-content: center;
-        width: 800px;
-        height: 800px;
+        width: 500px;
+        height: 500px;
         position: relative;
         display: inline-block;
         overflow: hidden;
         margin: 0;
         
 
-        @media( max-width: 800px){
-            width: 100vw;
-        }
+        // @media( max-width: 800px){
+        //     width: 100vw;
+        // }
 
         .trailViewImage {
             // width: 90%;
@@ -145,6 +145,20 @@
                     margin-top: 5px;
                 }
 
+            }
+            #addSummaryButton {
+                & > button {
+                    cursor: pointer;
+                    margin: 5px;
+                    height: 25px;
+                    background: white;
+                    border: .5px solid black;
+                }
+                
+                & :hover {
+                    background: $coloradoRed;
+                    color: white;
+                }
             }
         }
 

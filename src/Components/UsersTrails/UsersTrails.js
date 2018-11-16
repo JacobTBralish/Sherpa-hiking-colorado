@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoadingSpinner from '../../LoadingSpinner';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 
 import './UsersTrails.scss';
 
@@ -19,56 +20,55 @@ class UsersTrails extends Component {
         const {user, fetch, name} = this.props;
         console.log('name: ', name);
         console.log('fetch: ', fetch);
-        // Nothing is in local storage, so we need to fetch
-        // if (){
             try {
                 let usersTrails = await fetch(user.id);
                 console.log('trails: ', usersTrails);
                 this.setState({
                     [name]: usersTrails,
                     isLoading: false
-                }/* , localStorage.setItem([name], JSON.stringify(fetchedTrails)) */)
+                })
             } catch (error) {
                 throw (new Error('Cannot get trails near this city!'))
             }
-        // }  
     }
-    async componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         const { fetch, name} = nextProps;
         const { user } = this.props;
         console.log('name: ', name);
         console.log('fetch: ', fetch);
-        // Nothing is in local storage, so we need to fetch
         if (this.props.name !== name){}
             try {
-                let usersTrails = await fetch(user.id);
+                let usersTrails = fetch(user.id);
                 console.log('trails: ', usersTrails);
                 this.setState({
                     [name]: usersTrails,
                     isLoading: false
-                }/* , localStorage.setItem([name], JSON.stringify(fetchedTrails)) */)
+                })
             } catch (error) {
                 throw (new Error('Cannot get trails near this city!'))
             }
         }  
     
     render() { 
+        console.log(this.props.location.pathname, 'this.props.location.pathname');
+        console.log('this.props: ', this.props);
         let { error, isLoading } = this.state;
         const { name, user } = this.props
+        const { pathname } = this.props.location
         console.log('visitedTrails: ', this.state.visitedTrails);
 
         let usersTrails = this.state[name].map((trail, i) => {
             console.log('trail: ', trail);
-            return <div className='usersTrailsTrailContainer' key={i}>
+            return <Link key={i} to = {pathname === '/Your Visited Trails' ? `/Trail/${trail.saved_trail_id}` : `/Trail/${trail.visited_trail_id}`}><div className='usersTrailsTrailContainer'>
                 <div className='usersTrailImageContainer'>
-                    <img src={trail.trail_image} alt={trail.trail_name} />
+                    <img className='usersTrailImage' src={trail.trail_image} alt={trail.trail_name} />
                 </div>
                 <div className='usersTrailInfoContainer'>
                     <h2 className='trailName'>{trail.trail_name}</h2>
                     <h3 className='trailLocation'>{trail.trail_location}</h3>
                     <h3 className='trailDifficulty'>{trail.trail_difficulty}</h3>
                 </div>
-            </div>
+            </div></Link>
         })
         return ( 
             <div className='usersTrailsContainer'>
@@ -94,4 +94,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(UsersTrails);
+export default withRouter(connect(mapStateToProps)(UsersTrails));
