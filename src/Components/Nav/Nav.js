@@ -20,7 +20,31 @@ class Nav extends Component {
 
     componentDidMount() {
         this.props.getUser();
+
     }
+
+    componentWillMount() {
+        window.addEventListener('mousedown', this.handleClick, false)
+    }
+
+    componentWillUnmount(){
+        window.removeEventListener('mousedown', this.handleClick, false)
+    }
+    
+    handleClickOutside =() => {
+        this.setState({
+            toggle: false
+        })
+    }
+
+    handleClick = (e) => {
+        if (this.node.contains(e.target)) {
+            console.log('e.target: ', e.target);
+            return;
+        }
+        this.handleClickOutside();
+    }
+
 
     login = () => {
         
@@ -45,49 +69,51 @@ class Nav extends Component {
         console.log('user: ', user);
         return ( 
                 <div className='navSubContainer'>
+                    <button onClick={() => this.setState({toggle: !toggle})}>
+                        <i className="fas fa-bars"></i>
+                    </button>
                     <div className='logoContainer'>
                         <Link className='logoLink' to='/'><div className='logo'>SHERPA</div></Link>
                     </div>
 
-                    <button onClick={() => this.setState({toggle: !toggle})}>
-                        <i className="fas fa-bars"></i>
-                    </button>
                     
-                    <nav className={this.state.toggle ? 'show' : ''}>
-                        <div className='rightNavContainer'>
+                    <nav className={toggle ? 'show' : ''}>
+                        <div ref={node => this.node = node} className='rightNavContainer'>
                             <ul className='rightNavList'>
                                    <li><Link to='/'>Home</Link></li>
-                                        <li id=''><Link to='/All Trails'>Trails</Link>
-                                            <ul>
-                                                <li><Link className='rightNavListItem' to=''>Trails near me</Link></li>
-                                                <li><Link className='rightNavListItem' to=''>Trails by city</Link>
-                                                    <ul>
-                                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Alamosa'>Alamosa</Link></li>
-                                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Aspen'>Aspen</Link></li>
-                                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Boulder'>Boulder</Link></li>
-                                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Breckenridge'>Breckenridge</Link></li>
-                                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Colorado Springs'>Colorado Springs</Link></li>
-                                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Denver'>Denver</Link></li>
-                                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Estes Park'>Estes Park</Link></li>
-                                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Leadville'>Leadville</Link></li>
-                                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Rifle'>Rifle</Link></li>
-                                                        <li className='rightNavExtraListItemCities'><Link to='/Trails Near Telluride'>Telluride</Link></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        {!user ? 
-                                            <li onClick={() => this.login()}>Sign In</li>
-                                            :
-                                        <li><Link to='/'>Account</Link>
-                                            <ul>
-                                                <li className='rightNavExtraListItemCities'><Link to='/Your Saved Trails'>Trails to visit</Link></li>
-                                                <li className='rightNavExtraListItemCities'><Link to='/Your Visited Trails'>Visited trails</Link></li>
-                                                {/* <li id='logoutButton'  onClick={() => this.openModal()} className='rightNavExtraListItemCities'>Account Settings</li> */}
-                                                <li id='logoutButton' className='rightNavExtraListItemCities' onClick={() => {this.logout(); this.props.history.push('/');}}>Log out</li>
-                                            </ul>
-                                        </li>
-                                            }
+                                    <li><Link to=''>Trails</Link>
+                                        <ul>
+                                            <li><Link className='rightNavListItem' to='/All Trails'>All trails</Link></li>
+                                            <li><Link className='rightNavListItem' to=''>Trails near me</Link></li>
+                                            <li><Link className='rightNavListItem' to=''>Trails by city</Link>
+                                            
+                                                <ul>
+                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Alamosa'>Alamosa</Link></li>
+                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Aspen'>Aspen</Link></li>
+                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Boulder'>Boulder</Link></li>
+                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Breckenridge'>Breckenridge</Link></li>
+                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Colorado Springs'>Colorado Springs</Link></li>
+                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Denver'>Denver</Link></li>
+                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Estes Park'>Estes Park</Link></li>
+                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Leadville'>Leadville</Link></li>
+                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Rifle'>Rifle</Link></li>
+                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Telluride'>Telluride</Link></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    {!user ? 
+                                        <li onClick={() => this.login()}>Sign In</li>
+                                        :
+                                    <li><Link to='/'>Account</Link>
+                                        <ul>
+                                            <li className='rightNavExtraListItemCities'><Link to='/Your Saved Trails'>Trails to visit</Link></li>
+                                            <li className='rightNavExtraListItemCities'><Link to='/Your Visited Trails'>Visited trails</Link></li>
+                                            {/* <li id='logoutButton'  onClick={() => this.openModal()} className='rightNavExtraListItemCities'>Account Settings</li> */}
+                                            <li id='logoutButton' className='rightNavExtraListItemCities' onClick={() => {this.logout(); this.props.history.push('/');}}>Log out</li>
+                                        </ul>
+                                    </li>
+                                        }
 
                             </ul>
                         </div>
@@ -95,7 +121,7 @@ class Nav extends Component {
                     <div className='searchContainer'>
                         {/* <input placeholder='Search'></input> */}
                         {user ?
-                        <h3>Hey, {user.first_name}!</h3>
+                        <h3 id='welcomeName'>Hey, {user.first_name}!</h3>
                             :
                             <h3>Welcome!</h3>
                         }
