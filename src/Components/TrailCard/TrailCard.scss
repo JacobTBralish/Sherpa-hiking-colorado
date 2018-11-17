@@ -84,23 +84,28 @@
     padding: 10px;
     position: relative;
     width: 300px;
-    height: 40px;
+    height: auto;
     background: black;
-    @media( max-width: 700px){
-        width: 300px;
-        height: 20px;
-        padding: 0px;
-        @media( max-width: 650px){
-            width: 200px;
-            height: 20px;
-            padding: 3px;
-            @media( max-width: 400px){
-                width: 80vw;
-                height: 20px;
+    @media(max-width: 900px){
+        width: 400px;
+        // height: auto;
+        padding: 10px;
+        @media( max-width: 700px){
+            width: 300px;
+            // height: 20px;
+            padding: 0px;
+            @media( max-width: 650px){
+                width: 200px;
+                // height: 20px;
                 padding: 3px;
-                } 
+                @media( max-width: 400px){
+                    width: 80vw;
+                    // height: 20px;
+                    padding: 3px;
+                    } 
+                }
             }
-        }
+    }
 
     .cardName {
         font-size: 20px;

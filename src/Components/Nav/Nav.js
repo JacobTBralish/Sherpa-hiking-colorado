@@ -77,7 +77,9 @@ class Nav extends Component {
 
  
     render() { 
+        console.log('heres window location', window);
         let { user } = this.props;
+        console.log('user: ', user);
         let { toggle, latitude, longitude } = this.state;
         console.log('latitude, longitude: ', latitude, longitude);
 

@@ -6,7 +6,9 @@ const massive = require('massive');
 const axios = require('axios');
 const vC = require('./visited-controller/visited-controller');
 const sflC = require('./save-for-later-controller/save-for-later-controller');
-const uC = require('./user-controller/user-controller')
+const uC = require('./user-controller/user-controller');
+const rC = require('./trail-review-controller/trail-review-controller');
+const cloudinary = require('cloudinary');
 
 
 const app = express();
@@ -93,12 +95,34 @@ app.get('/auth/callback', (req,res) => {
 app.get('/', (req, res) => {
 res.send('endpoint live')
 });
+//------------------------------------------------------------------------------Cloudinary------------------------------------------------------------------\\
+
+app.get('/api/upload', (req, res) => {
+
+    // get a timestamp in seconds which is UNIX format
+        const timestamp = Math.round((new Date()).getTime() / 1000);
+    
+    // cloudinary API secret stored in the .env file
+        const api_secret  = process.env.CLOUDINARY_SECRET_API;
+    
+    // user built in cloudinary api sign request function to  create hashed signature with your api secret and UNIX timestamp
+        const signature = cloudinary.utils.api_sign_request({ timestamp: timestamp }, api_secret);
+    
+    // make a signature object to send to your react app
+        const payload = {
+            signature: signature,
+            timestamp: timestamp
+        };
+            res.json(payload);
+    })
+
 
 //------------------------------------------------------------------------------Trail Controller------------------------------------------------------------------\\
 
-// app.get('/api/trail/:id', tC.getTrailReviewById);
-// app.post('/api/trail/:trailId', tC.postReview);
-// app.delete(`/api/trail/:id`, tC.deleteReview);
+app.get('/api/trailreview/:id', rC.getTrailReviewById);
+app.post('/api/trailreview/:id', rC.postReview);
+app.delete('/api/trailreview/:id', rC.deleteReview);
+app.put('/api/trailreview/:id', rC.editReview);
 
 // ================================================ Visted ====================================== \\
 app.get('/api/visited/:id', vC.getVisitedTrails);

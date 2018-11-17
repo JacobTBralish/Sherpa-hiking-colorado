@@ -34,11 +34,15 @@ CREATE TABLE trail_reviews (
     ,review_trail_id INTEGER NOT NULL
     ,trail_name TEXT NOT NULL
     ,trail_image TEXT
+    ,user_submitted_image1 TEXT
+    ,user_submitted_image2 TEXT
     ,title VARCHAR(50) NOT NULL
     ,time TEXT NOT NULL
     ,body TEXT NOT NULL
     ,rating DECIMAL NOT NULL
     ,author_id INTEGER REFERENCES sherpa_users(id) NOT NULL
+    ,author_image TEXT
+    ,author_name VARCHAR(100)
 );
 
 /* join to find trails user has marked as visited */

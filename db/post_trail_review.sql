@@ -1,3 +1,3 @@
-INSERT INTO trail_reviews (review_trail_id, trail_name, trail_image, title, time, body, rating, author_id) VALUES
-(${review_trail_id}, ${trail_name}, ${trail_image}, ${title}, ${time}, ${body}, ${rating}, ${author_id});
+INSERT INTO trail_reviews (review_trail_id, trail_name, trail_image, user_submitted_image1, user_submitted_image2, title, time, body, rating, author_id, author_image, author_name) VALUES
+(${review_trail_id}, ${trail_name}, ${trail_image}, ${user_submitted_image1}, ${user_submitted_image2}, ${title}, ${time}, ${body}, ${rating}, ${author_id}, ${author_image}, ${author_name});
 SELECT * FROM trail_reviews where review_trail_id = ${review_trail_id};

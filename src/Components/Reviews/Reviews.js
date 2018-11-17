@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { getReviews, postReview, deleteReview } from '../../Redux/reducer';
 import './Reviews.scss';
+import ReviewCard from '../ReviewCard/ReviewCard';
+import Dropzone from 'react-dropzone';
+
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/jacob-development/image/upload';
 
 class Reviews extends Component {
     constructor(props) {
@@ -11,51 +15,22 @@ class Reviews extends Component {
             this.state = {
                 title: '',
                 reviewBody: '',
+                userSubmittedImage1: '',
+                userSubmittedImage2: '',
                 rating: 0,
                 isLoading: false,
-                reviews: []
+                reviews: [],
+                toggle: false,
+                togglePhotos: false,
+                filesPreview: [],
+                filesToBeSent: [],
+                printcount: 2,
 
             }
     }
     
-    componentDidMount() {
-        this.setState({isLoading: true})
-        axios.get(`/api/trail/${this.props.match.params.id}`).then(response => {
-            this.setState({
-                reviews: response.data,
-                isLoading:false
-            })
-            console.log('response.data: ', response.data);
-        }).catch(error => {
-        console.log(error, 'Error getting trail.')
-    })
-}
-
-    handlePost = ( trailName, trailImg, title, reviewBody, rating, userId, e ) => {
-        console.log("work----------------------------------",trailName, trailImg, title, reviewBody, rating, userId, e)
-        e.preventDefault();
-    const date = new Date();
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    const time = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-    //    console.log('DATE',time)
-    //    console.log(title, time, reviewBody, rating, userId)
-
-        axios.post(`/api/trail/${this.props.match.params.id}`, { trailName, trailImg, title, time, reviewBody, rating, userId} ).then(response => {
-            console.log( response.data )
-            this.props.postTrailReview(response.data);
-        }).catch(error => {
-            console.log(error, 'Error with posting your review')
-        })
-    }
-
-
-    handleDelete = (reviewId) => {
-        console.log(reviewId)
-        axios.delete(`/api/trail/${this.props.match.params.id}?reviewId=${reviewId}`).then((response) => {
-            this.props.deleteReview(response.data)
-        }).catch(error => {
-                 console.log(error, 'Error on the front end delete')
-         })
+    async componentWillMount() {
+        await this.props.getReviews(this.props.match.params.id)
     }
 
     handleChange = (event) => {
@@ -64,32 +39,82 @@ class Reviews extends Component {
         })
      }
 
-    render() { 
-    //     const data = this.props.trailReviews.length > 0 ? this.props.trailReviews[0]: {}
+     login = () => {
         
-        let{ trailReviews, user, chosenTrail, render, trailName, imgSmallMed } = this.props;
-        let { title, reviewBody, rating, isLoading, reviews } = this.state;
+        const redirectUri = encodeURIComponent(`${window.location.origin}/auth/callback`);
+        window.location = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/authorize?client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}&scope=openid%20profile%20email&redirect_uri=${redirectUri}&response_type=code`
+    }
+
+    // handlePhotoToggle = () => {
+    //     this.setState((prevState) =>{
+    //     //  console.log('prevstate', prevState)
+    //         return {
+    //             toggle: !prevState.toggle,
+    //         }
+    //      })
+    //  }
+
+    // onDrop(acceptedFiles, rejectedFiles) {
+    //     // console.log('Accepted files: ', acceptedFiles[0].name);
+    //     var filesToBeSent=this.state.filesToBeSent;
+    //     if(filesToBeSent.length < this.state.printcount){
+    //       filesToBeSent.push(acceptedFiles);
+    //       var filesPreview=[];
+    //       for(var i in filesToBeSent){
+    //         filesPreview.push(<div>
+    //           {filesToBeSent[i][0].name}
+    //           {/* <MuiThemeProvider>
+    //           <a href="#"><FontIcon
+    //             className="material-icons customstyle"
+    //             color={blue500}
+    //             styles={{ top:10,}}
+    //           >clear</FontIcon></a>
+    //           </MuiThemeProvider> */}
+    //           </div>
+    //         )
+    //       }
+    //       this.setState({filesToBeSent,filesPreview});
+    //     }
+    //     else{
+    //       alert("You have reached the limit of printing files at a time")
+    //     }
+    //  }
+
+
+    render() { 
+        
+        let{ postReview, user, chosenTrail, reviews } = this.props;
+        console.log('user: ', user);
+        let { title, reviewBody, rating, isLoading, userSubmittedImage1, userSubmittedImage2 } = this.state;
         // console.log(chosenTrail);
 
 
-        // let mappedTrailReviews = reviews.map((review, index) => {
-        //     return (
-        //         <div key={index} className='reviewInfo'>
-        //             <p className='reviewText'>{review.name}</p>
-        //             <p className='reviewText'>{review.title}</p>
-        //             <p className='reviewText'>{review.rating}</p>
-        //             <p className='reviewText'>{review.body}</p>
-        //             <div className='trashButtonAnimation'>
-        //                 <button className='trashButton' onClick={() => this.handleDelete(review.id)}><i class="fas fa-trash"></i></button>
-        //             </div>
-        //         </div>
-        //     )
-        // })
+        let mappedTrailReviews = reviews.map((review, index) => {
+            console.log('review: ', review);
+            return <ReviewCard
+            key={index} 
+            title={review.title} 
+            body={review.body} 
+            rating={review.rating} 
+            reviewId={review.id} 
+            time={review.time}
+            authorId={review.author_id} 
+            authorImage={review.author_image}
+            authorName={review.author_name}
+            trailId={review.review_trail_id}
+            userSubmittedImage1={review.user_submitted_image1}
+            userSubmittedImage2={review.user_submitted_image2}
+            deleteReview={this.props.deleteReview}
+            editReview={this.props.editReview}
+            user={this.props.user}
+            />
+        })
 
 
         return ( 
             <div className='reviewContainer'>
-                <div className='reviewFormContainer'>                         
+                {user ?                      
+                <div className='reviewFormContainer'>   
                     <form className='reviewForm'>
                         <div className='reviewTitleContainer'>
                             <label className='reviewLabel' htmlFor='title'>Title: </label>
@@ -117,22 +142,34 @@ class Reviews extends Component {
                             <label className='reviewLabel' htmlFor='reviewBody'>Review: </label>
                             <textarea name='reviewBody' className='reviewInput' onChange={this.handleChange} />
                         </div>
+                        {/* <div className='photoContainer'>
+                            <button onClick={() => this.handlePhotoToggle()}></button>
+                            {!togglePhotos ?
+                                null
+                            :  
+                                <Dropzone onDrop={(files) => this.onDrop(files)}>
+                                    <div>Try dropping some files here, or click to select files to upload.</div>
+                                </Dropzone>
+                                {this.state.printingmessage}
+                            }
+                        </div> */}
 
                         <div className='reviewSubmitButtonContainer'>
-                            <button className='submitButton' type='submit' onClick={(e) => { this.handlePost( trailName, imgSmallMed, title, reviewBody, rating, user.id, e )}}>Submit</button>
+                            <button className='submitButton' type='submit' onClick={() => { postReview( this.props.match.params.id, chosenTrail[0].id ,chosenTrail[0].name, chosenTrail[0].imgSmallMed, (userSubmittedImage1 || null), (userSubmittedImage2 || null), title, reviewBody, rating, user.id, user.user_image, user.name)}}>Submit</button>
                         </div>
-                    {/* {user && user.profileFinished ? */}
-
-                    {/* : */}
-                    {/* // <button className='postButton'  onClick={() => {alert('You are not logged in! Please log in or create an account to post a review.')}}>Post Review</button> */}
-                    
                     </form>
                 </div>
+                    :
+                    <div className='reviewLoginMessageContainer'>
+                        <div className='reviewLoginMessage'>Please <span style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => this.login()}>log in</span> to share a review on this trail!</div>
+                    </div>
+                    }
 
-                <div className='leftReviewsContainer'>
-
-                    <h1 className='reviewsTitle'>See what others thought about the trail›</h1>
-                    {/* <div>{mappedTrailReviews}</div> */}
+                <div className='mainReviewsContainer'>
+                    <div className='reviewsTitleContainer'>
+                        <h1 className='reviewsTitle'>See what others thought about the trail</h1>
+                    </div>
+                    <div>{mappedTrailReviews}</div>
                 </div>
             </div>
          );
@@ -141,8 +178,7 @@ class Reviews extends Component {
 
 const mapStateToProps = state => {
     return{
-        // trailReviews:state.trailReviews,
-        // trailId: state.trailId,
+        reviews: state.reviews,
         user: state.user,
         chosenTrail: state.chosenTrail,
 
@@ -150,9 +186,9 @@ const mapStateToProps = state => {
 }
  
 const mapDispatchToProps = {
-    // getTrailReviews,
-    // deleteReview,
-    // postTrailReview,
+    getReviews,
+    deleteReview,
+    postReview,
 
 }
 

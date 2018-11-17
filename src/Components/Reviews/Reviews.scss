@@ -1,5 +1,33 @@
 @import '../../colors.scss';
 
+.mainReviewsContainer {
+    margin: 60px auto;
+    border: $blackText solid 3px;
+    .reviewsTitleContainer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: $blackText;
+        color: white;
+
+        .reviewsTitle {
+        
+        }
+    }
+    
+}
+
+.reviewLoginMessageContainer {
+    display: flex;
+    margin: 50px 0 0 0;
+    justify-content: center;
+    .reviewLoginMessage {
+        font-size: 20px;
+        font-weight: bold;
+
+    }
+}
+
 .reviewContainer {
 
     .reviewFormContainer {

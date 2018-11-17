@@ -3,19 +3,16 @@ import axios from 'axios';
 const initialState = {
     user: [],
     isLoading: false,
-    position: [],
     chosenTrail:[],
-    trailId: '',
-    trailsList: [],
-    trails: [],
-    trail: []
+    trail: [],
+    reviews: [],
 }
 
 const LOGGED_IN = 'LOGGED_IN';
 const LOGGED_OUT = 'LOGGED_OUT';
 const SAVE_NEW_USER_INFO = 'SAVE_NEW_USER_INFO';
 
-const FOUND_LOCATION ='FOUND_LOCATION';
+const GET_REVIEWS = 'GET_REVIEWS';
 
 const CHOSEN_TRAIL = 'CHOSEN_TRAIL';
 const GET_TRAIL = 'GET_TRAIL';
@@ -33,18 +30,18 @@ export default function reducer (state = initialState, action){
             return {...state, user: null}
         case `${SAVE_NEW_USER_INFO}_FULFILLED`:
             return {...state, user: action.payload}
-        case FOUND_LOCATION:
-            return {...state, latitude: action.payload.lat, longitude: action.payload.long}
         case GET_TRAIL:
             return {...state, chosenTrail: action.payload}
         case CHOSEN_TRAIL:
             return {...state, trailId: action.payload}
         case `${POST_VISITED_TRAIL}_FULFILLED`:
-            return {...state, trail:action.payload}
+            return {...state, trail: action.payload}
         case `${SAVE_FOR_LATER}_FULFILLED`:
-            return {...state, trail:action.payload}
+            return {...state, trail: action.payload}
+        case `${GET_REVIEWS}_FULFILLED`:
+            return {...state, reviews: action.payload}
     default:
-    return state
+        return state
     }
 }
 
@@ -56,12 +53,9 @@ export function getUser(){
         type: LOGGED_IN,
         payload: axios.get('/api/user-data').then(response => {
             return response.data
-            }).catch(error => {
-          
             })
-        }
-    }
-    
+        }}
+
 export function logOut(){
     return {
         type: LOGGED_OUT
@@ -83,12 +77,6 @@ export function chooseTrail(trailId) {
     }
 }
 
-export function findGeo(lat, long) {
-    return {
-        type: FOUND_LOCATION,
-        payload: {lat, long}
-    }
-}
 // //----------------------------------------------------------------------VISITED--------------------------------------------------------------\\
 
 export function postVisitedTrail(userId, trailId, trailName, trailImage, trailLocation, trailDifficulty){
@@ -126,3 +114,41 @@ return {
 //         payload: user
 //     }
 // }
+
+// //----------------------------------------------------------------------REVIEWS--------------------------------------------------------------\\
+
+export function getReviews(trailId){
+    let reviews = axios.get(`/api/trailreview/${trailId}`).then(response => {
+        console.log('response: ', response);
+        return response.data
+    })
+return {
+    type: GET_REVIEWS,
+    payload: reviews
+    }
+}
+
+export async function postReview(ParamsId, trailId, trailName, trailImg, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, userId, userImage, userName){
+    const date = new Date();
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const time = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+
+    let reviews = await axios.post(`/api/trailreview/${ParamsId}`, { trailId, trailName, trailImg, userSubmittedImage1, userSubmittedImage2, title, time, reviewBody, rating, userId, userImage, userName} ).then(response => {
+        console.log( response.data )
+            return response.data
+        });
+return {
+    type: GET_REVIEWS,
+    payload: reviews
+    }
+}
+
+export function deleteReview(trailId, reviewId){
+    let reviews = axios.delete(`/api/trailreview/${trailId}?reviewId=${reviewId}`).then((response) => {
+        return response.data
+    })
+return {
+    type: GET_REVIEWS,
+    payload: reviews
+    }
+}

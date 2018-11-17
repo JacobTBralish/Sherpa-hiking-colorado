@@ -19,7 +19,7 @@ class MapBox extends Component {
          }
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         await navigator.geolocation.getCurrentPosition(
             (position) => {
               console.log("wokeeey");
