@@ -12,6 +12,7 @@ import trailRatings from '../../Image/trailRatings.png'
 
 
 import './TrailView.scss';
+import ReviewForm from '../ReviewForm/ReviewForm';
 
 
 class TrailView extends Component {
@@ -101,6 +102,7 @@ closeModal() {
                     <MapBox lat={trail.latitude} long={trail.longitude} image={trail.imgSqSmall} />
                 </>
                 <>
+                    <ReviewForm />
                     <Reviews trailName={trail.name} image={trail.imgSmallMed} />
                 </>
                 <>                    
