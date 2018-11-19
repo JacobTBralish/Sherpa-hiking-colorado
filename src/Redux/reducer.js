@@ -13,6 +13,9 @@ const LOGGED_OUT = 'LOGGED_OUT';
 const SAVE_NEW_USER_INFO = 'SAVE_NEW_USER_INFO';
 
 const GET_REVIEWS = 'GET_REVIEWS';
+const POST_REVIEW = 'POST_REVIEW';
+const DELETE_REVIEW = 'DELETE_REVIEW';
+const EDIT_REVIEW = 'EDIT_REVIEW';
 
 const CHOSEN_TRAIL = 'CHOSEN_TRAIL';
 const GET_TRAIL = 'GET_TRAIL';
@@ -39,6 +42,12 @@ export default function reducer (state = initialState, action){
         case `${SAVE_FOR_LATER}_FULFILLED`:
             return {...state, trail: action.payload}
         case `${GET_REVIEWS}_FULFILLED`:
+            return {...state, reviews: action.payload}
+        case `${POST_REVIEW}_FULFILLED`:
+            return {...state, reviews: action.payload}
+        case `${DELETE_REVIEW}_FULFILLED`:
+            return {...state, reviews: action.payload}
+        case `${EDIT_REVIEW}_FULFILLED`:
             return {...state, reviews: action.payload}
     default:
         return state
@@ -128,17 +137,17 @@ return {
     }
 }
 
-export async function postReview(ParamsId, trailId, trailName, trailImg, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, userId, userImage, userName){
+export function postReview(ParamsId, trailId, trailName, trailImg, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, userId, userImage, userName){
     const date = new Date();
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const time = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 
-    let reviews = await axios.post(`/api/trailreview/${ParamsId}`, { trailId, trailName, trailImg, userSubmittedImage1, userSubmittedImage2, title, time, reviewBody, rating, userId, userImage, userName} ).then(response => {
+    let reviews = axios.post(`/api/trailreview/${ParamsId}`, { trailId, trailName, trailImg, userSubmittedImage1, userSubmittedImage2, title, time, reviewBody, rating, userId, userImage, userName} ).then(response => {
         console.log( response.data )
             return response.data
         });
 return {
-    type: GET_REVIEWS,
+    type: POST_REVIEW,
     payload: reviews
     }
 }
@@ -148,7 +157,21 @@ export function deleteReview(trailId, reviewId){
         return response.data
     })
 return {
-    type: GET_REVIEWS,
+    type: DELETE_REVIEW,
     payload: reviews
     }
 }
+
+
+export function editReview(ParamsId, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating){
+
+    let reviews = axios.put(`/api/trailreview/${ParamsId}`, { userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating } ).then(response => {
+        console.log( response.data )
+            return response.data
+        });
+return {
+    type: EDIT_REVIEW,
+    payload: reviews
+    }
+}
+

@@ -98,16 +98,12 @@ res.send('endpoint live')
 //------------------------------------------------------------------------------Cloudinary------------------------------------------------------------------\\
 
 app.get('/api/upload', (req, res) => {
-
     // get a timestamp in seconds which is UNIX format
         const timestamp = Math.round((new Date()).getTime() / 1000);
-    
     // cloudinary API secret stored in the .env file
         const api_secret  = process.env.CLOUDINARY_SECRET_API;
-    
     // user built in cloudinary api sign request function to  create hashed signature with your api secret and UNIX timestamp
         const signature = cloudinary.utils.api_sign_request({ timestamp: timestamp }, api_secret);
-    
     // make a signature object to send to your react app
         const payload = {
             signature: signature,
@@ -116,9 +112,10 @@ app.get('/api/upload', (req, res) => {
             res.json(payload);
     })
 
+// ================================================ Trail ====================================== \\
+app.get('/api/getpostedimages/:id', rC.getTrailsPostedPictures);
 
-//------------------------------------------------------------------------------Trail Controller------------------------------------------------------------------\\
-
+// ================================================ Reviews ====================================== \\
 app.get('/api/trailreview/:id', rC.getTrailReviewById);
 app.post('/api/trailreview/:id', rC.postReview);
 app.delete('/api/trailreview/:id', rC.deleteReview);
@@ -127,10 +124,8 @@ app.put('/api/trailreview/:id', rC.editReview);
 // ================================================ Visted ====================================== \\
 app.get('/api/visited/:id', vC.getVisitedTrails);
 app.post('/api/visited/:id', vC.markAsVisited);
-// ================================================ Visted ====================================== \\
-// app.put('/api/updateuser/:id', uC.changeUserInfo);
 
-// ================================================ Visted ====================================== \\
+// ================================================ Saved ====================================== \\
 app.get('/api/saveforlater/:id', sflC.getSavedTrails);
 app.post('/api/saveforlater/:id', sflC.saveForLater);
 
@@ -145,6 +140,11 @@ app.get('/api/user-data', (req, res) => {
 app.post('/api/logout', (req, res) => {
     req.session.destroy();
     res.json();
+})
+
+const path = require('path')
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 })
 
 

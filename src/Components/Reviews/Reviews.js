@@ -19,11 +19,11 @@ class Reviews extends Component {
         await this.props.getReviews(this.props.match.params.id)
     }
 
-    render() { 
+      render() { 
         let{ reviews } = this.props;
 
         let mappedTrailReviews = reviews.map((review, index) => {
-            // console.log('review: ', review);
+            console.log('review: ', review);
             return <ReviewCard
             key={index} 
             title={review.title} 

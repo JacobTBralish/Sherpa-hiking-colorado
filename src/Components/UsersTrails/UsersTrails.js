@@ -28,24 +28,22 @@ class UsersTrails extends Component {
                     isLoading: false
                 })
             } catch (error) {
-                throw (new Error('Cannot get trails near this city!'))
+                throw (new Error('Cannot get your saved trails!'))
             }
     }
-    componentWillReceiveProps(nextProps) {
+    async componentWillReceiveProps(nextProps) {
         const { fetch, name} = nextProps;
         const { user } = this.props;
-        console.log('name: ', name);
-        console.log('fetch: ', fetch);
         if (this.props.name !== name){}
             try {
-                let usersTrails = fetch(user.id);
+                let usersTrails = await fetch(user.id);
                 console.log('trails: ', usersTrails);
                 this.setState({
                     [name]: usersTrails,
                     isLoading: false
                 })
             } catch (error) {
-                throw (new Error('Cannot get trails near this city!'))
+                throw (new Error('Cannot get your saved trails!'))
             }
         }  
     
@@ -57,6 +55,7 @@ class UsersTrails extends Component {
         const { pathname } = this.props.location
         console.log('visitedTrails: ', this.state.visitedTrails);
 
+        
         let usersTrails = this.state[name].map((trail, i) => {
             console.log('trail: ', trail);
             return <Link key={i} to = {pathname === '/Your Visited Trails' ? `/Trail/${trail.saved_trail_id}` : `/Trail/${trail.visited_trail_id}`}><div className='usersTrailsTrailContainer'>

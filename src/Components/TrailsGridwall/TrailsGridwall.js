@@ -177,13 +177,13 @@ console.log(this.state[name]);
         <div className = 'gridwallContainer'>
             <div className = 'gridwallSubContainer' >
                 <div className = 'gridwallHeaderContainer' >
-                <div className='titleImageContainer'>
-                    <img className='titleImage' src={this.props.image}></img>
-                </div>
-                <div className='gridwallTitleContainer'>
-                    <h1 className = 'gridWallTitle' >{this.props.city ? this.props.city : "All Trails"}</h1> 
-                </div>
-            </div> 
+                    <div className='titleImageContainer'>
+                        <img className='titleImage' src={this.props.image}></img>
+                    </div>
+                    <div className='gridwallTitleContainer'>
+                        <h1 className = 'gridWallTitle' >{this.props.city ? this.props.city : "All Trails"}</h1> 
+                    </div>
+                </div> 
                 {error
                     ?
                     <div> Oh no!There was an error loading the trails.Please try again later. </div>
@@ -192,12 +192,12 @@ console.log(this.state[name]);
                     : mappedTrailCard
                     } 
             </div> 
-            <div className = 'paginationContainer'>
-            <Pagination activePage = {this.state.activePage}
-            itemsCountPerPage = {26}
-            totalItemsCount = {this.state[name].length}
-            pageRangeDisplayed = {5}
-            onChange = {this.handlePageChange}/>
+                <div className = 'paginationContainer'>
+                    <Pagination activePage = {this.state.activePage}
+                    itemsCountPerPage = {26}
+                    totalItemsCount = {this.state[name].length}
+                    pageRangeDisplayed = {5}
+                    onChange = {this.handlePageChange}/>
                 </div> 
             </div> );
         }

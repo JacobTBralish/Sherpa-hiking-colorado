@@ -4,12 +4,10 @@ import './Spinner.scss';
 
 const LoadingSpinner = () => {
     return ( 
-        <div className="spinner">
-            <div className="spinner-text">Getting Trails</div>
-            <div className="spinner-sector spinner-sector-red"></div>
-            <div className="spinner-sector spinner-sector-blue"></div>
-            <div className="spinner-sector spinner-sector-green"></div>
-      </div>
+        <div class="spinner">
+            <div class="dot1"></div>
+            <div class="dot2"></div>
+        </div>
      );
 }
  

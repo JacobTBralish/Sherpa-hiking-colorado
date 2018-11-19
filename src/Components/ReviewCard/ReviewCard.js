@@ -1,27 +1,23 @@
 import React, { Component } from 'react';
 import EditReviewForm from '../EditReviewForm/EditReviewForm';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { deleteReview } from '../../Redux/reducer';
 
 import './ReviewCard.scss';
 
-class EditReviewCard extends Component {
+class ReviewCard extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
-            toggle: false,
-         }
+        this.state = { toggle: false }
     }
 
     handleToggle = () => {
         this.setState((prevState) =>{
-        //  console.log('prevstate', prevState)
             return {
                 toggle: !prevState.toggle,
             }
          })
      }
-
-
 
     render() { 
         return ( 
@@ -34,13 +30,18 @@ class EditReviewCard extends Component {
                     <div className='reviewInfoBox'>
                         <div className='reviewInfo'>
                             <div className='reviewTopContainer'>
-                                <div className='titleContainer'>
-                                    <label htmlFor='title'>Title:</label>
-                                    <p id='title' className='reviewText'>{this.props.title}</p>
+                                <div className='titleCluster'>
+                                    <div className='titleContainer'>
+                                        <label htmlFor='title'>Title:</label>
+                                        <p id='title' className='reviewText'>{this.props.title}</p>
+                                    </div>
+                                    <div className='ratingContainer'>
+                                        <label htmlFor='rating'>Rating:</label>
+                                        <p id='rating' className='reviewText'>{`${this.props.rating}/5`}</p>
+                                    </div>
                                 </div>
-                                <div className='ratingContainer'>
-                                    <label htmlFor='rating'>Rating:</label>
-                                    <p id='rating' className='reviewText'>{`${this.props.rating}/5`}</p>
+                                <div className='dateContainer'>
+                                    <p id='date' className='dateText'>{this.props.time}</p>
                                 </div>
                             </div>
                             <label htmlFor='body'></label>
@@ -48,8 +49,8 @@ class EditReviewCard extends Component {
                         </div>
                         {this.props.user.id === this.props.authorId ?
                         <div className='reviewButtonCluster'>
-                            <button id='trashButton' onClick={() => this.props.deleteReview(this.props.trailId, this.props.reviewId)}><i className="fas fa-trash"></i></button>
-                            <button id='trashButton' onClick={() => this.handleToggle()}><i className="fas fa-edit"></i></button>
+                            <button id='iconButton' onClick={() => this.props.deleteReview(this.props.trailId, this.props.reviewId)}><i className="fas fa-trash"></i></button>
+                            <button id='iconButton' onClick={() => this.handleToggle()}><i className="fas fa-edit"></i></button>
                         </div>
                         :
                         null
@@ -66,4 +67,14 @@ class EditReviewCard extends Component {
     }
 }
  
-export default EditReviewCard;
+const mapStateToProps = state => {
+    return {
+        user: state.user,
+    }
+} 
+
+const mapDispatchToProps = {
+    deleteReview
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewCard);

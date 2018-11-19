@@ -13,6 +13,7 @@ import trailRatings from '../../Image/trailRatings.png'
 
 import './TrailView.scss';
 import ReviewForm from '../ReviewForm/ReviewForm';
+import PostedPictures from '../../PostedPictures/PostedPictures';
 
 
 class TrailView extends Component {
@@ -31,15 +32,17 @@ class TrailView extends Component {
         })
     }
 
-    
-  openModal() {
-    this.setState({ isModalOpen: true })
-    
-  }
 
-closeModal() {
-    this.setState({ isModalOpen: false })
-  }
+
+    
+    openModal() {
+        this.setState({ isModalOpen: true })
+    
+    }
+
+    closeModal() {
+        this.setState({ isModalOpen: false })
+    }
 
     render() { 
         let { chosenTrail, user } = this.props;
@@ -53,6 +56,7 @@ closeModal() {
                     <div className='trailViewImageContainer'>
                         <img className='trailViewImage' src={trail.imgMedium} alt=''></img>
                     </div>
+                        <PostedPictures />
                     <div className='trailViewInfo'>
                         <div className='trailViewNameContainer'>
                             <h1 className='trailViewName'>{trail.name}</h1>

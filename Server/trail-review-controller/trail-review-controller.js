@@ -13,6 +13,20 @@ module.exports = {
         })
     },
 
+    getTrailsPostedPictures: (req, res) => {
+        const db = req.app.get('db');
+        let { id } = req.params;
+        console.log('req.params: ', req.params);
+
+        db.get_pictures_posted_by_users(parseInt(id)).then(images => {
+            console.log('images: ', images);
+            res.status(200).json(images)
+        }).catch(error => {
+            res.status(500).json(error)
+            console.log('Error getting pictures posted by users in controller ', error);
+        })
+    },
+
     postReview: (req, res) => {
         const db = req.app.get('db');
         let { trailId, trailName, trailImg ,title, userSubmittedImage1, userSubmittedImage2, time, reviewBody, rating, userId, userImage, userName } = req.body;
@@ -44,9 +58,9 @@ module.exports = {
 
     editReview: (req, res) => {
         const db = req.app.get('db');
-        let { title, rating, reviewBody } = req.body;
+        let { userSubmittedImage1, userSubmittedImage2, title, rating, reviewBody } = req.body;
 
-        db.edit_trail_review({title, rating, reviewBody}).then(response => {
+        db.edit_trail_review({user_submitted_image1: userSubmittedImage1, user_submitted_image2: userSubmittedImage2, title, rating, reviewBody}).then(response => {
             res.status(200).json(response)
         }).catch(error =>{
             res.status(500).json(error)

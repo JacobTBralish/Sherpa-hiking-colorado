@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Dropzone from 'react-dropzone'
+import Dropzone from 'react-dropzone';
 import { postReview } from '../../Redux/reducer';
-// import '../Reviews.scss';
+import '../Reviews/Reviews.scss';
 
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/jacob-development/image/upload';
 
@@ -16,10 +16,11 @@ class ReviewForm extends Component {
             togglePhotos: false,
             filesPreview: [],
             filesToBeSent: [],
-            printcount: 2,
+            printcount: 1,
             title: '',
             reviewBody: '',
-            userSubmittedImages: [],
+            userSubmittedImage1: '',
+            userSubmittedImage2: '',
         }
     }
 
@@ -43,36 +44,32 @@ class ReviewForm extends Component {
          })
      }
 
+
     onDrop(acceptedFiles, rejectedFiles) {
+        console.log('acceptedFiles: ', acceptedFiles);
         // console.log('Accepted files: ', acceptedFiles[0].name);
         var filesToBeSent=this.state.filesToBeSent;
+        console.log('filesToBeSent: ', filesToBeSent);
         if(filesToBeSent.length < this.state.printcount){
             filesToBeSent.push(acceptedFiles);
-         var filesPreview=[];
-         for(var i in filesToBeSent){
-             filesPreview.push(<div>
-             {filesToBeSent[i][0].name}
-             {/* <MuiThemeProvider>
-             <a href="#"><FontIcon
-             className="material-icons customstyle"
-             color={blue500}
-             styles={{ top:10,}}
-             >clear</FontIcon></a>
-           </MuiThemeProvider> */}
-             </div>
-           )
-       }
-       // this.setState({userSubmittedImages:filesToBeSent,
-       //     filesPreview
-       // })
-       this.handleImageUpload(filesToBeSent)
+            var filesPreview=[];
+            for(var i in filesToBeSent){
+              filesPreview.push(<div>
+                {filesToBeSent[i][0].name}
+                </div>
+              )
+            }
+       console.log('filesToBeSent: ', filesToBeSent);
+       this.setState({ filesPreview });
+       this.handleImageUpload(acceptedFiles)
    }
    else{
-       alert("You have reached the limit of printing files at a time")
+       alert("You may only upload one photo at a time!")
    }
 }
 
 handleImageUpload = (file) => {
+    console.log('file: ', file);
    let submittedImages= [];
    axios.get('/api/upload').then(response => {
        
@@ -81,20 +78,26 @@ handleImageUpload = (file) => {
       formData.append('api_key', '626685399682776');
       formData.append('timestamp', response.data.timestamp)
       formData.append('file', file[0]);
-
-      axios.post(CLOUDINARY_UPLOAD_URL, formData).then(response => { console.log(response.data)
-       if(response.data > 0){
-           submittedImages.push(response.data.secure_url)
-       }
+      console.log('file[0]: ', file[0]);
+      console.log('formData: ', formData);
+      
+      axios.post(CLOUDINARY_UPLOAD_URL, formData).then(response => {
+        console.log('response: ', response);
+        console.log('response.data: ', response.data);
+    //    if(response.data.length > 0){
+           submittedImages.push(submittedImages)
+    //    }
           this.setState({
-               userSubmittedImages: submittedImages
+            userSubmittedImage1: response.data.secure_url
           })
-      })
+      }).catch(error => console.log(error))
    })
 }
 
     render() { 
-        let { title, reviewBody, rating, togglePhotos, isLoading, userSubmittedImage1, userSubmittedImage2, userSubmittedImages } = this.state;
+        let { title, reviewBody, rating, togglePhotos, isLoading, userSubmittedImage1, userSubmittedImage2 } = this.state;
+        console.log('userSubmittedImages: ', userSubmittedImage1);
+        console.log('userSubmittedImages: ', userSubmittedImage2);
         let{ postReview, user, chosenTrail } = this.props;
         return ( 
             <div className='reviewContainer'>
@@ -103,13 +106,13 @@ handleImageUpload = (file) => {
                         <form className='reviewForm'>
                             <div className='reviewTitleContainer'>
                                 <label className='reviewLabel' htmlFor='title'>Title: </label>
-                                <input onChange={this.handleChange} name='title'></input>
+                                <input required onChange={this.handleChange} name='title'></input>
                             </div>
                             
                             <div className='reviewRatingContainer'>
                                 <label className='reviewLabel' htmlFor='rating'>Rating:</label>
                                 <div className='selectContainer'>
-                                    <select className='rating' name='rating' onChange={this.handleChange}>
+                                    <select required className='rating' name='rating' onChange={this.handleChange}>
                                         <option>Select a rating</option>
                                         <option value={1}>1</option>
                                         <option value={1.5}>1.5</option>
@@ -125,24 +128,17 @@ handleImageUpload = (file) => {
                             </div>
                             <div className='reviewBodyContainer'>
                                 <label className='reviewLabel' htmlFor='reviewBody'>Review: </label>
-                                <textarea name='reviewBody' className='reviewInput' onChange={this.handleChange} />
+                                <textarea required name='reviewBody' className='reviewInput' onChange={this.handleChange} />
                             </div>
                             <div className='photoContainer'>
-                            <div>
-                                <button onClick={() => this.handlePhotoToggle()}>Add a photo</button>
-                            </div>
-                                {!togglePhotos ?
-                                    ''
-                                :  
-                                    <Dropzone onDrop={(files) => this.onDrop(files)}>
-                                        <div>Try dropping some files here, or click to select files to upload.</div>
+                                    <Dropzone className='dropZone' onDrop={(files) => this.onDrop(files)}>
+                                        <div>Drag or click to add a photo of your experience (optional)</div>
                                     </Dropzone>
-                                    // {this.state.printingmessage}
-                                }
                             </div>
+                            {this.state.filesPreview}
 
                             <div className='reviewSubmitButtonContainer'>
-                                <button className='submitButton' type='submit' onClick={() => { postReview( this.props.match.params.id, chosenTrail[0].id ,chosenTrail[0].name, chosenTrail[0].imgSmallMed, (userSubmittedImages[0] || null), (userSubmittedImages[1] || null), title, reviewBody, rating, user.id, user.user_image, user.name)}}>Submit</button>
+                                <button className='submitButton' type='submit' onClick={() => { postReview( this.props.match.params.id, chosenTrail[0].id ,chosenTrail[0].name, chosenTrail[0].imgSmallMed, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, user.id, user.user_image, user.name)}}>Submit</button>
                             </div>
                         </form>
                     </div>
@@ -150,7 +146,7 @@ handleImageUpload = (file) => {
                         <div className='reviewLoginMessageContainer'>
                             <div className='reviewLoginMessage'>Please <span style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => this.login()}>log in</span> to share a review on this trail!</div>
                         </div>
-                    }
+                }
             </div>
          );
     }

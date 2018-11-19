@@ -99,21 +99,21 @@ class Nav extends Component {
                                    <li><Link to='/'>Home</Link></li>
                                     <li><Link to=''>Trails</Link>
                                         <ul>
-                                            <li><Link className='rightNavListItem' to='/All Trails'>All trails</Link></li>
-                                            <li><Link className='rightNavListItem' to={{pathname:'/Trails Near Me', state:{lat: latitude, long: longitude}}}>Trails near me</Link></li>
+                                            <li onClick={() => this.handleClickOutside()}><Link className='rightNavListItem' to='/All Trails'>All trails</Link></li>
+                                            <li onClick={() => this.handleClickOutside()}><Link className='rightNavListItem' to={{pathname:'/Trails Near Me', state:{lat: latitude, long: longitude}}}>Trails near me</Link></li>
                                             <li><Link className='rightNavListItem' to=''>Trails by city</Link>
                                             
                                                 <ul>
-                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Alamosa'>Alamosa</Link></li>
-                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Aspen'>Aspen</Link></li>
-                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Boulder'>Boulder</Link></li>
-                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Breckenridge'>Breckenridge</Link></li>
-                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Colorado Springs'>Colorado Springs</Link></li>
-                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Denver'>Denver</Link></li>
-                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Estes Park'>Estes Park</Link></li>
-                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Leadville'>Leadville</Link></li>
-                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Rifle'>Rifle</Link></li>
-                                                    <li className='rightNavExtraListItemCities'><Link to='/Trails Near Telluride'>Telluride</Link></li>
+                                                    <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Alamosa'>Alamosa</Link></li>
+                                                    <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Aspen'>Aspen</Link></li>
+                                                    <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Boulder'>Boulder</Link></li>
+                                                    <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Breckenridge'>Breckenridge</Link></li>
+                                                    <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Colorado Springs'>Colorado Springs</Link></li>
+                                                    <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Denver'>Denver</Link></li>
+                                                    <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Estes Park'>Estes Park</Link></li>
+                                                    <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Leadville'>Leadville</Link></li>
+                                                    <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Rifle'>Rifle</Link></li>
+                                                    <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Telluride'>Telluride</Link></li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -121,10 +121,10 @@ class Nav extends Component {
                                     {!user ? 
                                         <li onClick={() => this.login()}>Sign In</li>
                                         :
-                                    <li><Link to='/'>Account</Link>
+                                    <li><Link to=''>Account</Link>
                                         <ul>
-                                            <li className='rightNavExtraListItemCities'><Link to='/Your Saved Trails'>Trails to visit</Link></li>
-                                            <li className='rightNavExtraListItemCities'><Link to='/Your Visited Trails'>Visited trails</Link></li>
+                                            <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Your Saved Trails'>Trails to visit</Link></li>
+                                            <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Your Visited Trails'>Visited trails</Link></li>
                                             {/* <li id='logoutButton'  onClick={() => this.openModal()} className='rightNavExtraListItemCities'>Account Settings</li> */}
                                             <li id='logoutButton' className='rightNavExtraListItemCities' onClick={() => {this.logout(); this.props.history.push('/');}}>Log out</li>
                                         </ul>
@@ -136,6 +136,7 @@ class Nav extends Component {
                     </nav>
                     <div className='searchContainer'>
                         {/* <input placeholder='Search'></input> */}
+                        
                         {user ?
                         <h3 id='welcomeName'>Hey, {user.first_name}!</h3>
                             :

@@ -51,7 +51,12 @@ export const fetchByGeoLocation = async (lat,long) => {
 
 export const fetchSavedTrails = async (userId) => {
     let response = await axios.get(`/api/saveforlater/${userId}`);
-    return response.data
+    if (response.data.length > 0){
+        console.log('response: ', response);
+        return response.data
+        } else {
+            return "There is nothing here to see!"
+        }
     }
 
 

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { editReview } from '../../Redux/reducer';
+
+import '../Reviews/Reviews.scss';
 
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/jacob-development/image/upload';
 
@@ -10,9 +14,7 @@ class EditReviewForm extends Component {
         this.state = { 
             title: '',
             reviewBody: '',
-            // userSubmittedImage1: '',
-            // userSubmittedImage2: '',
-            userSubmittedImages: [],
+            userSubmittedImages: '',
             rating: 0,
             reviews: [],
             toggle: false,
@@ -51,19 +53,9 @@ class EditReviewForm extends Component {
           for(var i in filesToBeSent){
               filesPreview.push(<div>
               {filesToBeSent[i][0].name}
-              {/* <MuiThemeProvider>
-              <a href="#"><FontIcon
-              className="material-icons customstyle"
-              color={blue500}
-              styles={{ top:10,}}
-              >clear</FontIcon></a>
-            </MuiThemeProvider> */}
               </div>
             )
         }
-        // this.setState({userSubmittedImages:filesToBeSent,
-        //     filesPreview
-        // })
         this.handleImageUpload(filesToBeSent)
     }
     else{
@@ -93,59 +85,76 @@ handleImageUpload = (file) => {
 }
 
     render() { 
-        let{ editReview, user, chosenTrail, reviews } = this.props;
+        let{ editReview, user } = this.props;
         console.log('user: ', user);
-        let { title, reviewBody, rating, togglePhotos, userSubmittedImage1, userSubmittedImage2 } = this.state;
-        // console.log(chosenTrail);
+        let { title, reviewBody, rating, userSubmittedImage1, userSubmittedImage2 } = this.state;
         return ( 
-            <>
-                <form className='reviewForm'>
-                    <div className='reviewTitleContainer'>
-                        <label className='reviewLabel' htmlFor='title'>Title: </label>
-                        <input onChange={this.handleChange} name='title'></input>
+        <>
+            <div className='reviewContainer'>
+                <div className='reviewSubContainer'>
+                    <div className='authorImageContainer'>
+                        <img className='authorImage' src={this.props.authorImage}/>
                     </div>
-                    
-                    <div className='reviewRatingContainer'>
-                        <label className='reviewLabel' htmlFor='rating'>Rating:</label>
-                        <div className='selectContainer'>
-                            <select className='rating' name='rating' onChange={this.handleChange}>
-                                <option>Select a rating</option>
-                                <option value={1}>1</option>
-                                <option value={1.5}>1.5</option>
-                                <option value={2}>2</option>
-                                <option value={2.5}>2.5</option>
-                                <option value={3}>3</option>
-                                <option value={3.5}>3.5</option>
-                                <option value={4}>4</option>
-                                <option value={4.5}>4.5</option>
-                                <option value={5}>5</option>
-                            </select>
+                    <div className='reviewInfoBox'>
+                        <div className='reviewInfo'>
+                            <div className='reviewTopContainer'>
+                                <div className='titleCluster'>
+                                    <div className='titleContainer'>
+                                        <label className='reviewLabel' htmlFor='title'>Title: </label>
+                                        <input required onChange={this.handleChange} name='title'></input>
+                                    </div>
+                                    <div className='reviewRatingContainer'>
+                                        <label className='reviewLabel' htmlFor='rating'>Rating:</label>
+                                        <div className='selectContainer'>
+                                            <select required className='rating' name='rating' onChange={this.handleChange}>
+                                                <option>Select a rating</option>
+                                                <option value={1}>1</option>
+                                                <option value={1.5}>1.5</option>
+                                                <option value={2}>2</option>
+                                                <option value={2.5}>2.5</option>
+                                                <option value={3}>3</option>
+                                                <option value={3.5}>3.5</option>
+                                                <option value={4}>4</option>
+                                                <option value={4.5}>4.5</option>
+                                                <option value={5}>5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='dateContainer'>
+                                    <p id='date' className='dateText'>{this.props.time}</p>
+                                </div>
+                            </div>
+                            <div className='reviewBodyContainer'>
+                                <label className='reviewLabel' htmlFor='reviewBody'>Review: </label>
+                                <textarea required name='reviewBody' className='reviewInput' onChange={this.handleChange} />
+                            </div>
+                            <div className='photoContainer'>
+                                <Dropzone className='dropZone' onDrop={(files) => this.onDrop(files)}>
+                                    <div>Try dropping some files here, or click to select files to upload.</div>
+                                </Dropzone>
+                            </div>
+                            </div>
+                            <div className='reviewSubmitButtonContainer'>
+                                <button className='submitButton' type='submit' onClick={() => { editReview( this.props.match.params.id, (userSubmittedImage1 || null), (userSubmittedImage2 || null), title, reviewBody, rating)}}>Save changes</button>
+                                <button onClick={()=> this.handleToggle()}>Cancel</button>
+                            </div>
+                        </div>
                         </div>
                     </div>
-                    <div className='reviewBodyContainer'>
-                        <label className='reviewLabel' htmlFor='reviewBody'>Review: </label>
-                        <textarea name='reviewBody' className='reviewInput' onChange={this.handleChange} />
-                    </div>
-                    <div className='photoContainer'>
-                    <button onClick={() => this.handlePhotoToggle()}></button>
-                    {!togglePhotos ?
-                        null
-                    :  
-                        <Dropzone onDrop={(files) => this.onDrop(files)}>
-                            <div>Try dropping some files here, or click to select files to upload.</div>
-                        </Dropzone>
-                        // {this.state.printingmessage}
-                    }
-                    </div>
-
-                    <div className='reviewSubmitButtonContainer'>
-                        <button className='submitButton' type='submit' onClick={() => { editReview( this.props.match.params.id, chosenTrail[0].id ,chosenTrail[0].name, chosenTrail[0].imgSmallMed, (userSubmittedImage1 || null), (userSubmittedImage2 || null), title, reviewBody, rating, user.id, user.user_image, user.name)}}>Submit</button>
-                        <button onClick={()=> this.handleToggle()}>Cancel</button>
-                    </div>
-                </form>
-            </>
-         );
+                </>
+            );
+        }
     }
+  
+const mapStateToProps = state => {
+    return {
+        user: state.user,
+    }
+} 
+
+const mapDispatchToProps = {
+    editReview
 }
- 
-export default EditReviewForm;
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditReviewForm);
