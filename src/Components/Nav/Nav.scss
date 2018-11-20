@@ -241,6 +241,7 @@
 
         .searchContainer {
             display: flex;
+            margin: 0 10px 0 0;
             align-items: center;
             @media(max-width: 550px) {
                 flex-direction: column-reverse;

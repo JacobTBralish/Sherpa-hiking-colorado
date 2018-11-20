@@ -18,15 +18,16 @@ class UsersTrails extends Component {
 
     async componentDidMount() {
         const {user, fetch, name} = this.props;
-        console.log('name: ', name);
-        console.log('fetch: ', fetch);
             try {
                 let usersTrails = await fetch(user.id);
-                console.log('trails: ', usersTrails);
-                this.setState({
-                    [name]: usersTrails,
-                    isLoading: false
-                })
+                if (typeof usersTrails !== 'string'){
+                    this.setState({
+                        [name]: usersTrails,
+                        isLoading: false
+                    })
+                } else {
+                    return this.props.history.push('/error')
+                }
             } catch (error) {
                 throw (new Error('Cannot get your saved trails!'))
             }
@@ -35,29 +36,28 @@ class UsersTrails extends Component {
         const { fetch, name} = nextProps;
         const { user } = this.props;
         if (this.props.name !== name){}
-            try {
-                let usersTrails = await fetch(user.id);
-                console.log('trails: ', usersTrails);
+        try {
+            let usersTrails = await fetch(user.id);
+            if (typeof usersTrails !== 'string'){
                 this.setState({
                     [name]: usersTrails,
                     isLoading: false
                 })
-            } catch (error) {
-                throw (new Error('Cannot get your saved trails!'))
+            } else {
+                return this.props.history.push('/error')
             }
-        }  
+        } catch (error) {
+            throw (new Error('Cannot get your saved trails!'))
+        }
+    }  
     
     render() { 
-        console.log(this.props.location.pathname, 'this.props.location.pathname');
-        console.log('this.props: ', this.props);
         let { error, isLoading } = this.state;
-        const { name, user } = this.props
+        const { name } = this.props
         const { pathname } = this.props.location
-        console.log('visitedTrails: ', this.state.visitedTrails);
 
         
         let usersTrails = this.state[name].map((trail, i) => {
-            console.log('trail: ', trail);
             return <Link key={i} to = {pathname === '/Your Visited Trails' ? `/Trail/${trail.saved_trail_id}` : `/Trail/${trail.visited_trail_id}`}><div className='usersTrailsTrailContainer'>
                 <div className='usersTrailImageContainer'>
                     <img className='usersTrailImage' src={trail.trail_image} alt={trail.trail_name} />

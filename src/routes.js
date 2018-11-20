@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Home from './Components/Home/Home';
 import TrailsGridwall from './Components/TrailsGridwall/TrailsGridwall';
 import TrailsNearBy from './Components/TrailsNearBy/TrailsNearBy';
@@ -7,6 +7,7 @@ import TrailView from './Components/TrailView/TrailView';
 import UsersTrails from './Components/UsersTrails/UsersTrails';
 
 import { getAllTrails, getTrailsNearCity, fetchByGeoLocation, fetchVisitedTrails, fetchSavedTrails } from '../src/APICalls';
+import ErrorPage from './Components/ErrorPage/ErrorPage';
 
 
 export default (
@@ -29,8 +30,8 @@ export default (
         <Route path='/Trails Near Colorado Springs' render={() => (
             <TrailsGridwall fetch={getTrailsNearCity} city="Colorado Springs" name="trailsNearColoradoSprings" lat="38.835220" long="-104.819801" image='https://www.tripsavvy.com/thmb/fWq2rZBczFzYVD-cvFHdQUa8rEk=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/GettyImages-600968276-5b4908ec46e0fb0037da848f.jpg'/>
         )}/>
-        <Route path='/Trails Near Alamosa' render={() => (
-            <TrailsGridwall fetch={getTrailsNearCity} city="Alamosa" name="trailsNearAlamosa" lat="37.469237" long="-105.876357" image='https://southwestdesertlover.files.wordpress.com/2012/07/alamosa-co-5-acres.jpg'/>
+        <Route path='/Trails Near Pagosa Springs' render={() => (
+            <TrailsGridwall fetch={getTrailsNearCity} city="Pagosa Springs" name="trailsNearPagosaSprings" lat="37.267094" long="-107.021251" image='https://www.colorado.com/sites/default/files/_NAX0004a.jpg'/>
         )}/>
         <Route path='/Trails Near Leadville' render={() => (
             <TrailsGridwall fetch={getTrailsNearCity} city="Leadville" name="trailsNearLeadville" lat="39.24669" long="-106.293513" image='https://www.leadvillecorealestate.com/wp-content/uploads/2012/12/fall-2008-2016_03_23-14_54_40-UTC.jpg'/>
@@ -48,7 +49,7 @@ export default (
             <TrailsGridwall fetch={getTrailsNearCity} city="Boulder" name="trailsNearBoulder" lat="40.027443" long="-105.25174" image='https://www.colorado.edu/coloradan/sites/default/files/styles/hero/public/article-image/2010_aerial213_revisedga.jpg?itok=GaX-g_4H'/>
         )}/>
         <Route path='/Trails Near Me' render={() => (
-            <TrailsNearBy fetch={fetchByGeoLocation} city="Trails Near You" name="trailsNearMe" />
+            <TrailsNearBy fetch={fetchByGeoLocation} city="Trails Near You" name="trailsNearMe" image='https://www.colorado.gov/revenueonline/Image/ENG/iStock_000027245770Large.jpg'/>
         )}/>
         <Route path='/Your Visited Trails' render={() => (
             <UsersTrails fetch={fetchVisitedTrails} name="visitedTrails" />
@@ -56,5 +57,6 @@ export default (
         <Route path='/Your Saved Trails' render={() => (
             <UsersTrails fetch={fetchSavedTrails} name="savedTrails" />
         )}/>
+        <Route path='/error' component={ErrorPage} />
     </Switch>
 )

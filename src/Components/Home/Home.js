@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import HomeImage from '../../Image/DaniMaroonBells.jpg'
-import MobileHomeImage from '../../Image/HangingLake.jpg'
+import React from 'react';
+import HikingResources from '../HikingResources/HikingResources';
 
 import './Home.scss';
 
@@ -11,11 +10,14 @@ const Home = () => {
             <div className='homeSubContainer'>
                 <div className='welcomeMessageContainer'>
                     <h1 className='welcomeMessage'>Welcome to Sherpa Hiking Colorado
-                        <img className='welcomeMessagePicture' src='https://statesymbolsusa.org/sites/statesymbolsusa.org/files/primary-images/flagofColoradoCO.jpg' />
+                        <img className='welcomeMessagePicture' alt='' src='https://statesymbolsusa.org/sites/statesymbolsusa.org/files/primary-images/flagofColoradoCO.jpg' />
                     </h1>
                 </div>
                 <div className='imageContainer'>
-                    <img className='homeImage'/*   src={HomeImage} alt={HomeImage}  */></img>
+                    <img className='homeImage'  alt=''></img>
+                </div>
+                <div>
+                    <HikingResources /> 
                 </div>
             </div>
         </div>

@@ -5,13 +5,26 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-
+    @media (max-width: 1000px){
+        // flex-direction: column;
+        width: 95vw;
+        @media (max-width: 700px){
+            // flex-direction: column;
+        }
+    }
     .reviewSubContainer {
         display: flex;
         padding: 40px 0;
         border: $blackText 1px solid;
+        height: auto;
         
-
+        @media (max-width: 1000px){
+            // flex-direction: column;
+            width: 95vw;
+            @media (max-width: 700px){
+                padding: 20px 0;
+            }
+        }
 
 
         .authorImageContainer {
@@ -23,7 +36,15 @@
             position: relative;
             display: inline-block;
             overflow: hidden;
-            margin: 0 40px 0 40px;
+            margin: 0 40px;
+
+            @media (max-width: 700px){
+                margin: 0 5px;
+                width: 70px;
+                height: 70px;
+                max-width: 70px;
+                max-height: 70px;
+            }
                 .authorImage {
                 margin: 0 auto;
                 display: block;
@@ -33,16 +54,29 @@
                 min-height: 100%;
                 min-width: 100%;
                 transform: translate(-50%, -50%);
+
+                @media (max-width: 700px){
+
+                }
                 }
         }
     
         .reviewInfoBox {
             display: flex;
             width: 45vw;
+            @media (max-width: 1000px){
+                // flex-direction: column;
+                width: 75vw;
+            }
     
             .reviewInfo {
                 width: 100%;
                 margin-right: 20px;
+
+                @media (max-width: 700px){
+                    margin-right: 10px;
+                    padding-left: 10px;
+                }
                 .reviewTopContainer {
                     display: flex;
                     line-height: 50%;
@@ -52,6 +86,17 @@
                     letter-spacing: .09em;
                     flex-direction: row;
                     justify-content: space-between;
+                    @media (max-width: 700px){
+                        line-height: 50%;
+                        font-size: 14px;
+                        margin-bottom: 15px;
+                        letter-spacing: .09em;
+                        flex-direction: column-reverse;
+                        height: 30px;
+                        align-items: flex-start;
+
+                    }
+
                     .titleCluster {
                         display: flex;
                         .titleContainer {
@@ -76,6 +121,12 @@
                         > label {
                             font-size: 14px;
                             font-weight: bold;
+                        }
+                    }
+
+                    .dateContainer {
+                        @media (max-width: 700px){
+                            // width: 60px
                         }
                     }
                 }
@@ -108,6 +159,14 @@
                 width: auto;
                 height: auto;
                 padding: auto;
+                display: flex;
+                // justify-content: center;
+                text-align: center;
+                flex-direction: column;
+
+                @media (max-width: 700px){
+                    margin: 0 auto;
+                }
                 #iconButton {
                     border: none;
                     background: inherit;

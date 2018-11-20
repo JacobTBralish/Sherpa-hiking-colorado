@@ -93,7 +93,7 @@ handleImageUpload = (file) => {
             <div className='reviewContainer'>
                 <div className='reviewSubContainer'>
                     <div className='authorImageContainer'>
-                        <img className='authorImage' src={this.props.authorImage}/>
+                        <img className='authorImage' alt='' src={this.props.authorImage}/>
                     </div>
                     <div className='reviewInfoBox'>
                         <div className='reviewInfo'>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactMapboxGl, {Layer, Feature, Marker} from 'react-mapbox-gl';
 // import mapboxgl from 'mapbox-gl';
-import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
+// import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 
 
 const Map = ReactMapboxGl({
@@ -54,6 +54,7 @@ class MapBox extends Component {
         return ( 
             <>
             <Map
+            // eslint-disable-next-line
                 style="mapbox://styles/mapbox/dark-v9"
                 containerStyle={{
                 height: "calc(80vh - 130px)",

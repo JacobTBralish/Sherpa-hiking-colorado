@@ -112,8 +112,8 @@ class TrailView extends Component {
                 <>                    
                     <Modal isOpen={this.state.isModalOpen} onClose={() => this.closeModal()}>
                         <div>
-                            <div>
-                                <h1>Weather for {trail.name}</h1>
+                            <div className='weatherTrailNameContainer'>
+                                <h1 className='weatherTrailName'>Weather for {trail.name}</h1>
                             </div>
                             <div className='personalInfoModalContainer'>
                                 <Weather lat={trail.latitude} long={trail.longitude} />

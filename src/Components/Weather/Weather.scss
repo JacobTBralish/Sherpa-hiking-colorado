@@ -3,9 +3,10 @@
 .weatherInfoBox {
     width: 60vw;
     display: inline-table;
-    border: black solid 1px;
+    border: black solid 2px;
     max-width: 100px;
-    border-radius: 25%;
+    // border-radius: 25%;
+    margin: 5px;
     #weatherTime {
         display: flex;
         flex-direction: column;
@@ -24,10 +25,26 @@
     }
 }
 
-.mappedDayBox {
-    margin: 10px auto;
+.weatherMain {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    h3 {
+        background: $blackText;
+        color: white;
+        text-align: center;
+        padding: 4px 0;
+        font-size: 18px;
+    }
+    .mappedDayBox {
+        margin: 10px 10px;
+    }
 }
 
 .weatherTableContainer {
-    margin: 15px 0;
+    margin: 0px;
+    width: 100%;
+    padding: 0;
+
 }

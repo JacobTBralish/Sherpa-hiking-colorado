@@ -1,8 +1,9 @@
 require('dotenv').config();
 const express = require('express');
-const session = require('express-session');
+const app = express();
 const bodyParser = require('body-parser');
 const massive = require('massive');
+const session = require('express-session');
 const axios = require('axios');
 const vC = require('./visited-controller/visited-controller');
 const sflC = require('./save-for-later-controller/save-for-later-controller');
@@ -11,7 +12,6 @@ const rC = require('./trail-review-controller/trail-review-controller');
 const cloudinary = require('cloudinary');
 
 
-const app = express();
 app.use(bodyParser.json());
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -58,7 +58,6 @@ app.get('/auth/callback', (req,res) => {
             req.session.user = user;
             console.log('response.data.name: ', response.data);
             res.redirect('/');
-
         } else {
             console.log('response.data.name: ', response.data);
             const userArray = [
@@ -69,8 +68,9 @@ app.get('/auth/callback', (req,res) => {
                   response.data.name,
                   response.data.email,
               ];
-              return db.create_user(userArray).then(newUser => {console.log(newUser,'create user has fired')
-                  req.session.user = newUser;
+              return db.create_user(userArray).then(newUser => {
+                console.log(newUser,'create user has fired')
+                req.session.user = newUser[0]
                   res.redirect('/');
               }).catch(error => {
                   console.log('Error in db.create_user', error)
@@ -132,7 +132,6 @@ app.post('/api/saveforlater/:id', sflC.saveForLater);
 // ================================================ Auth0 Login ====================================== \\
 
 app.get('/api/user-data', (req, res) => {
-    // console.log(req.session.user)
     res.json(req.session.user);
 });
 // ================================================= Auth0 Logout ===================================== \\

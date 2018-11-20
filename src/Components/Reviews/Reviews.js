@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getReviews, postReview, deleteReview } from '../../Redux/reducer';
+import { getReviews, deleteReview } from '../../Redux/reducer';
 import './Reviews.scss';
 import ReviewCard from '../ReviewCard/ReviewCard';
 

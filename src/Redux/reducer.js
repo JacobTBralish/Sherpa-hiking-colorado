@@ -60,9 +60,12 @@ export default function reducer (state = initialState, action){
 export function getUser(){
     return {
         type: LOGGED_IN,
-        payload: axios.get('/api/user-data').then(response => {
-            return response.data
-            })
+            payload: axios.get('/api/user-data').then(response => {
+                console.log('response: ', response.data);
+                return response.data
+                }).catch(error => {
+                    console.log(error)
+                })
         }}
 
 export function logOut(){

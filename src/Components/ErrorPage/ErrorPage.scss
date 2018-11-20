@@ -1,0 +1,21 @@
+.errorMessageContainer {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    min-height: 100%;
+    .errorMessageSubContainer {
+        width: 80vw;
+        min-height: 100%;
+        height: 100vh;
+      .errorMessage {
+        font-size: 30px;
+        margin: 50px auto;
+        & a {
+            text-decoration: underline;
+            color: inherit;
+        }
+
+      }  
+    }
+}

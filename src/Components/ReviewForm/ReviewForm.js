@@ -95,7 +95,7 @@ handleImageUpload = (file) => {
 }
 
     render() { 
-        let { title, reviewBody, rating, togglePhotos, isLoading, userSubmittedImage1, userSubmittedImage2 } = this.state;
+        let { title, reviewBody, rating, userSubmittedImage1, userSubmittedImage2 } = this.state;
         console.log('userSubmittedImages: ', userSubmittedImage1);
         console.log('userSubmittedImages: ', userSubmittedImage2);
         let{ postReview, user, chosenTrail } = this.props;

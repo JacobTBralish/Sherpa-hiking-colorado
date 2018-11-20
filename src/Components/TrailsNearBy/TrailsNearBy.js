@@ -72,7 +72,7 @@ class GeoLocation extends Component {
             <div className = 'gridwallSubContainer' >
                 <div className = 'gridwallHeaderContainer' >
                 <div className='titleImageContainer'>
-                    <img className='titleImage' src={this.props.image}></img>
+                    <img className='titleImage' alt='' src={this.props.image}></img>
                 </div>
                 <div className='gridwallTitleContainer'>
                     <h1 className = 'gridWallTitle' >{this.props.city ? this.props.city : "All Trails"}</h1> 

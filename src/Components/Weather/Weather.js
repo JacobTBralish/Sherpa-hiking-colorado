@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import LoadingSpinner from '../../LoadingSpinner';
 
 import './Weather.scss';
 
@@ -8,14 +9,16 @@ class Weather extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            weather: []
+            weather: [],
+            isLoading: true,
+            error: null
          }
     }
 
     async componentDidMount() {
         await axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${this.props.lat}&lon=${this.props.long}&APPID=59b00ca946aa0fbe99a7218a649b7168&units=imperial`).then(res => {
             console.log(res.data)
-            this.setState({ weather: res.data.list });
+            this.setState({ weather: res.data.list, isLoading: false });
         })
     }
 
@@ -46,7 +49,7 @@ class Weather extends Component {
         timeValue= "" + hours;
         } else if (hours > 12) {
         timeValue= "" + (hours - 12);
-        } else if (hours == 0) {
+        } else if (hours === 0) {
         timeValue= "12";
         }
 
@@ -89,7 +92,7 @@ class Weather extends Component {
     render() { 
 
         let { findWeatherInfoByDay, getDate, getTime } = this;
-        let { weather } = this.state;
+        let { weather, isLoading, error } = this.state;
         console.log('weather: ', weather);
         
         let mappedWeather = findWeatherInfoByDay(weather, getDate, getTime).map((day, index) => {
@@ -114,7 +117,14 @@ class Weather extends Component {
         
         return ( 
             <div className='weatherTableContainer'>
-            {mappedWeather}
+
+                {error
+                    ?
+                    <div> Oh no!There was an error loading the trails.Please try again later. </div>
+                    : (isLoading || !this.state.weather.length) ?
+                    <LoadingSpinner />
+                    : mappedWeather
+                    } 
             </div>
          );
     }

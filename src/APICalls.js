@@ -1,8 +1,6 @@
 import COLatLong from './data.json'
 import axios from 'axios';
 
-let hikingProjectKey = process.env.HIKING_PROJECT_API_KEY
-
 export const getAllTrails = async () => {
 let loopedTrails = [];
 for(let i = 0 ; i < COLatLong.length ; i++){
@@ -14,6 +12,7 @@ for(let i = 0 ; i < COLatLong.length ; i++){
                 if (trail.imgMedium || trail.imgSmall || trail.imgSmallMed || trail.imgSqSmall){
                     loopedTrails.push(trail)
                 }
+                return loopedTrails
             })
         }
     }
@@ -29,6 +28,7 @@ export const getTrailsNearCity = async (lat, long) => {
         if (trail.imgMedium || trail.imgSmall || trail.imgSmallMed || trail.imgSqSmall){
             fixedTrails.push(trail)
         }
+        return fixedTrails
     })
 return fixedTrails
 }
@@ -42,6 +42,7 @@ export const fetchByGeoLocation = async (lat,long) => {
               if (trail.imgMedium || trail.imgSmall || trail.imgSmallMed || trail.imgSqSmall){
                   trailsNearBy.push(trail)
               }
+              return trailsNearBy
           })
       } else {
           return 'Sorry! It looks like there are no hiking trails near you.'
@@ -62,5 +63,10 @@ export const fetchSavedTrails = async (userId) => {
 
 export const fetchVisitedTrails = async (userId) => {
     let response = await axios.get(`/api/visited/${userId}`);
-    return response.data
-}
+    if (response.data.length > 0){
+        console.log('response: ', response);
+        return response.data
+        } else {
+            return "There is nothing here to see!"
+        }
+    }

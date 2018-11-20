@@ -17,13 +17,12 @@ class TrailsGridwall extends Component {
             trailsNearAspen: JSON.parse(localStorage.getItem("aspen")) || [],
             trailsNearTelluride: JSON.parse(localStorage.getItem("telluride")) || [],
             trailsNearColoradoSprings: JSON.parse(localStorage.getItem("coloradoSprings")) || [],
-            trailsNearAlamosa: JSON.parse(localStorage.getItem("alamosa")) || [],
-            trailsNearLeadville: JSON.parse(localStorage.getItem("leadville")) || [],
+            trailsNearPagosaSprings: JSON.parse(localStorage.getItem("pagosaSprings")) || [],
+            trailsNearLeadville: JSON.parse(localStorage.getItem("leadville"))  || [],
             trailsNearDenver: JSON.parse(localStorage.getItem("denver")) || [],
             trailsNearBreckenridge: JSON.parse(localStorage.getItem("breckenridge")) || [],
             trailsNearRifle: JSON.parse(localStorage.getItem("rifle")) || [],
             trailsNearBoulder: JSON.parse(localStorage.getItem("boulder")) || [],
-            trailsNearMe: [],
             isLoading: true,
             error: null,
             activePage: 1,
@@ -89,7 +88,7 @@ class TrailsGridwall extends Component {
                 this.setState({
                     [name]: fetchedTrails,
                     isLoading: false
-                }, localStorage.setItem([name], JSON.stringify(fetchedTrails)))
+                } , localStorage.setItem([name], JSON.stringify(fetchedTrails)))
             } catch (error) {
                 throw (new Error('Cannot get trails near this city!'))
             }
@@ -135,12 +134,11 @@ class TrailsGridwall extends Component {
 
 
     render() {
-        console.log(JSON.parse(localStorage.getItem("allTrails")));
-        const { isLoading, error, trailsNearMe} = this.state;
-        console.log('trailsNearMe: ', trailsNearMe);
+        const { isLoading, error } = this.state;
         
         const { chooseTrail, name} = this.props;
         console.log('name: ', name);
+        console.log('this.state[name]', this.state[name]);
 
         //Sorts the trails in alphabetical order
         let sortedTrails = this.state[name].sort((a, b) => {
@@ -178,7 +176,7 @@ console.log(this.state[name]);
             <div className = 'gridwallSubContainer' >
                 <div className = 'gridwallHeaderContainer' >
                     <div className='titleImageContainer'>
-                        <img className='titleImage' src={this.props.image}></img>
+                        <img className='titleImage' src={this.props.image} alt=''></img>
                     </div>
                     <div className='gridwallTitleContainer'>
                         <h1 className = 'gridWallTitle' >{this.props.city ? this.props.city : "All Trails"}</h1> 

@@ -3,12 +3,8 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { logOut, getUser } from '../../Redux/reducer';
-// import AccountSettings from '../AccountSettings/AccountSettings';
-// import PersonalInfo from '../AccountSettings/PersonalInfo';
 
-import './Modal.scss';
 import './Nav.scss';
-
 
 class Nav extends Component {
     constructor(props) {
@@ -20,12 +16,10 @@ class Nav extends Component {
         }
     }
 
-    componentDidMount() {
-        this.props.getUser();
+    async componentDidMount() {
+        await this.props.getUser();
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                  console.log("wokeeey");
-                  console.log(position);
                   this.setState({
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
@@ -54,7 +48,6 @@ class Nav extends Component {
 
     handleClick = (e) => {
         if (this.node.contains(e.target)) {
-            console.log('e.target: ', e.target);
             return;
         }
         this.handleClickOutside();
@@ -62,14 +55,12 @@ class Nav extends Component {
 
 
     login = () => {
-        
         const redirectUri = encodeURIComponent(`${window.location.origin}/auth/callback`);
         window.location = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/authorize?client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}&scope=openid%20profile%20email&redirect_uri=${redirectUri}&response_type=code`
     }
     
     logout = () => {
         axios.post('/api/logout').then(res => {
-            console.log(res.data)
             this.props.logOut(this.props.user);
         })
     }
@@ -77,11 +68,9 @@ class Nav extends Component {
 
  
     render() { 
-        console.log('heres window location', window);
         let { user } = this.props;
         console.log('user: ', user);
         let { toggle, latitude, longitude } = this.state;
-        console.log('latitude, longitude: ', latitude, longitude);
 
         return ( 
                 <div className='navSubContainer'>
@@ -96,7 +85,7 @@ class Nav extends Component {
                     <nav className={toggle ? 'show' : ''}>
                         <div ref={node => this.node = node} className='rightNavContainer'>
                             <ul className='rightNavList'>
-                                   <li><Link to='/'>Home</Link></li>
+                                   <li onClick={() => this.handleClickOutside()}><Link to='/'>Home</Link></li>
                                     <li><Link to=''>Trails</Link>
                                         <ul>
                                             <li onClick={() => this.handleClickOutside()}><Link className='rightNavListItem' to='/All Trails'>All trails</Link></li>
@@ -104,7 +93,6 @@ class Nav extends Component {
                                             <li><Link className='rightNavListItem' to=''>Trails by city</Link>
                                             
                                                 <ul>
-                                                    <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Alamosa'>Alamosa</Link></li>
                                                     <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Aspen'>Aspen</Link></li>
                                                     <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Boulder'>Boulder</Link></li>
                                                     <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Breckenridge'>Breckenridge</Link></li>
@@ -112,6 +100,7 @@ class Nav extends Component {
                                                     <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Denver'>Denver</Link></li>
                                                     <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Estes Park'>Estes Park</Link></li>
                                                     <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Leadville'>Leadville</Link></li>
+                                                    <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Pagosa Springs'>Pagosa Springs</Link></li>
                                                     <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Rifle'>Rifle</Link></li>
                                                     <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Trails Near Telluride'>Telluride</Link></li>
                                                 </ul>
@@ -125,7 +114,6 @@ class Nav extends Component {
                                         <ul>
                                             <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Your Saved Trails'>Trails to visit</Link></li>
                                             <li onClick={() => this.handleClickOutside()} className='rightNavExtraListItemCities'><Link to='/Your Visited Trails'>Visited trails</Link></li>
-                                            {/* <li id='logoutButton'  onClick={() => this.openModal()} className='rightNavExtraListItemCities'>Account Settings</li> */}
                                             <li id='logoutButton' className='rightNavExtraListItemCities' onClick={() => {this.logout(); this.props.history.push('/');}}>Log out</li>
                                         </ul>
                                     </li>
@@ -136,7 +124,6 @@ class Nav extends Component {
                     </nav>
                     <div className='searchContainer'>
                         {/* <input placeholder='Search'></input> */}
-                        
                         {user ?
                         <h3 id='welcomeName'>Hey, {user.first_name}!</h3>
                             :

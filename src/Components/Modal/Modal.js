@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './AccountSettings.scss';
 
 
 class AccountSettings extends Component {
@@ -13,11 +12,20 @@ class AccountSettings extends Component {
   
         let modalStyle = {
           position: 'absolute',
-          top: '50%',
+          top: '20%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           zIndex: '9999',
           background: '#fff',
+        }
+
+        let modalContainer = {
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            top: '500px',
+            left: '0px',
+            zIndex: '9998'
         }
   
         if (this.props.width && this.props.height) {
@@ -37,7 +45,7 @@ class AccountSettings extends Component {
         let backdropStyle = {
           position: 'absolute',
           width: '100%',
-          height: '1500%',
+          height: '100%',
           top: '-500px',
           left: '0px',
           zIndex: '9998',
@@ -51,7 +59,7 @@ class AccountSettings extends Component {
         }
   
         return (
-          <div className='modalContainer'>
+          <div style={modalContainer} className='modalContainer'>
           <div className={this.props.containerClassName}>
             <div className={this.props.className} style={modalStyle}>
               {this.props.children}
