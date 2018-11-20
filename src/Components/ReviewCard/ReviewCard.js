@@ -59,7 +59,7 @@ class ReviewCard extends Component {
                 </div>
                 :
                         <>
-                            <EditReviewForm />
+                            <EditReviewForm reviewId={this.props.reviewId} authorImage={this.props.authorImage}/>
                         </>
                         }
             </div>

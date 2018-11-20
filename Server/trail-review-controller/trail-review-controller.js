@@ -19,7 +19,7 @@ module.exports = {
         console.log('req.params: ', req.params);
 
         db.get_pictures_posted_by_users(parseInt(id)).then(images => {
-            console.log('images: ', images);
+            // console.log('images: ', images);
             res.status(200).json(images)
         }).catch(error => {
             res.status(500).json(error)
@@ -29,7 +29,7 @@ module.exports = {
 
     postReview: (req, res) => {
         const db = req.app.get('db');
-        let { trailId, trailName, trailImg ,title, userSubmittedImage1, userSubmittedImage2, time, reviewBody, rating, userId, userImage, userName } = req.body;
+        let { trailId, trailName, trailImg , userSubmittedImage1, userSubmittedImage2, title, time, reviewBody, rating, userId, userImage, userName } = req.body;
         console.log('req.body: ', req.body);
 
         db.post_trail_review( { review_trail_id: trailId, trail_name: trailName, trail_image: trailImg, user_submitted_image1: userSubmittedImage1, user_submitted_image2: userSubmittedImage2, title: title, time: time, body: reviewBody, rating: parseFloat(rating), author_id: userId, author_image: userImage, author_name: userName }).then(review => {
@@ -58,9 +58,10 @@ module.exports = {
 
     editReview: (req, res) => {
         const db = req.app.get('db');
-        let { userSubmittedImage1, userSubmittedImage2, title, rating, reviewBody } = req.body;
+        let { trailId, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, reviewId } = req.body;
+        console.log('req.body: ', req.body);
 
-        db.edit_trail_review({user_submitted_image1: userSubmittedImage1, user_submitted_image2: userSubmittedImage2, title, rating, reviewBody}).then(response => {
+        db.edit_review({ review_trail_id:trailId, user_submitted_image1: userSubmittedImage1, user_submitted_image2: userSubmittedImage2, title, body:reviewBody, rating, id:reviewId}).then(response => {
             res.status(200).json(response)
         }).catch(error =>{
             res.status(500).json(error)

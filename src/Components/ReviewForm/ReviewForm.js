@@ -49,7 +49,7 @@ class ReviewForm extends Component {
         console.log('acceptedFiles: ', acceptedFiles);
         // console.log('Accepted files: ', acceptedFiles[0].name);
         var filesToBeSent=this.state.filesToBeSent;
-        console.log('filesToBeSent: ', filesToBeSent);
+        // console.log('filesToBeSent: ', filesToBeSent);
         if(filesToBeSent.length < this.state.printcount){
             filesToBeSent.push(acceptedFiles);
             var filesPreview=[];
@@ -68,10 +68,10 @@ class ReviewForm extends Component {
    }
 }
 
-handleImageUpload = (file) => {
+handleImageUpload = async (file) => {
     console.log('file: ', file);
    let submittedImages= [];
-   axios.get('/api/upload').then(response => {
+   await axios.get('/api/upload').then(response => {
        
       let formData = new FormData();
       formData.append('signature', response.data.signature)
@@ -79,7 +79,6 @@ handleImageUpload = (file) => {
       formData.append('timestamp', response.data.timestamp)
       formData.append('file', file[0]);
       console.log('file[0]: ', file[0]);
-      console.log('formData: ', formData);
       
       axios.post(CLOUDINARY_UPLOAD_URL, formData).then(response => {
         console.log('response: ', response);
@@ -131,14 +130,14 @@ handleImageUpload = (file) => {
                                 <textarea required name='reviewBody' className='reviewInput' onChange={this.handleChange} />
                             </div>
                             <div className='photoContainer'>
-                                    <Dropzone className='dropZone' onDrop={(files) => this.onDrop(files)}>
+                                    <Dropzone className='dropZone' accept={'image/*'} onDrop={(files) => this.onDrop(files)}>
                                         <div>Drag or click to add a photo of your experience (optional)</div>
                                     </Dropzone>
                             </div>
                             {this.state.filesPreview}
 
                             <div className='reviewSubmitButtonContainer'>
-                                <button className='submitButton' type='submit' onClick={() => { postReview( this.props.match.params.id, chosenTrail[0].id ,chosenTrail[0].name, chosenTrail[0].imgSmallMed, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, user.id, user.user_image, user.name)}}>Submit</button>
+                                <button className='submitButton' type='submit' onClick={() => { postReview( chosenTrail[0].id ,chosenTrail[0].name, chosenTrail[0].imgSmallMed, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, user.id, user.user_image, user.name)}}>Submit</button>
                             </div>
                         </form>
                     </div>

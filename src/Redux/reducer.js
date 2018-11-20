@@ -25,7 +25,6 @@ const POST_VISITED_TRAIL = 'POST_VISITED_TRAIL';
 const SAVE_FOR_LATER = 'SAVE_FOR_LATER';
 
 export default function reducer (state = initialState, action){
-    
     switch(action.type){
         case `${LOGGED_IN}_FULFILLED`:
             return {...state, user: action.payload}
@@ -140,12 +139,13 @@ return {
     }
 }
 
-export function postReview(ParamsId, trailId, trailName, trailImg, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, userId, userImage, userName){
+export function postReview( trailId, trailName, trailImg, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, userId, userImage, userName){
+    console.log('userSubmittedImage1: ', userSubmittedImage1);
     const date = new Date();
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const time = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 
-    let reviews = axios.post(`/api/trailreview/${ParamsId}`, { trailId, trailName, trailImg, userSubmittedImage1, userSubmittedImage2, title, time, reviewBody, rating, userId, userImage, userName} ).then(response => {
+    let reviews = axios.post(`/api/trailreview/${trailId}`, { trailId, trailName, trailImg, userSubmittedImage1, userSubmittedImage2, title, time, reviewBody, rating, userId, userImage, userName} ).then(response => {
         console.log( response.data )
             return response.data
         });
@@ -166,9 +166,9 @@ return {
 }
 
 
-export function editReview(ParamsId, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating){
+export function editReview(trailId, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, reviewId){
 
-    let reviews = axios.put(`/api/trailreview/${ParamsId}`, { userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating } ).then(response => {
+    let reviews = axios.put(`/api/trailreview/${trailId}`, { userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, reviewId} ).then(response => {
         console.log( response.data )
             return response.data
         });
@@ -177,4 +177,6 @@ return {
     payload: reviews
     }
 }
+
+// //----------------------------------------------------------------------CLOUDINARY--------------------------------------------------------------\\
 

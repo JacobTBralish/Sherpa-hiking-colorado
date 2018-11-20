@@ -20,6 +20,7 @@ class Reviews extends Component {
     }
 
       render() { 
+          console.log('heres this ish', window.document);
         let{ reviews } = this.props;
 
         let mappedTrailReviews = reviews.map((review, index) => {

@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { editReview } from '../../Redux/reducer';
+import { withRouter } from 'react-router-dom';
 
 import '../Reviews/Reviews.scss';
 
@@ -14,7 +15,8 @@ class EditReviewForm extends Component {
         this.state = { 
             title: '',
             reviewBody: '',
-            userSubmittedImages: '',
+            userSubmittedImage1: '',
+            userSubmittedImage2: '',
             rating: 0,
             reviews: [],
             toggle: false,
@@ -34,58 +36,68 @@ class EditReviewForm extends Component {
          })
      }
 
-     handlePhotoToggle = () => {
-        this.setState((prevState) =>{
-        //  console.log('prevstate', prevState)
-            return {
-                togglePhotos: !prevState.togglePhotos,
-            }
-         })
-     }
-
-     
      onDrop(acceptedFiles, rejectedFiles) {
-         // console.log('Accepted files: ', acceptedFiles[0].name);
-         var filesToBeSent=this.state.filesToBeSent;
-         if(filesToBeSent.length < this.state.printcount){
-             filesToBeSent.push(acceptedFiles);
-          var filesPreview=[];
-          for(var i in filesToBeSent){
+        console.log('acceptedFiles: ', acceptedFiles);
+        var filesToBeSent=this.state.filesToBeSent;
+        if(filesToBeSent.length < this.state.printcount){
+            filesToBeSent.push(acceptedFiles);
+            var filesPreview=[];
+            for(var i in filesToBeSent){
               filesPreview.push(<div>
-              {filesToBeSent[i][0].name}
-              </div>
-            )
-        }
-        this.handleImageUpload(filesToBeSent)
-    }
-    else{
-        alert("You have reached the limit of printing files at a time")
-    }
+                {filesToBeSent[i][0].name}
+                </div>
+              )
+            }
+       console.log('filesToBeSent: ', filesToBeSent);
+       this.setState({ filesPreview });
+       this.handleImageUpload(acceptedFiles)
+   }
+   else{
+       alert("You may only upload one photo at a time!")
+   }
 }
 
-handleImageUpload = (file) => {
-    let submittedImages= [];
-    axios.get('/api/upload').then(response => {
-        
-       let formData = new FormData();
-       formData.append('signature', response.data.signature)
-       formData.append('api_key', '626685399682776');
-       formData.append('timestamp', response.data.timestamp)
-       formData.append('file', file[0]);
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
 
-       axios.post(CLOUDINARY_UPLOAD_URL, formData).then(response => { console.log(response.data)
-        if(response.data > 0){
-            submittedImages.push(response.data.secure_url)
-        }
-           this.setState({
-                userSubmittedImages: submittedImages
-           })
+    handleEdit = (ParamsId, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, reviewId) => {
+        this.props.editReview(ParamsId, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, reviewId);
+        // this.props.history.push(`/trail/${this.props.match.params.id}`);
+        window.location.reload();
+    }
+
+    handleImageUpload = async (file) => {
+        console.log('file: ', file);
+       let submittedImages= [];
+       await axios.get('/api/upload').then(response => {
+           
+          let formData = new FormData();
+          formData.append('signature', response.data.signature)
+          formData.append('api_key', '626685399682776');
+          formData.append('timestamp', response.data.timestamp)
+          formData.append('file', file[0]);
+          console.log('file[0]: ', file[0]);
+          
+          axios.post(CLOUDINARY_UPLOAD_URL, formData).then(response => {
+            console.log('response: ', response);
+            console.log('response.data: ', response.data);
+        //    if(response.data.length > 0){
+               submittedImages.push(submittedImages)
+        //    }
+              this.setState({
+                userSubmittedImage1: response.data.secure_url
+              })
+          }).catch(error => console.log(error))
        })
-    })
-}
+    }
+
 
     render() { 
-        let{ editReview, user } = this.props;
+        let{ user } = this.props;
+        console.log(this.props.chosenTrail[0].id);
         console.log('user: ', user);
         let { title, reviewBody, rating, userSubmittedImage1, userSubmittedImage2 } = this.state;
         return ( 
@@ -96,7 +108,7 @@ handleImageUpload = (file) => {
                         <img className='authorImage' alt='' src={this.props.authorImage}/>
                     </div>
                     <div className='reviewInfoBox'>
-                        <div className='reviewInfo'>
+                        <form className='reviewInfo'>
                             <div className='reviewTopContainer'>
                                 <div className='titleCluster'>
                                     <div className='titleContainer'>
@@ -130,14 +142,14 @@ handleImageUpload = (file) => {
                                 <textarea required name='reviewBody' className='reviewInput' onChange={this.handleChange} />
                             </div>
                             <div className='photoContainer'>
-                                <Dropzone className='dropZone' onDrop={(files) => this.onDrop(files)}>
+                                <Dropzone className='dropZone' accept={'image/*'} onDrop={(files) => this.onDrop(files)}>
                                     <div>Try dropping some files here, or click to select files to upload.</div>
                                 </Dropzone>
                             </div>
-                            </div>
+                            </form>
                             <div className='reviewSubmitButtonContainer'>
-                                <button className='submitButton' type='submit' onClick={() => { editReview( this.props.match.params.id, (userSubmittedImage1 || null), (userSubmittedImage2 || null), title, reviewBody, rating)}}>Save changes</button>
-                                <button onClick={()=> this.handleToggle()}>Cancel</button>
+                                <button className='submitButton' type='submit' onClick={() => { this.handleEdit( this.props.chosenTrail[0].id, userSubmittedImage1, userSubmittedImage2, title, reviewBody, rating, this.props.reviewId)}}>Save changes</button>
+                                <button onClick={()=> window.location.reload()}>Cancel</button>
                             </div>
                         </div>
                         </div>
@@ -150,6 +162,7 @@ handleImageUpload = (file) => {
 const mapStateToProps = state => {
     return {
         user: state.user,
+        chosenTrail: state.chosenTrail
     }
 } 
 
@@ -157,4 +170,4 @@ const mapDispatchToProps = {
     editReview
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditReviewForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditReviewForm));

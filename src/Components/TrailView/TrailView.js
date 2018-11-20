@@ -13,7 +13,7 @@ import trailRatings from '../../Image/trailRatings.png'
 
 import './TrailView.scss';
 import ReviewForm from '../ReviewForm/ReviewForm';
-import PostedPictures from '../../PostedPictures/PostedPictures';
+import PostedPictures from '../PostedPictures/PostedPictures';
 
 
 class TrailView extends Component {

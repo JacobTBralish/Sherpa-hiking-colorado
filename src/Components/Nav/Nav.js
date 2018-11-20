@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { logOut, getUser } from '../../Redux/reducer';
+import createHistory from 'history/createBrowserHistory';
 
 import './Nav.scss';
 
@@ -29,7 +30,6 @@ class Nav extends Component {
                 (error) => this.setState({ error: error.message }),
                 { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
               );
-
     }
 
     componentWillMount() {
