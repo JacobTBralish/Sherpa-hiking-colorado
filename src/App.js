@@ -19,9 +19,9 @@ constructor() {
     return (
       <div className='appContainer'>
         <Nav />
-        <body>
+        <section>
           {routes}
-        </body>
+        </section>
           <Footer />
       </div>
     );

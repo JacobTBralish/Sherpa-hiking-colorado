@@ -11,6 +11,10 @@ class ArticlePage extends Component {
             articles: JSON.parse(localStorage.getItem("articles"))
          }
     }
+
+    componentDidMount() {
+        window.scrollTo(0,0);
+    }
     handlePageChange = (pageNumber) => {
         console.log(`active page is ${pageNumber}`);
             this.setState({ activePage: pageNumber });
@@ -18,14 +22,15 @@ class ArticlePage extends Component {
     }
 
     render() { 
+        let { articles } = this.props.location.state
         //Pagination
         let activePageIndex = parseInt(this.state.activePage, 10);
         let itemsPerPageIndex = parseInt(this.state.itemsPerPage, 10);
         let indexOfLastTrail = activePageIndex * itemsPerPageIndex;
         let indexOfFirstTrail = indexOfLastTrail - itemsPerPageIndex;
-        let renderedArticles = this.state.articles.slice(indexOfFirstTrail, indexOfLastTrail);
+        let renderedArticles = articles.slice(indexOfFirstTrail, indexOfLastTrail);
 
-        let mappedArticles = (renderedArticles || this.props.location.state.articles).map((item, i) => {
+        let mappedArticles = renderedArticles.map((item, i) => {
             return (
                 <a key={i} className='articleLink' href={item.url}>
                     <div className='newsArticleSubContainer'>
@@ -51,7 +56,7 @@ class ArticlePage extends Component {
                 </div>
                     {mappedArticles}
                 <div className='paginationContainer'>
-                    <PaginationContainer acticePage={this.state.activePage} articles={this.state.articles} handlePageChange={this.handlePageChange}/>
+                    <PaginationContainer acticePage={this.state.activePage} articles={articles} handlePageChange={this.handlePageChange}/>
                 </div>
             </div>
          );

@@ -11,8 +11,10 @@ import ArticlePage from './Components/ArticlePage/ArticlePage';
 import { getAllTrails, getTrailsNearCity, fetchByGeoLocation, fetchVisitedTrails, fetchSavedTrails } from '../src/APICalls';
 
 export default (
-        <Switch>
+    <Switch>
             <Route exact path='/' component={Home} />
+            <Route path='/error' component={ErrorPage} />
+            <Route path='/All Articles' component={ArticlePage} />
             <Route path='/All Trails' render={() => (
                 <TrailsGridwall fetch={getAllTrails} name="allTrails" image='https://www.colorado.gov/revenueonline/Image/ENG/iStock_000027245770Large.jpg'/>
             )}/>
@@ -57,7 +59,5 @@ export default (
             <Route path='/Your Saved Trails' render={() => (
                 <UsersTrails fetch={fetchSavedTrails} name="savedTrails" />
             )}/>
-            <Route path='/error' component={ErrorPage} />
-            <Route path='/All Articles' component={ArticlePage} />
         </Switch>
 )
