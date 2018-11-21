@@ -76,8 +76,6 @@
                 width: 40px;
                 height: 40px;
                 text-align: center;
-                transform: rotate(0deg);
-                transition: transform 999s 999s;
                 .logo {
                     position: relative;
                     top: -18px;
@@ -117,13 +115,12 @@
                     z-index: 1000;
                     box-shadow: #c8c8c8 .5px .5px .5px .5px;
 
-
                     & :before, :after {
                         content: " "; /* 1 */
                         display: table; /* 2 */
                     }
                 // Simple clearfix.
-                    & :after {
+                    &:after {
                         clear: both;
                     }
 
@@ -133,8 +130,7 @@
                         float: left;
                         background: white;
                         cursor: pointer;
-                        
-                  }
+                    }
                   
                   }
 
@@ -148,7 +144,9 @@
                 text-decoration: none;
                 white-space: nowrap;
                 color: $blackText;
-
+                @media(max-width: 550px){
+                    line-height: 12px;
+                    }
                 }
 
                 ul li a:hover { background: rgb(238, 226, 226); }
@@ -159,11 +157,12 @@
                     display: block;
                     position: absolute;
                     margin: 0;
+                    
 
                     @media(max-width: 550px){
                         left: 0;
                         width: 50vw;
-                    }
+                        }
                     }
                     
                 li:hover li { float: none; }
@@ -198,7 +197,6 @@
                 ul ul ul {
                     left: 100%;
                     top: 0;
-
                     @media(max-width: 550px){
                         left: 50%;
                     }
@@ -248,7 +246,6 @@
 
 
             }
-
             & input {
                 height: 24px;
                 width: 200px;

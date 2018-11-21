@@ -1,8 +1,7 @@
 import React from 'react';
-import HikingResources from '../HikingResources/HikingResources';
+import Aricles from '../HomeArticles/HomeArticles';
 
 import './Home.scss';
-
 
 const Home = () => {
     return ( 
@@ -17,7 +16,7 @@ const Home = () => {
                     <img className='homeImage'  alt=''></img>
                 </div>
                 <div>
-                    <HikingResources /> 
+                    <Aricles /> 
                 </div>
             </div>
         </div>
@@ -25,8 +24,6 @@ const Home = () => {
 }
  
 export default Home;
-
-
 
 // class Home extends Component {
 //     constructor() {

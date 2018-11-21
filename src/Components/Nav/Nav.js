@@ -3,7 +3,6 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { logOut, getUser } from '../../Redux/reducer';
-import createHistory from 'history/createBrowserHistory';
 
 import './Nav.scss';
 
@@ -53,7 +52,6 @@ class Nav extends Component {
         this.handleClickOutside();
     }
 
-
     login = () => {
         const redirectUri = encodeURIComponent(`${window.location.origin}/auth/callback`);
         window.location = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/authorize?client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}&scope=openid%20profile%20email&redirect_uri=${redirectUri}&response_type=code`
@@ -64,12 +62,10 @@ class Nav extends Component {
             this.props.logOut(this.props.user);
         })
     }
-
-
  
     render() { 
         let { user } = this.props;
-        console.log('user: ', user);
+        console.log('this.props.history)', this.props.history);
         let { toggle, latitude, longitude } = this.state;
 
         return ( 
@@ -107,6 +103,7 @@ class Nav extends Component {
                                             </li>
                                         </ul>
                                     </li>
+                                   <li onClick={() => this.handleClickOutside()}><Link to='/All Articles'>Articles</Link></li>
                                     {!user ? 
                                         <li onClick={() => this.login()}>Sign In</li>
                                         :

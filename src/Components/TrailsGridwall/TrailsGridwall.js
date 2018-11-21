@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import TrailCard from '../TrailCard/TrailCard';
-import Pagination from 'react-js-pagination';
-import {Link} from 'react-router-dom';
-import {chooseTrail} from '../../Redux/reducer';
+import PaginationContainer from '../Pagination/Pagination';
+import { Link } from 'react-router-dom';
+import { chooseTrail } from '../../Redux/reducer';
 import LoadingSpinner from '../../LoadingSpinner';
 
 import './Trails.scss';
@@ -34,13 +34,10 @@ class TrailsGridwall extends Component {
 
     async componentDidMount() {
         const {fetch, name, lat, long, image} = this.props;
-        console.log('name: ', name);
-        console.log('fetch: ', fetch);
         // Nothing is in local storage, so we need to fetch
         if (lat && long){
             try {
                 let fetchedTrails = await fetch(lat, long);
-                console.log('trails: ', fetchedTrails);
                 this.setState({
                     [name]: fetchedTrails,
                     isLoading: false
@@ -51,7 +48,6 @@ class TrailsGridwall extends Component {
         } else if (!lat && !long && !image){
             try {
                 let fetchedTrails = await fetch();
-                console.log('trails: ', fetchedTrails);
                 this.setState({
                     [name]: fetchedTrails,
                     isLoading: false
@@ -62,7 +58,6 @@ class TrailsGridwall extends Component {
         } else if(!this.state[name].length) {
             try {
                 let fetchedTrails = await fetch();
-                console.log('trails: ', fetchedTrails);
                 this.setState({
                     [name]: fetchedTrails,
                     isLoading: false
@@ -78,13 +73,10 @@ class TrailsGridwall extends Component {
 
     async componentWillReceiveProps(nextProps) {
         const {fetch, name, lat, long} = nextProps;
-        console.log('name: ', name);
-        console.log('fetch: ', fetch);
         // Nothing is in local storage, so we need to fetch
         if (lat && long){
             try {
                 let fetchedTrails = await fetch(lat, long);
-                console.log('fetchedTrails: ', fetchedTrails);
                 this.setState({
                     [name]: fetchedTrails,
                     isLoading: false
@@ -95,7 +87,6 @@ class TrailsGridwall extends Component {
         } else if (this.props.name !== name && !name){
             try {
                 let fetchedTrails = await fetch();
-                console.log('trails: ', fetchedTrails);
                 this.setState({
                     trailsNearMe: fetchedTrails,
                     isLoading: false
@@ -106,7 +97,6 @@ class TrailsGridwall extends Component {
         } else if (this.props.name !== name && !this.state[name].length) {
             try {
                 let fetchedTrails = await fetch();
-                console.log('trails: ', fetchedTrails);
                 this.setState({
                     [name]: fetchedTrails,
                     isLoading: false
@@ -121,24 +111,16 @@ class TrailsGridwall extends Component {
         }
     }
 
-    
-
     handlePageChange = (pageNumber) => {
-        console.log(`active page is ${pageNumber}`);
         this.setState({
             activePage: pageNumber
         });
         window.scrollTo(0, 0);
     }
 
-
-
     render() {
         const { isLoading, error } = this.state;
-        
         const { chooseTrail, name} = this.props;
-        console.log('name: ', name);
-        console.log('this.state[name]', this.state[name]);
 
         //Sorts the trails in alphabetical order
         let sortedTrails = this.state[name].sort((a, b) => {
@@ -167,10 +149,8 @@ class TrailsGridwall extends Component {
             to = {`/Trail/${trail.id}`}>
             <TrailCard { ...trail}/>
             </Link >
+    })
 
-})
-
-console.log(this.state[name]);
         return ( 
         <div className = 'gridwallContainer'>
             <div className = 'gridwallSubContainer' >
@@ -191,11 +171,7 @@ console.log(this.state[name]);
                     } 
             </div> 
                 <div className = 'paginationContainer'>
-                    <Pagination activePage = {this.state.activePage}
-                    itemsCountPerPage = {26}
-                    totalItemsCount = {this.state[name].length}
-                    pageRangeDisplayed = {5}
-                    onChange = {this.handlePageChange}/>
+                <PaginationContainer acticePage={this.state.activePage} articles={this.state[name]} handlePageChange={this.handlePageChange}/>
                 </div> 
             </div> );
         }

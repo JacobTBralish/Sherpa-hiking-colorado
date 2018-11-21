@@ -6,7 +6,6 @@ let loopedTrails = [];
 for(let i = 0 ; i < COLatLong.length ; i++){
     var response = await axios.get(`https://www.hikingproject.com/data/get-trails?lat=${(COLatLong[i].lat)}&lon=${COLatLong[i].long}&maxDistance=50&maxResults=500&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`)
         var { trails } = response.data
-        // console.log('trails: ', trails[i].imgSmall);
         if (trails.length > 0){
             trails.filter(trail => {
                 if (trail.imgMedium || trail.imgSmall || trail.imgSmallMed || trail.imgSqSmall){
@@ -23,7 +22,6 @@ export const getTrailsNearCity = async (lat, long) => {
     let fixedTrails = [];
     let response = await axios.get(`https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${long}&maxDistance=15&maxResults=500&key=200356963-c67e8738e2f605aeb5bcc2a5ef5f6375`)
     let { trails } = response.data;
-    console.log('trails: ', trails);
     trails.filter(trail => {
         if (trail.imgMedium || trail.imgSmall || trail.imgSmallMed || trail.imgSqSmall){
             fixedTrails.push(trail)
@@ -53,7 +51,6 @@ export const fetchByGeoLocation = async (lat,long) => {
 export const fetchSavedTrails = async (userId) => {
     let response = await axios.get(`/api/saveforlater/${userId}`);
     if (response.data.length > 0){
-        console.log('response: ', response);
         return response.data
         } else {
             return "There is nothing here to see!"
@@ -64,7 +61,6 @@ export const fetchSavedTrails = async (userId) => {
 export const fetchVisitedTrails = async (userId) => {
     let response = await axios.get(`/api/visited/${userId}`);
     if (response.data.length > 0){
-        console.log('response: ', response);
         return response.data
         } else {
             return "There is nothing here to see!"

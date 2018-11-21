@@ -1,11 +1,12 @@
 import React from 'react';
-import { Switch, Route, Router } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Home from './Components/Home/Home';
 import TrailsGridwall from './Components/TrailsGridwall/TrailsGridwall';
 import TrailsNearBy from './Components/TrailsNearBy/TrailsNearBy';
 import TrailView from './Components/TrailView/TrailView';
 import UsersTrails from './Components/UsersTrails/UsersTrails';
 import ErrorPage from './Components/ErrorPage/ErrorPage';
+import ArticlePage from './Components/ArticlePage/ArticlePage';
 
 import { getAllTrails, getTrailsNearCity, fetchByGeoLocation, fetchVisitedTrails, fetchSavedTrails } from '../src/APICalls';
 
@@ -57,5 +58,6 @@ export default (
                 <UsersTrails fetch={fetchSavedTrails} name="savedTrails" />
             )}/>
             <Route path='/error' component={ErrorPage} />
+            <Route path='/All Articles' component={ArticlePage} />
         </Switch>
 )

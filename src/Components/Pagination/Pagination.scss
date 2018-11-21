@@ -1,0 +1,21 @@
+@import '../../colors.scss';
+
+.paginationContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    .pagination {
+        display: flex;
+        
+        & li, a {
+            margin: 10px;
+            text-decoration: none;
+            color: $blackText;
+            @media( max-width: 450px){
+                margin: 5px;  
+            }
+        }
+    }
+}

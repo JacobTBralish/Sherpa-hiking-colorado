@@ -54,11 +54,10 @@ class UsersTrails extends Component {
     render() { 
         let { error, isLoading } = this.state;
         const { name } = this.props
-        const { pathname } = this.props.location
-
         
         let usersTrails = this.state[name].map((trail, i) => {
-            return <Link key={i} to = {pathname === '/Your Visited Trails' ? `/Trail/${trail.saved_trail_id}` : `/Trail/${trail.visited_trail_id}`}><div className='usersTrailsTrailContainer'>
+            console.log('trail: ', trail);
+            return <Link key={i} to={`/Trail/${trail.saved_trail_id || trail.visited_trail_id}`}><div className='usersTrailsTrailContainer'>
                 <div className='usersTrailImageContainer'>
                     <img className='usersTrailImage' src={trail.trail_image} alt={trail.trail_name} />
                 </div>
@@ -75,7 +74,7 @@ class UsersTrails extends Component {
                     <>
                         {error
                             ?
-                            <div> Oh no!There was an error loading the trails.Please try again later. </div>
+                            <div> Oh no! There was an error loading the trails.Please try again later. </div>
                             : (isLoading || !this.state[name].length) ?
                             <LoadingSpinner />
                             : usersTrails
