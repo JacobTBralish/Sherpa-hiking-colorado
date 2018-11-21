@@ -33,7 +33,7 @@ class HomeArticles extends Component {
             </a> 
             })}
             <div>
-                <Link id='allArticlesLink' to={{pathname:'/All Articles', state:{articles: allArticles}}}>See All Articles</Link>
+                <Link id='allArticlesLink' to={{pathname:'/All Articles', state:{LinkArticles: allArticles}}}>See All Articles</Link>
             </div>
         </div>
          );

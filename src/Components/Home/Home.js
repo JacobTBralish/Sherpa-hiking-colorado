@@ -5,7 +5,7 @@ import HomeArticles from '../HomeArticles/HomeArticles';
 
 import './Home.scss';
 
-const ArticlesWithData = withData('https://api.nps.gov/api/v1/articles?stateCode=CO&limit=150&api_key=psv6nTyqb2edegMQfeIeAK92ZRlC45pmHnvEqUAH')(HomeArticles);
+const ArticlesWithData = withData('https://api.nps.gov/api/v1/articles?stateCode=CO&limit=150&api_key=psv6nTyqb2edegMQfeIeAK92ZRlC45pmHnvEqUAH', "articles")(HomeArticles);
 
 const Home = () => {
     return ( 
@@ -29,12 +29,12 @@ const Home = () => {
  
 export default Home;
 
-function withData(url) {
+function withData(url, storageName) {
     return function(WrappedComponent) {
         return class extends Component {
             state = {
                 isLoading: false,
-                data: null,
+                data: null || JSON.parse(localStorage.getItem(storageName)),
                 error: null
             }
 
@@ -42,32 +42,33 @@ function withData(url) {
                 this.setState({ isLoading: true  })
                 axios.get(url).then(response => {
                     console.log('response: ', response);
-                    this.setState({ data: response.data.data, isLoading: false  });
+                    this.setState({ data: response.data.data, isLoading: false
+                    }, localStorage.setItem(storageName, JSON.stringify(response.data.data)));
                 }).catch(error => {
                     console.log('Error in HOC',error)
                     this.setState({ error });
                 })
             }
 
+            cutArticles = (arr) => {
+                let fixedData = [];
+                var tmp = arr.slice(arr);
+                for (var i = 0; i < 4; i++) {
+                  var index = Math.floor(Math.random() * tmp.length);
+                  var removed = tmp.splice(index, 1);
+                    fixedData.push(removed[0]);
+                }
+                return fixedData
+            } 
             render() {
                 const { isLoading, data, error } = this.state;
-                let cutArticles = (data) => {
-                    let fixedData = [];
-                    var tmp = data.slice(data);
-                    for (var i = 0; i < 4; i++) {
-                      var index = Math.floor(Math.random() * tmp.length);
-                      var removed = tmp.splice(index, 1);
-                        fixedData.push(removed[0]);
-                    }
-                    return fixedData
-                } 
                 // let fixedArticles = this.cutArticles(data)
                 return <div>
                     {error
                     ? <div>Oh no! There was an issue loading the data</div>
                 :(isLoading || !data)
                 ? <LoadingSpinner />
-                : <WrappedComponent cutArticles={cutArticles} fixedArticles={data} allArticles={data} />
+                : <WrappedComponent cutArticles={this.cutArticles} fixedArticles={data} allArticles={data} />
                 }
                 </div>
             }

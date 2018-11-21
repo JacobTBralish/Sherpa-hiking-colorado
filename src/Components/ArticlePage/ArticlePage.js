@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import PaginationContainer from '../Pagination/Pagination';
 
 class ArticlePage extends Component {
-    constructor (){
-        super();
+    constructor (props){
+        super(props);
         this.state = { 
             activePage: 1,
             itemsPerPage: 15,
@@ -22,13 +22,13 @@ class ArticlePage extends Component {
     }
 
     render() { 
-        let { articles } = this.props.location.state
+        // let { LinkArticles } = this.props.location.state
         //Pagination
         let activePageIndex = parseInt(this.state.activePage, 10);
         let itemsPerPageIndex = parseInt(this.state.itemsPerPage, 10);
         let indexOfLastTrail = activePageIndex * itemsPerPageIndex;
         let indexOfFirstTrail = indexOfLastTrail - itemsPerPageIndex;
-        let renderedArticles = articles.slice(indexOfFirstTrail, indexOfLastTrail);
+        let renderedArticles = (this.state.articles || this.props.location.state.LinkArticles).slice(indexOfFirstTrail, indexOfLastTrail);
 
         let mappedArticles = renderedArticles.map((item, i) => {
             return (
@@ -56,7 +56,7 @@ class ArticlePage extends Component {
                 </div>
                     {mappedArticles}
                 <div className='paginationContainer'>
-                    <PaginationContainer acticePage={this.state.activePage} articles={articles} handlePageChange={this.handlePageChange}/>
+                    <PaginationContainer acticePage={this.state.activePage} articles={this.state.articles || this.props.location.state.LinkArticles} handlePageChange={this.handlePageChange}/>
                 </div>
             </div>
          );
