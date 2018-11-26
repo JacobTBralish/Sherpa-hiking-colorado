@@ -5,7 +5,7 @@ Sherpa Hiking is an application made to primarily assist the user to find, colle
 
 ##Installation
 
-First clone the repo into a new file. Next in the project terminal run yarn to download the dependencies needed to run the project. There after run yarn start to run the project on your localhost and run nodemon to start up the server.
+First clone the repo from master branch into a new file. Next in the project terminal run yarn to download the dependencies needed to run the project. There after run yarn start to run the project on your localhost and run nodemon to start up the server.
 
 ##Tests
 
