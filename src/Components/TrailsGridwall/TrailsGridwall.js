@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TrailCard from '../TrailCard/TrailCard';
-import PaginationContainer from '../Pagination/Pagination';
 import { Link } from 'react-router-dom';
 import { chooseTrail } from '../../Redux/reducer';
 import LoadingSpinner from '../../LoadingSpinner';
+
+import Pagination from 'react-js-pagination';
 
 import './Trails.scss';
 
@@ -170,9 +171,13 @@ class TrailsGridwall extends Component {
                     : mappedTrailCard
                     } 
             </div> 
-                <div className = 'paginationContainer'>
-                <PaginationContainer acticePage={this.state.activePage} articles={this.state[name]} handlePageChange={this.handlePageChange}/>
-                </div> 
+                <div className='paginationContainer'>
+                    <Pagination activePage = {this.state.activePage}
+                        itemsCountPerPage = {15}
+                        totalItemsCount = {this.state[name].length}
+                        pageRangeDisplayed = {5}
+                        onChange = {this.handlePageChange}/>
+                </div>
             </div> );
         }
     }

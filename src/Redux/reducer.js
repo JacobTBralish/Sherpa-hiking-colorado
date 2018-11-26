@@ -21,6 +21,7 @@ const CHOSEN_TRAIL = 'CHOSEN_TRAIL';
 const GET_TRAIL = 'GET_TRAIL';
 
 const POST_VISITED_TRAIL = 'POST_VISITED_TRAIL';
+const DELETE_USER_TRAIL = 'DELETE_USER_TRAIL';
 
 const SAVE_FOR_LATER = 'SAVE_FOR_LATER';
 
@@ -39,6 +40,8 @@ export default function reducer (state = initialState, action){
         case `${POST_VISITED_TRAIL}_FULFILLED`:
             return {...state, trail: action.payload}
         case `${SAVE_FOR_LATER}_FULFILLED`:
+            return {...state, trail: action.payload}
+        case `${DELETE_USER_TRAIL}_FULFILLED`:
             return {...state, trail: action.payload}
         case `${GET_REVIEWS}_FULFILLED`:
             return {...state, reviews: action.payload}
@@ -100,6 +103,7 @@ return {
     payload: trail
     }
 }
+
 // //----------------------------------------------------------------------SAVED--------------------------------------------------------------\\
 
 export function saveForLater(userId, trailId, trailName, trailImage, trailLocation, trailDifficulty){
@@ -107,13 +111,34 @@ export function saveForLater(userId, trailId, trailName, trailImage, trailLocati
         console.log('response: ', response);
         return response.data
     })
-return {
-    type: SAVE_FOR_LATER,
-    payload: trail
+    return {
+        type: SAVE_FOR_LATER,
+        payload: trail
     }
 }
 
 // //----------------------------------------------------------------------USER INFO--------------------------------------------------------------\\
+
+export function deleteUserTrail(type, usersTrailId, userId){
+    let trail = axios.delete(`/api/${type}/userstrail?id=${usersTrailId}`, {userId}).then(response => {
+        console.log('response: ', response);
+        return response.data
+    })
+    return {
+        type: DELETE_USER_TRAIL,
+        payload: trail
+    }
+}
+
+// export function deleteReview(trailId, reviewId){
+//     let reviews = axios.delete(`/api/trailreview/${trailId}?reviewId=${reviewId}`).then((response) => {
+//         return response.data
+//     })
+// return {
+//     type: DELETE_REVIEW,
+//     payload: reviews
+//     }
+// }
 
 // export function saveUserChanges(userId, firstName, lastName, email){
 //     let user = axios.put(`/api/updateuser/${userId}`, { firstName, lastName, email }).then(response => {

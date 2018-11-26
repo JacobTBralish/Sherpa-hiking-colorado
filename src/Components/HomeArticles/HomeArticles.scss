@@ -1,3 +1,4 @@
+@import '../../themes.scss';
 @import '../../colors.scss';
 
 .newsArticleContainer {
@@ -21,6 +22,13 @@
             color: $coloradoRed;
         }
     }
+    .paginationContainer {
+        @extend %pagination-parent;
+        
+        .pagination {
+            @extend %pagination-child;
+        }
+    }
 }
 
 .articleLink {
@@ -28,6 +36,11 @@
     flex-direction: row;
     border: $blackText 4px ridge;
     margin: 10px 0;
+    min-width: 800px;
+    @media(max-width: 825px){
+        min-width: inherit;
+
+    }
     .newsArticleSubContainer {
         justify-content: space-evenly;
         align-content: center;
@@ -62,10 +75,14 @@
             text-decoration: none;
             color: $blackText;
             letter-spacing: .017em;
+            width: 100%;
+            min-width: 459px;
+            position: relative;
             border-left: $blackText 4px ridge;
             @media(max-width: 825px){
                 width: 333px;  
                 border: none; 
+                min-width: inherit;
             }
             
             .newsArticleTitleContainer {
@@ -74,8 +91,8 @@
                 text-transform: uppercase;
                 background-color: $blackText;
                 color: white;
-                width: 100%;
                 height: auto;
+                position: relative;
                 @media(max-width: 825px){
                     width: 333px;  
                 }

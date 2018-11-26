@@ -6,7 +6,7 @@ const ErrorPage = () => {
     return ( 
         <div className='errorMessageContainer'>
             <div className='errorMessageSubContainer'>
-                <h1 className='errorMessage'>Oops! It looks like you haven't added anything to this list yet! Would you like to view <a href='/all trails'>trails</a>?</h1>
+                <h1 className='errorMessage'>Oops! It looks like theres nothing here to see! Would you like to view <a href='/all trails'>trails</a>?</h1>
             </div>
         </div>
      );

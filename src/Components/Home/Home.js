@@ -17,7 +17,10 @@ const Home = () => {
                     </h1>
                 </div>
                 <div className='imageContainer'>
-                    <img className='homeImage'  alt=''></img>
+                    <img className='homeImage'  alt='' />
+                    <div className='photoCreditContainer'>
+                        <a className='photoCredit' href='https://www.facebook.com/pg/danicolemanphotography/'>@Photo by Dani Coleman</a>
+                    </div>
                 </div>
                 <div>
                     <ArticlesWithData />

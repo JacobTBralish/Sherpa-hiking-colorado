@@ -16,7 +16,7 @@ class Weather extends Component {
     }
 
     async componentDidMount() {
-        await axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${this.props.lat}&lon=${this.props.long}&APPID=59b00ca946aa0fbe99a7218a649b7168&units=imperial`).then(res => {
+        await axios.get(`https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/forecast?lat=${this.props.lat}&lon=${this.props.long}&APPID=59b00ca946aa0fbe99a7218a649b7168&units=imperial`).then(res => {
             console.log(res.data)
             this.setState({ weather: res.data.list, isLoading: false });
         })

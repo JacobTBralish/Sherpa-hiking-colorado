@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LoadingSpinner from '../../LoadingSpinner';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import { deleteUserTrail } from '../../Redux/reducer';
 
 import './UsersTrails.scss';
 
@@ -53,11 +54,19 @@ class UsersTrails extends Component {
     
     render() { 
         let { error, isLoading } = this.state;
-        const { name } = this.props
+        const { name, type} = this.props;
+        let { deleteUserTrail, user, location  } = this.props;
+        console.log('location: ', location);
+        console.log('user: ', user);
+        console.log('type: ', type);
         
         let usersTrails = this.state[name].map((trail, i) => {
-            console.log('trail: ', trail);
-            return <Link key={i} to={`/Trail/${trail.saved_trail_id || trail.visited_trail_id}`}><div className='usersTrailsTrailContainer'>
+            console.log('trail: ', trail.id);
+            return <div>
+                    <div className='deleteContainer'>
+                        <button style={{fontSize: "50px"}} onClick={() => {deleteUserTrail(type, trail.id, user.id)}} className='deleteButton'>X</button>
+                    </div>
+                <Link key={i} to={`/Trail/${trail.saved_trail_id || trail.visited_trail_id}`}><div className='usersTrailsTrailContainer'>
                 <div className='usersTrailImageContainer'>
                     <img className='usersTrailImage' src={trail.trail_image} alt={trail.trail_name} />
                 </div>
@@ -66,10 +75,22 @@ class UsersTrails extends Component {
                     <h3 className='trailLocation'>{trail.trail_location}</h3>
                     <h3 className='trailDifficulty'>{trail.trail_difficulty}</h3>
                 </div>
-            </div></Link>
+            </div>
+            </Link>
+            </div>
         })
         return ( 
             <div className='usersTrailsContainer'>
+            {location.pathname === '/Your Saved Trails'
+            ?
+            <div>
+                <h1 style={{fontSize:"36px", margin: "25px 0"}}>{`Trails you have saved for later`}</h1>
+            </div>
+            :
+            <div>
+                <h1 style={{fontSize:"36px", margin: "25px 0"}}>{`Trails you have visited`}</h1>
+            </div>
+            }
                 <div className='usersTrailsSubContainer'>
                     <>
                         {error
@@ -92,4 +113,8 @@ const mapStateToProps = state => {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(UsersTrails));
+const mapDispatchToProps = {
+    deleteUserTrail
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UsersTrails));

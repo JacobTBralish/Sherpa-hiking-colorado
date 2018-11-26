@@ -128,7 +128,8 @@
                         display: block;
                         position: relative;
                         float: left;
-                        background: white;
+                        //changes the entire background image
+                        background: rgb(189, 189, 189);
                         cursor: pointer;
                     }
                   
@@ -146,6 +147,7 @@
                 color: $blackText;
                 @media(max-width: 550px){
                     line-height: 12px;
+                    margin-top: 5px;
                     }
                 }
 
@@ -158,14 +160,23 @@
                     position: absolute;
                     margin: 0;
                     
-
+                    
                     @media(max-width: 550px){
+                        //CHANGE THIS TO SHOW THE WHOLE CITIES LIST
+                        margin-top: 0px;
                         left: 0;
                         width: 50vw;
+                                            //changes the first dropdown background image
+                    background: rgb(189, 189, 189);
                         }
                     }
                     
-                li:hover li { float: none; }
+                li:hover li { float: none;
+                    @media(max-width: 550px){
+                        background: rgb(189, 189, 189);
+                        margin: 2px 0 2px 0;
+                    } 
+                }
                 
                 //changes dropdown background
                 li:hover a { background: white;

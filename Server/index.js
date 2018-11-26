@@ -118,16 +118,19 @@ app.get('/api/getpostedimages/:id', rC.getTrailsPostedPictures);
 // ================================================ Reviews ====================================== \\
 app.get('/api/trailreview/:id', rC.getTrailReviewById);
 app.post('/api/trailreview/:id', rC.postReview);
-app.delete('/api/trailreview/:id', rC.deleteReview);
 app.put('/api/trailreview/:id', rC.editReview);
+app.delete('/api/trailreview/:id', rC.deleteReview);
 
 // ================================================ Visted ====================================== \\
 app.get('/api/visited/:id', vC.getVisitedTrails);
 app.post('/api/visited/:id', vC.markAsVisited);
+app.delete('/api/visited/:id', vC.deleteVisitedTrail);
 
 // ================================================ Saved ====================================== \\
 app.get('/api/saveforlater/:id', sflC.getSavedTrails);
 app.post('/api/saveforlater/:id', sflC.saveForLater);
+app.delete('/api/saveforlater/:id', sflC.deleteSavedTrail);
+
 
 // ================================================ Auth0 Login ====================================== \\
 

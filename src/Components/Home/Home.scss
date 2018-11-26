@@ -82,7 +82,7 @@
 
 
                     @media(max-width: 550px){
-                        background: url('../../Image/HangingLake.jpg');
+                        background: url('../../Image/DaniPhotoMobileView.jpg');
                         background-repeat: no-repeat;
                         background-size: cover;
                         background-position: bottom;
@@ -92,17 +92,56 @@
                             height: 700px;
                         }
                     }
-
-
                 }
-
-    
-
             }
+            .photoCreditContainer {
+                position: absolute;
+                top: 39.8%;
+                right: 10%;
+                z-index: 3;
 
-
+                @media(max-width: 900px){
+                    top: 39.5%;
+                    right: 0%;
+                    @media(max-width: 825px){
+                        top: 28.7%;
+                        right: 0%;
+                        @media(max-width: 700px){
+                            top: 29.2%;
+                            right: 0%;
+                            @media(max-width: 550px){
+                                top: 28.1%;
+                                right: 0%;
+                                @media(max-width: 465px){
+                                    top: 27%;
+                                    right: 0%;
+                                    @media(max-width: 405px){
+                                        top: 27.6%;
+                                        right: 0%;
+                                        @media(max-width: 325px){
+                                            top: 28.15%;
+                                            right: 0%;
+                                            @media(max-width: 288px){
+                                                top: 28.65%;
+                                                right: 0%;
+                                                @media(max-width: 258px){
+                                                    top: 29.19%;
+                                                    right: 0%;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .photoCredit {
+                    color: rgba($color: white, $alpha: .8);
+                    text-decoration: underline;
+                    font-size: 12px;
+                }
+            }
         }
-
-
     }
 }

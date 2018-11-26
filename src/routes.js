@@ -54,10 +54,10 @@ export default (
                 <TrailsNearBy fetch={fetchByGeoLocation} city="Trails Near You" name="trailsNearMe" image='https://www.colorado.gov/revenueonline/Image/ENG/iStock_000027245770Large.jpg'/>
             )}/>
             <Route path='/Your Visited Trails' render={() => (
-                <UsersTrails fetch={fetchVisitedTrails} name="visitedTrails" />
+                <UsersTrails fetch={fetchVisitedTrails} name="visitedTrails" type={'visited'}/>
             )}/>
             <Route path='/Your Saved Trails' render={() => (
-                <UsersTrails fetch={fetchSavedTrails} name="savedTrails" />
+                <UsersTrails fetch={fetchSavedTrails} name="savedTrails" type={'saveforlater'}/>
             )}/>
         </Switch>
 )
