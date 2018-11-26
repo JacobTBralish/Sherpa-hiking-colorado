@@ -32,13 +32,12 @@ massive(process.env.CONNECTION_STRING).then(database => {
 //-------------------------------------------------------------------------------------Auth0----------------------------------------------------------------------\\
 
 app.get('/auth/callback', (req,res) => {
-    console.log('auth callback has fired')
         const payload = {
             client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
             client_secret: process.env.AUTH0_CLIENT_SECRET,
             code: req.query.code,
             grant_type:'authorization_code',
-            redirect_uri: `http://${req.headers.host}/auth/callback`
+            redirect_uri: `https://${req.headers.host}/auth/callback`
         }
   function tradeCodeForAccessToken(){console.log('traded code for access token')
       return axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`, payload)
@@ -49,17 +48,13 @@ app.get('/auth/callback', (req,res) => {
    }
   function storeUserInfoInDatabase(response){console.log('Stored user info in db')
       const auth0Id = response.data.sub;
-      console.log(auth0Id,'-------Auth0ID-------')
       const db = req.app.get('db');
       return db.find_user_by_auth0_id(auth0Id).then(users => {
-          console.log('find user has fired')
           if (users.length){console.log(users)
             const user = users[0];
             req.session.user = user;
-            console.log('response.data.name: ', response.data);
             res.redirect('/');
         } else {
-            console.log('response.data.name: ', response.data);
             const userArray = [
                   auth0Id,
                   response.data.picture,
@@ -69,7 +64,6 @@ app.get('/auth/callback', (req,res) => {
                   response.data.email,
               ];
               return db.create_user(userArray).then(newUser => {
-                console.log(newUser,'create user has fired')
                 req.session.user = newUser[0]
                   res.redirect('/');
               }).catch(error => {
@@ -88,13 +82,13 @@ app.get('/auth/callback', (req,res) => {
   .catch(error => {
     console.log('Error in auth/callback', error)
     res.status(500).json('Unexpected error')
-
   })
-})
+});
 
 app.get('/', (req, res) => {
 res.send('endpoint live')
 });
+
 //------------------------------------------------------------------------------Cloudinary------------------------------------------------------------------\\
 
 app.get('/api/upload', (req, res) => {
