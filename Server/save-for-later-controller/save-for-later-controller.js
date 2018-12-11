@@ -23,6 +23,7 @@ module.exports = {
             res.status(500).json(error);
         })
     },
+    
     deleteSavedTrail: (req, res) => {
         const db = req.app.get('db');
         let { userId } = req.body;

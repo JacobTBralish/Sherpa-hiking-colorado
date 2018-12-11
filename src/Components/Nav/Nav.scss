@@ -1,349 +1,338 @@
-@import '../../colors.scss';
+@import "../../colors.scss";
 
 * {
-    outline: none;
+  outline: none;
 }
 
-    .navSubContainer {
-        display: flex;
+.navSubContainer {
+  display: flex;
+  position: relative;
+  background-color: none;
+  justify-content: space-between;
+  line-height: 72.5px;
+  margin-right: 70px;
+  width: 100%;
+  padding: 0 35px 0 50px;
+  font-size: 16px;
+  text-decoration: none;
+  border-bottom: solid rgba(80, 80, 80, 0.698) 1px;
+
+  @media (max-width: 700px) {
+    padding: 0;
+  }
+  & button {
+    display: none;
+
+    @media (max-width: 550px) {
+      display: initial;
+      // position: absolute;
+      // z-index: 30;
+      height: 60px;
+      width: 60px;
+      font-size: 24px;
+      border-radius: 50%;
+      // bottom: 30px;
+      margin-top: 7px;
+      left: 0%;
+      background: none;
+      border: none;
+      top: 10px;
+    }
+  }
+
+  .logoContainer {
+    display: flex;
+    text-decoration: none !important;
+    margin: 0 20px;
+    align-items: center;
+    justify-content: center;
+    // width: 80px;
+    @media (max-width: 550px) {
+      display: initial;
+      position: absolute;
+      // z-index: 50;
+      height: 60px;
+      width: 60px;
+      font-size: 24px;
+      border-radius: 50%;
+      // bottom: 30px;
+      left: 30%;
+      background: none;
+      border: none;
+      top: 20px;
+    }
+
+    .logoLink {
+      font-size: 30px;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      .logo {
         position: relative;
-        background-color: none;
-        justify-content: space-between;
-        line-height: 72.5px;
-        margin-right: 70px;
-        width: 100%;
-        padding: 0 35px 0 50px;
-        font-size: 16px;
+        top: -18px;
+        color: $blackText;
+      }
+    }
+  }
+
+  .rightNavContainer {
+    .rightNavList > li {
+      margin: 0 25px;
+      @media (max-width: 550px) {
+        margin: 20px 25px 0px 25px;
+      }
+    }
+
+    .rightNavList {
+      display: flex;
+      margin: 0 25px;
+      list-style: none;
+      line-height: 72.5px;
+
+      // ==============================================corret below for fixed nav bar=========================================\\
+
+      // Set the parent <li>’s CSS position property to ‘relative’.
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        background: white;
+        z-index: 1000;
+        box-shadow: #c8c8c8 0.5px 0.5px 0.5px 0.5px;
+
+        & :before,
+        :after {
+          content: " "; /* 1 */
+          display: table; /* 2 */
+        }
+        // Simple clearfix.
+        &:after {
+          clear: both;
+        }
+
+        & li {
+          display: block;
+          position: relative;
+          float: left;
+          //changes the entire background image
+          background: rgb(189, 189, 189);
+          cursor: pointer;
+        }
+      }
+
+      //   The CSS to hide the sub menus.
+
+      li ul {
+        display: none;
+      }
+
+      ul li a {
+        display: block;
+        padding: 1em;
         text-decoration: none;
-        border-bottom: solid rgba(80, 80, 80, 0.698) 1px;
-
-        @media( max-width: 700px){
-            padding: 0;
-
-
+        white-space: nowrap;
+        color: $blackText;
+        @media (max-width: 550px) {
+          line-height: 12px;
+          margin-top: 5px;
         }
-        & button {
-            display: none;
-            
+      }
 
-            @media(max-width:550px) {
-                display: initial;
-                // position: absolute;
-                // z-index: 30;
-                height: 60px;
-                width: 60px;
-                font-size: 24px;
-                border-radius: 50%;
-                // bottom: 30px;
-                margin-top: 7px;
-                left: 0%;
-                background: none;
-                border: none;
-                top: 10px;
+      ul li a:hover {
+        background: rgb(238, 226, 226);
+      }
 
-  
-            }
-            
-            
+      // Displays the dropdown menu on hover.
+
+      li:hover > ul {
+        display: block;
+        position: absolute;
+        margin: 0;
+
+        @media (max-width: 550px) {
+          //CHANGE THIS TO SHOW THE WHOLE CITIES LIST
+          margin-top: 0px;
+          left: 0;
+          width: 50vw;
+          //changes the first dropdown background image
+          background: rgb(189, 189, 189);
         }
+      }
 
-        .logoContainer {
-            display: flex;
-            text-decoration: none!important;
-            margin: 0 20px;
-            align-items: center;
-            justify-content: center;
-            // width: 80px;
-            @media(max-width:550px) {
-                display: initial;
-                position: absolute;
-                // z-index: 50;
-                height: 60px;
-                width: 60px;
-                font-size: 24px;
-                border-radius: 50%;
-                // bottom: 30px;
-                left: 30%;
-                background: none;
-                border: none;
-                top: 20px;
-
-  
-            }
-
-            .logoLink {
-                font-size: 30px;
-                width: 40px;
-                height: 40px;
-                text-align: center;
-                .logo {
-                    position: relative;
-                    top: -18px;
-                    color: $blackText;
-                }
-            }
+      li:hover li {
+        float: none;
+        @media (max-width: 550px) {
+          background: rgb(189, 189, 189);
+          margin: 2px 0 2px 0;
         }
+      }
 
-
-        .rightNavContainer {
-
-            
-
-            .rightNavList > li {
-                margin: 0 25px;
-                @media(max-width: 550px){
-                    margin: 20px 25px 0px 25px;
-                }
-            }
-
-            .rightNavList {
-                display: flex;
-                margin: 0 25px;
-                list-style: none;
-                line-height: 72.5px;
-
-                
-// ==============================================corret below for fixed nav bar=========================================\\
-
-                // Set the parent <li>’s CSS position property to ‘relative’.
-
-                ul {
-                    list-style: none;
-                    padding: 0;
-
-                    background: white;
-                    z-index: 1000;
-                    box-shadow: #c8c8c8 .5px .5px .5px .5px;
-
-                    & :before, :after {
-                        content: " "; /* 1 */
-                        display: table; /* 2 */
-                    }
-                // Simple clearfix.
-                    &:after {
-                        clear: both;
-                    }
-
-                    & li {
-                        display: block;
-                        position: relative;
-                        float: left;
-                        //changes the entire background image
-                        background: rgb(189, 189, 189);
-                        cursor: pointer;
-                    }
-                  
-                  }
-
-                //   The CSS to hide the sub menus.
-
-                li ul { display: none; }
-
-                ul li a {
-                display: block;
-                padding: 1em;
-                text-decoration: none;
-                white-space: nowrap;
-                color: $blackText;
-                @media(max-width: 550px){
-                    line-height: 12px;
-                    margin-top: 5px;
-                    }
-                }
-
-                ul li a:hover { background: rgb(238, 226, 226); }
-
-                // Displays the dropdown menu on hover.
-
-                li:hover > ul {
-                    display: block;
-                    position: absolute;
-                    margin: 0;
-                    
-                    
-                    @media(max-width: 550px){
-                        //CHANGE THIS TO SHOW THE WHOLE CITIES LIST
-                        margin-top: 0px;
-                        left: 0;
-                        width: 50vw;
-                                            //changes the first dropdown background image
-                    background: rgb(189, 189, 189);
-                        }
-                    }
-                    
-                li:hover li { float: none;
-                    @media(max-width: 550px){
-                        background: rgb(189, 189, 189);
-                        margin: 2px 0 2px 0;
-                    } 
-                }
-                
-                //changes dropdown background
-                li:hover a { background: white;
-                    @media(max-width: 550px){
-                        background: rgb(189, 189, 189);
-                    } 
-                }
-                
-                li:hover li a:hover { background: $coloradoRed; color: white; cursor: pointer; }
-
-                #logoutButton {
-                    display: block;
-                    padding: 1em;
-                    text-decoration: none;
-                    white-space: nowrap;
-                    color: #2e3031;
-                    cursor: pointer;
-                    
-                    &:hover {
-                        background: $coloradoRed; color: white; 
-                        
-                    }
-                }
-                
-                .main-navigation li ul li { border-top: 0; }
-
-                //   Displays second level dropdown menus to the right of the first level dropdown menu.
-
-                ul ul ul {
-                    left: 100%;
-                    top: 0;
-                    @media(max-width: 550px){
-                        left: 50%;
-                    }
-                }
-
-                // #mainNavButton {
-                //     height: 78px
-                // }
-                // #mainTrailsDropdown {
-                //     height: 74px;
-                // }
-                
-            }
-
-            
-            .rightNavListItem, .rightNavExtraListItemCities {
-                height: 50px;
-                line-height: 25px;
-
-                @media(max-width: 550px){
-                    height: 42px;
-                    line-height: 15px;
-                    font-size: 16px;
-                }
-            }
-
-            .rightNavList > li, li > a {
-                text-decoration: none;
-                white-space: nowrap;
-                color: #2e3031;
-                cursor: pointer;
-
-                @media(max-width: 550px){
-                    height: 42px;
-                    line-height: 20px;
-                    font-size: 16px;
-                }
-            }
+      //changes dropdown background
+      li:hover a {
+        background: white;
+        @media (max-width: 550px) {
+          background: rgb(189, 189, 189);
         }
+      }
 
-        .searchContainer {
-            display: flex;
-            margin: 0 10px 0 0;
-            align-items: center;
-            @media(max-width: 550px) {
-                flex-direction: column-reverse;
+      li:hover li a:hover {
+        background: $coloradoRed;
+        color: white;
+        cursor: pointer;
+      }
 
+      #logoutButton {
+        display: block;
+        padding: 1em;
+        text-decoration: none;
+        white-space: nowrap;
+        color: #2e3031;
+        cursor: pointer;
 
-            }
-            & input {
-                height: 24px;
-                width: 200px;
-                font-size: 16px;
-            }
-
-            #navUserImage {
-                margin-left: 15px;
-                max-height: 50px;
-                max-width: 50px;
-                display: flex;
-                justify-content: center;
-                @media(max-width: 550px) {
-                    margin: 0 15px;
-                }
-            }
-
-            #welcomeName {
-
-                @media(max-width: 550px) {
-                    font-size: 13px;
-                    max-height: 50px;
-                    line-height: 25px;
-                    // position: absolute;
-                    // left: 27%;
-                    // top: 550%;
-                    // color: white;
-                    // font-size: 40px;
-                    // z-index: 2;
-                }
-            }
+        &:hover {
+          background: $coloradoRed;
+          color: white;
         }
-        
+      }
+
+      .main-navigation li ul li {
+        border-top: 0;
+      }
+
+      //   Displays second level dropdown menus to the right of the first level dropdown menu.
+
+      ul ul ul {
+        left: 100%;
+        top: 0;
+        @media (max-width: 550px) {
+          left: 50%;
+        }
+      }
+
+      // #mainNavButton {
+      //     height: 78px
+      // }
+      // #mainTrailsDropdown {
+      //     height: 74px;
+      // }
     }
-    
-    .navSubContainer nav{
-        @media(max-width: 550px) {
-            display: flex;
-            position: fixed;
-            /* if you were coming from top it would be top instead of bottom */
-            top: 0;
-            left: 0;
-            // color: white;
-            background: rgb(189, 189, 189);
-            transform: translate(-700px, 0px);
-            transition: 1s;
-            z-index: 10;
 
-            & .rightNavContainer {
-                height: 100vh;
-                width: 50vw;
-                // padding: 10px 0;
+    .rightNavListItem,
+    .rightNavExtraListItemCities {
+      height: 50px;
+      line-height: 25px;
 
-                & .rightNavList {
-                    display: flex;
-                    margin: 0 25px;
-                    list-style: none;
-                    line-height: 72.5px;
-                    flex-direction: column;
-
-                    & li {
-                        height: 50px;
-                        @media(max-width: 550px){
-                            height: 40px;
-                            line-height: 15px;
-                            font-size: 16px;
-                        }
-                    }
-
-                    // & ul ul {
-                    //     // height: ;
-                    // }
-                }
-            }
-        }
+      @media (max-width: 550px) {
+        height: 42px;
+        line-height: 15px;
+        font-size: 16px;
+      }
     }
-    
-    
-    .navSubContainer .show {
-            transform: translate(0px, 0px)
-            }
 
-            .show1 .show2 {
-                            transform: translate(0px, 0px)
+    .rightNavList > li,
+    li > a {
+      text-decoration: none;
+      white-space: nowrap;
+      color: #2e3031;
+      cursor: pointer;
 
-            }
-        
+      @media (max-width: 550px) {
+        height: 42px;
+        line-height: 20px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .searchContainer {
+    display: flex;
+    margin: 0 10px 0 0;
+    align-items: center;
+    @media (max-width: 550px) {
+      flex-direction: column-reverse;
+    }
+    & input {
+      height: 24px;
+      width: 200px;
+      font-size: 16px;
+    }
+
+    #navUserImage {
+      margin-left: 15px;
+      max-height: 50px;
+      max-width: 50px;
+      display: flex;
+      justify-content: center;
+      @media (max-width: 550px) {
+        margin: 0 15px;
+      }
+    }
+
+    #welcomeName {
+      @media (max-width: 650px) {
+        font-size: 13px;
+        max-height: 50px;
+        line-height: 25px;
+        // position: absolute;
+        // left: 27%;
+        // top: 550%;
+        // color: white;
+        // font-size: 40px;
+        // z-index: 2;
+      }
+    }
+  }
+}
+
+.navSubContainer nav {
+  @media (max-width: 550px) {
+    display: flex;
+    position: fixed;
+    /* if you were coming from top it would be top instead of bottom */
+    top: 0;
+    left: 0;
+    // color: white;
+    background: rgb(189, 189, 189);
+    transform: translate(-700px, 0px);
+    transition: 1s;
+    z-index: 10;
+
+    & .rightNavContainer {
+      height: 100vh;
+      width: 50vw;
+      // padding: 10px 0;
+
+      & .rightNavList {
+        display: flex;
+        margin: 0 25px;
+        list-style: none;
+        line-height: 72.5px;
+        flex-direction: column;
+
+        & li {
+          height: 50px;
+          @media (max-width: 550px) {
+            height: 40px;
+            line-height: 15px;
+            font-size: 16px;
+          }
+        }
+
+        // & ul ul {
+        //     // height: ;
+        // }
+      }
+    }
+  }
+}
+
+.navSubContainer .show {
+  transform: translate(0px, 0px);
+}
+
+.show1 .show2 {
+  transform: translate(0px, 0px);
+}
+
 // ==============================================corret above for fixed nav bar=========================================\\
-
-

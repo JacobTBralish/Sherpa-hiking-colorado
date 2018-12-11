@@ -37,7 +37,8 @@ app.get('/auth/callback', (req,res) => {
             client_secret: process.env.AUTH0_CLIENT_SECRET,
             code: req.query.code,
             grant_type:'authorization_code',
-            redirect_uri: `https://${req.headers.host}/auth/callback`
+            //=================================================CHANGE HTTP => HTTPS BEFORE DEPLOYING OR AUTH0 WILL NOT WORK=================================================\\
+            redirect_uri: `http://${req.headers.host}/auth/callback`
         }
   function tradeCodeForAccessToken(){console.log('traded code for access token')
       return axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`, payload)

@@ -1,22 +1,22 @@
 .userSubmittedImageSubContainer {
-    margin: 0 10px;
-    width: 120px;
-    height: 120px;
-    max-width: 120px;
-    max-height: 120px;
-    .userSubmittedImage1 {
-        margin: 8px;
-        transition: .4s;
-        width: 100%;
-        height: auto;
-        &:hover {
-            transform: scale(3);
-            z-index: 2;
-            cursor: pointer;
-        }
+  margin: 0 10px;
+  width: 120px;
+  height: 120px;
+  max-width: 120px;
+  max-height: 120px;
+  .userSubmittedImage1 {
+    margin: 8px;
+    transition: 0.4s;
+    width: 100%;
+    height: auto;
+    &:hover {
+      transform: scale(3);
+      z-index: 2;
+      cursor: pointer;
     }
+  }
 }
 .mappedImagesContainer {
-    display: flex;
-    margin: 25px 0 0 0;
+  display: flex;
+  margin: 25px 0 0 0;
 }

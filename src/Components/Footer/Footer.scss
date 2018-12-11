@@ -1,23 +1,23 @@
-@import '../../colors.scss';
+@import "../../colors.scss";
 
 .footerContainer {
-    width: 100vw;
-    height: 100px;
-    display: flex;
-    background: $blackText;
-    justify-content: center;
-    align-items: center;
-    // margin-top: 100px;
-   .footerSubContainer {
+  width: 100vw;
+  height: 100px;
+  display: flex;
+  background: $blackText;
+  justify-content: center;
+  align-items: center;
+  // margin-top: 100px;
+  .footerSubContainer {
     justify-content: center;
     margin: 10px auto;
     .copyRight {
-        color: white;
-        margin-bottom: 5px;
+      color: white;
+      margin-bottom: 5px;
     }
     .portfolioLink a {
-        color: white;
-        text-decoration: underline;
+      color: white;
+      text-decoration: underline;
     }
-   } 
+  }
 }

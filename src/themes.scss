@@ -1,66 +1,67 @@
-@import './colors.scss';
+@import "./colors.scss";
 
-@mixin btn-design($width){
-    width: $width;
-    cursor: pointer;
-    margin: 5px;
-    height: 25px;
-    background: white;
-    border: .5px solid black;
+@mixin btn-design($width) {
+  width: $width;
+  cursor: pointer;
+  margin: 5px;
+  height: 25px;
+  background: white;
+  border: 0.5px solid black;
 
-    &:hover {
-        background: $coloradoRed;
-        color: white;
-        transition: 0.2s;
-    }
+  &:hover {
+    background: $coloradoRed;
+    color: white;
+    transition: 0.2s;
+  }
 }
 
-@mixin  image-parent($pictureSizing) {
-    justify-content: center;
-    width: $pictureSizing;
-    height: $pictureSizing;
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    margin: 0;
+@mixin image-parent($pictureSizing) {
+  justify-content: center;
+  width: $pictureSizing;
+  height: $pictureSizing;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0;
 }
 
 @mixin main-container($topMargin) {
-    height: 100%;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: $topMargin;
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: $topMargin;
 }
 
 %image-child {
-    margin: 0 auto;
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-height: 100%;
-    min-width: 100%;
-    transform: translate(-50%, -50%);
+  margin: 0 auto;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-height: 100%;
+  min-width: 100%;
+  transform: translate(-50%, -50%);
 }
 
 %pagination-parent {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 %pagination-child {
-    display: flex;
-            
-    & li, a {
-        margin: 10px;
-        text-decoration: none;
-        color: $blackText;
-        @media( max-width: 450px){
-            margin: 5px;  
-        }
+  display: flex;
+
+  & li,
+  a {
+    margin: 10px;
+    text-decoration: none;
+    color: $blackText;
+    @media (max-width: 450px) {
+      margin: 5px;
     }
+  }
 }

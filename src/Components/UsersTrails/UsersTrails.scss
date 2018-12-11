@@ -1,112 +1,107 @@
-@import '../../themes.scss';
-@import '../../colors.scss';
+@import "../../themes.scss";
+@import "../../colors.scss";
 
 .usersTrailsContainer {
-    @include main-container(40px);
+  @include main-container(40px);
 
-    .usersTrailsSubContainer {
-        flex-direction: row;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-        display: flex;
-        width: 80vw;
-        height: 100%;
-        margin: 20px;
-    }
+  .usersTrailsSubContainer {
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    display: flex;
+    width: 80vw;
+    height: 100%;
+    margin: 20px;
+  }
 }
 
 .usersTrailsTrailContainer {
-    width: 24vw;
-    margin: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: relative;
+  width: 24vw;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
 
-    @media(max-width: 650px){
-        width: 100vw;
-        @media(max-width: 500px){
-            margin: 20px 20px 10px 20px;
-        }
+  @media (max-width: 650px) {
+    width: 100vw;
+    @media (max-width: 500px) {
+      margin: 20px 20px 10px 20px;
     }
-    .usersTrailImageContainer {
-        @include image-parent(400px);
-        border: 3px $blackText solid;
+  }
+  .usersTrailImageContainer {
+    @include image-parent(400px);
+    border: 3px $blackText solid;
 
-        @media(max-width: 1150px){
-            width: 300px;
-            height: 300px;
-            @media(max-width: 850px){
-                width: 225px;
-                height: 225px;
-                @media(max-width: 650px){
-                    width: 400px;
-                    height: 400px;
+    @media (max-width: 1150px) {
+      width: 300px;
+      height: 300px;
+      @media (max-width: 850px) {
+        width: 225px;
+        height: 225px;
+        @media (max-width: 650px) {
+          width: 400px;
+          height: 400px;
 
-                    @media(max-width: 500px){
-                        width: 100vw;
-                        // height: 400px;
-                    }
-                }
-            }
+          @media (max-width: 500px) {
+            width: 100vw;
+            // height: 400px;
+          }
         }
-
-        .usersTrailImage {
-            @extend %image-child;
-        }
-
-        .deleteContainer {
-            position: relative;
-            .deleteButton {
-                position: absolute;
-                top: 0;
-                right: 0;
-                z-index: 3;
-                color: red;
-            }
-        }
+      }
     }
 
-    .usersTrailInfoContainer {
-        color: white;
-        text-align: center;
-        font-size: 18px;
-        background: $blackText;
-        width: 400px;
-        
-        @media(max-width: 1150px){
-            width: 300px;
-            font-size: 14px;
-
-            @media(max-width: 850px){
-                width: 225px;
-
-                @media(max-width: 650px){
-                    width: 400px;
-
-                    @media(max-width: 500px){
-                        width: 100vw;
-                        // margin-bottom: 3px;
-                        font-size: 18px;
-
-                    }
-                }
-            }
-
-        }
-        
-        .trailName {
-            margin: 3px 0;
-
-        }
-        .trailLocation {
-            margin-bottom: 3px;
-
-
-        }
-        .trailDifficulty {
-            text-transform: capitalize;
-        }
+    .usersTrailImage {
+      @extend %image-child;
     }
+
+    .deleteContainer {
+      position: relative;
+      .deleteButton {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 3;
+        color: red;
+      }
+    }
+  }
+
+  .usersTrailInfoContainer {
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    background: $blackText;
+    width: 400px;
+
+    @media (max-width: 1150px) {
+      width: 300px;
+      font-size: 14px;
+
+      @media (max-width: 850px) {
+        width: 225px;
+
+        @media (max-width: 650px) {
+          width: 400px;
+
+          @media (max-width: 500px) {
+            width: 100vw;
+            // margin-bottom: 3px;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+    .trailName {
+      margin: 3px 0;
+    }
+    .trailLocation {
+      margin-bottom: 3px;
+    }
+    .trailDifficulty {
+      text-transform: capitalize;
+    }
+  }
 }
