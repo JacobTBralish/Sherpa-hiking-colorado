@@ -1,6 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 **Synopsis**
+
 Sherpa Hiking is an application made to primarily assist the user to find, collect, and share different hiking trails around Colorado.
 
 **Installation**
@@ -16,4 +17,5 @@ and run nodemon to start up the server on another terminal.
 
 
 **Contributors**
+
 Jacob Bralish: sole contributor
