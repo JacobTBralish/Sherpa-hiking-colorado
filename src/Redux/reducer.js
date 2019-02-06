@@ -66,7 +66,9 @@ export function getUser() {
       .then(response => {
         return response.data;
       })
-      .catch(error => {})
+      .catch(error => {
+        console.log(error);
+      })
   };
 }
 

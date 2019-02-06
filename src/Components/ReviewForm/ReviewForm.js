@@ -45,7 +45,7 @@ class ReviewForm extends Component {
 
   handlePhotoToggle = () => {
     this.setState(prevState => {
-      //  
+      //
       return {
         togglePhotos: !prevState.togglePhotos
       };
@@ -53,17 +53,16 @@ class ReviewForm extends Component {
   };
 
   onDrop(acceptedFiles, rejectedFiles) {
-    
-    // 
+    //
     var filesToBeSent = this.state.filesToBeSent;
-    // 
+    //
     if (filesToBeSent.length < this.state.printcount) {
       filesToBeSent.push(acceptedFiles);
       var filesPreview = [];
       for (var i in filesToBeSent) {
         filesPreview.push(<div>{filesToBeSent[i][0].name}</div>);
       }
-      
+
       this.setState({ filesPreview });
       this.handleImageUpload(acceptedFiles);
     } else {
@@ -72,7 +71,6 @@ class ReviewForm extends Component {
   }
 
   handleImageUpload = async file => {
-    
     let submittedImages = [];
     await axios.get("/api/upload").then(response => {
       let formData = new FormData();
@@ -80,13 +78,10 @@ class ReviewForm extends Component {
       formData.append("api_key", "626685399682776");
       formData.append("timestamp", response.data.timestamp);
       formData.append("file", file[0]);
-      
 
       axios
         .post(CLOUDINARY_UPLOAD_URL, formData)
         .then(response => {
-          
-          
           //    if(response.data.length > 0){
           submittedImages.push(submittedImages);
           //    }
@@ -94,7 +89,7 @@ class ReviewForm extends Component {
             userSubmittedImage1: response.data.secure_url
           });
         })
-        .catch(error => 
+        .catch(error => console.log(error));
     });
   };
 
@@ -106,8 +101,7 @@ class ReviewForm extends Component {
       userSubmittedImage1,
       userSubmittedImage2
     } = this.state;
-    
-    
+
     let { postReview, user, chosenTrail } = this.props;
     return (
       <div className="reviewContainer">

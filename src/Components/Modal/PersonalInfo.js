@@ -24,7 +24,9 @@ class PersonalInfo extends Component {
       .then(response => {
         return response.data;
       })
-      .catch(error => {});
+      .catch(error => {
+        console.log(error);
+      });
   };
   render() {
     let { firstName, lastName, email } = this.state;
