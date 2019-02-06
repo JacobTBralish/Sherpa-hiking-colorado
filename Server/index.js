@@ -7,7 +7,6 @@ const session = require("express-session");
 const axios = require("axios");
 const vC = require("./visited-controller/visited-controller");
 const sflC = require("./save-for-later-controller/save-for-later-controller");
-const uC = require("./user-controller/user-controller");
 const rC = require("./trail-review-controller/trail-review-controller");
 const cloudinary = require("cloudinary");
 
