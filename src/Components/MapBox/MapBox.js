@@ -37,20 +37,22 @@ class MapBox extends Component {
     const style1 = {
       textAlign: "center",
       height: "20px",
-      width: "60px",
+      width: "70px",
       fontSize: "8px",
-      color: "red",
-      backgroundColor: "rgba(255, 255, 255, 0.5)",
+      fontWeight: "bold",
+      color: "white",
+      backgroundColor: "rgba(10, 10, 10, 0.5)",
       borderRadius: "0px 30px 30px 30px"
     };
 
     const style2 = {
       textAlign: "center",
       height: "20px",
-      width: "46px",
+      width: "50px",
       fontSize: "10px",
-      color: "red",
-      backgroundColor: "rgba(255, 255, 255, 0.5)",
+      fontWeight: "bold",
+      color: "white",
+      backgroundColor: "rgba(10, 10, 10, 0.5)",
       borderRadius: "0px 30px 30px 30px"
     };
 
@@ -58,7 +60,7 @@ class MapBox extends Component {
       <>
         <Map
           // eslint-disable-next-line
-          style="mapbox://styles/mapbox/dark-v9"
+          style="mapbox://styles/jacobtbralish/cjpliubct0yzp2sqrhhc7dpyc"
           containerStyle={{
             height: "calc(80vh - 130px)",
             width: "80vw"

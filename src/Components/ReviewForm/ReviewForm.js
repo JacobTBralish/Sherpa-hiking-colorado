@@ -21,7 +21,8 @@ class ReviewForm extends Component {
       title: "",
       reviewBody: "",
       userSubmittedImage1: "",
-      userSubmittedImage2: ""
+      userSubmittedImage2: "",
+      rating: 0
     };
   }
 

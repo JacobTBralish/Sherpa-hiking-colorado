@@ -8,7 +8,6 @@ import LoadingSpinner from "../../LoadingSpinner";
 import Pagination from "react-js-pagination";
 
 import "./Trails.scss";
-import TrailsGridwallPresentational from "./TrailsGridwallPresentational";
 
 class TrailsGridwall extends Component {
   constructor(props) {
@@ -145,6 +144,7 @@ class TrailsGridwall extends Component {
       var nameB = b.name.toUpperCase();
       return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
     });
+
     //handles the splicing of data for pagination
     let activePageIndex = parseInt(this.state.activePage, 10);
     let itemsPerPageIndex = parseInt(this.state.itemsPerPage, 10);
@@ -199,14 +199,7 @@ class TrailsGridwall extends Component {
             <LoadingSpinner />
           ) : (
             mappedTrailCard
-          )
-          // <TrailsGridwallPresentational
-          // trails={result}
-          // chooseTrail={chooseTrail}
-          // listLength={this.state[name].length}
-          // activePage={this.state.activePage}
-          // />
-          }
+          )}
         </div>
         <div className="paginationContainer">
           <Pagination

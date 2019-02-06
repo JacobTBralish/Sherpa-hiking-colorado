@@ -66,7 +66,7 @@ class UsersTrails extends Component {
       return (
         <div key={i}>
           <div className="deleteContainer">
-            <button
+            {/* <button
               style={{ fontSize: "50px" }}
               onClick={() => {
                 deleteUserTrail(type, trail.id, user.id);
@@ -74,7 +74,7 @@ class UsersTrails extends Component {
               className="deleteButton"
             >
               X
-            </button>
+            </button> */}
           </div>
           <Link
             key={i}

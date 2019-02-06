@@ -54,3 +54,11 @@ class TrailsGridwallPresentational extends Component {
 }
 
 export default TrailsGridwallPresentational;
+
+// ADD TO CORRECT PLACE TO BE RENDERED
+// <TrailsGridwallPresentational
+// trails={result}
+// chooseTrail={chooseTrail}
+// listLength={this.state[name].length}
+// activePage={this.state.activePage}
+// />

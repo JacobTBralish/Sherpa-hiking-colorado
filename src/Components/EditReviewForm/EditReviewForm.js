@@ -131,7 +131,7 @@ class EditReviewForm extends Component {
                 src={this.props.authorImage}
               />
             </div>
-            <div className="reviewInfoBox">
+            <div className="reviewInfoEditBox">
               <form className="reviewInfo">
                 <div className="reviewTopContainer">
                   <div className="titleCluster">
@@ -187,7 +187,7 @@ class EditReviewForm extends Component {
                     onChange={this.handleChange}
                   />
                 </div>
-                <div className="photoContainer">
+                <div className="photoEditContainer">
                   <Dropzone
                     className="dropZone"
                     accept={"image/*"}
@@ -202,6 +202,7 @@ class EditReviewForm extends Component {
               </form>
               <div className="reviewSubmitButtonContainer">
                 <button
+                  id="editSubmitButton"
                   className="submitButton"
                   type="submit"
                   onClick={() => {
@@ -218,7 +219,12 @@ class EditReviewForm extends Component {
                 >
                   Save changes
                 </button>
-                <button onClick={() => window.location.reload()}>Cancel</button>
+                <button
+                  id="editCancelButton"
+                  onClick={() => window.location.reload()}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           </div>
