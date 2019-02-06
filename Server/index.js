@@ -26,12 +26,9 @@ app.use(express.static(`${__dirname}/../build`));
 
 massive(process.env.CONNECTION_STRING)
   .then(database => {
-    
     app.set("db", database);
   })
-  .catch(error => {
-    
-  });
+  .catch(error => {});
 
 //-------------------------------------------------------------------------------------Auth0----------------------------------------------------------------------\\
 
@@ -45,7 +42,6 @@ app.get("/auth/callback", (req, res) => {
     redirect_uri: `https://${req.headers.host}/auth/callback`
   };
   function tradeCodeForAccessToken() {
-    
     return axios.post(
       `https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`,
       payload
@@ -60,14 +56,12 @@ app.get("/auth/callback", (req, res) => {
     );
   }
   function storeUserInfoInDatabase(response) {
-    
     const auth0Id = response.data.sub;
     const db = req.app.get("db");
     return db
       .find_user_by_auth0_id(auth0Id)
       .then(users => {
         if (users.length) {
-          
           const user = users[0];
           req.session.user = user;
           res.redirect("/");
@@ -87,13 +81,11 @@ app.get("/auth/callback", (req, res) => {
               res.redirect("/");
             })
             .catch(error => {
-              
               res.status(500).json("Unexpected error");
             });
         }
       })
       .catch(error => {
-        
         res.status(500).json("Unexpected error");
       });
   }
@@ -101,7 +93,6 @@ app.get("/auth/callback", (req, res) => {
     .then(tradeAccessTokenForUserInfo)
     .then(storeUserInfoInDatabase)
     .catch(error => {
-      
       res.status(500).json("Unexpected error");
     });
 });
@@ -167,4 +158,4 @@ app.get("*", (req, res) => {
 });
 
 const PORT = 4000;
-app.listen(PORT, () => 
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}🏄`));
