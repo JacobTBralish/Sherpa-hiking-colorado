@@ -57,12 +57,8 @@ class UsersTrails extends Component {
     let { error, isLoading } = this.state;
     const { name, type } = this.props;
     let { deleteUserTrail, user, location } = this.props;
-    console.log("location: ", location);
-    console.log("user: ", user);
-    console.log("type: ", type);
 
     let usersTrails = this.state[name].map((trail, i) => {
-      console.log("trail: ", trail.id);
       return (
         <div key={i}>
           <div className="deleteContainer">

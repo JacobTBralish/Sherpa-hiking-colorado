@@ -13,7 +13,6 @@ class App extends Component {
   }
 
   render() {
-    console.log("isModalOpen: ", this.state.isModalOpen);
     return (
       <div className="appContainer">
         <Nav />

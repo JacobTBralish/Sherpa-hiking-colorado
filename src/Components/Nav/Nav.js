@@ -71,7 +71,7 @@ class Nav extends Component {
 
   render() {
     let { user } = this.props;
-    console.log("this.props.history)", this.props.history);
+
     let { toggle, latitude, longitude } = this.state;
 
     return (

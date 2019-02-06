@@ -59,7 +59,6 @@ function withData(url, storageName) {
         axios
           .get(url)
           .then(response => {
-            console.log("response: ", response);
             this.setState(
               { data: response.data.data, isLoading: false },
               localStorage.setItem(
@@ -69,7 +68,6 @@ function withData(url, storageName) {
             );
           })
           .catch(error => {
-            console.log("Error in HOC", error);
             this.setState({ error });
           });
       }

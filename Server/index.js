@@ -26,11 +26,11 @@ app.use(express.static(`${__dirname}/../build`));
 
 massive(process.env.CONNECTION_STRING)
   .then(database => {
-    console.log("Hooked up to your database bruhh.🤙");
+    
     app.set("db", database);
   })
   .catch(error => {
-    console.log(error);
+    
   });
 
 //-------------------------------------------------------------------------------------Auth0----------------------------------------------------------------------\\
@@ -45,7 +45,7 @@ app.get("/auth/callback", (req, res) => {
     redirect_uri: `https://${req.headers.host}/auth/callback`
   };
   function tradeCodeForAccessToken() {
-    console.log("traded code for access token");
+    
     return axios.post(
       `https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`,
       payload
@@ -60,14 +60,14 @@ app.get("/auth/callback", (req, res) => {
     );
   }
   function storeUserInfoInDatabase(response) {
-    console.log("Stored user info in db");
+    
     const auth0Id = response.data.sub;
     const db = req.app.get("db");
     return db
       .find_user_by_auth0_id(auth0Id)
       .then(users => {
         if (users.length) {
-          console.log(users);
+          
           const user = users[0];
           req.session.user = user;
           res.redirect("/");
@@ -87,13 +87,13 @@ app.get("/auth/callback", (req, res) => {
               res.redirect("/");
             })
             .catch(error => {
-              console.log("Error in db.create_user", error);
+              
               res.status(500).json("Unexpected error");
             });
         }
       })
       .catch(error => {
-        console.log("Error in find_user", error);
+        
         res.status(500).json("Unexpected error");
       });
   }
@@ -101,7 +101,7 @@ app.get("/auth/callback", (req, res) => {
     .then(tradeAccessTokenForUserInfo)
     .then(storeUserInfoInDatabase)
     .catch(error => {
-      console.log("Error in auth/callback", error);
+      
       res.status(500).json("Unexpected error");
     });
 });
@@ -167,4 +167,4 @@ app.get("*", (req, res) => {
 });
 
 const PORT = 4000;
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}🏄`));
+app.listen(PORT, () => 

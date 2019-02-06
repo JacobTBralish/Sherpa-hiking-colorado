@@ -21,8 +21,6 @@ class MapBox extends Component {
   async componentWillMount() {
     await navigator.geolocation.getCurrentPosition(
       position => {
-        console.log("wokeeey");
-        console.log(position);
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,

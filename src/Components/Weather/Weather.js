@@ -25,7 +25,6 @@ class Weather extends Component {
         }&APPID=59b00ca946aa0fbe99a7218a649b7168&units=imperial`
       )
       .then(res => {
-        console.log(res.data);
         this.setState({ weather: res.data.list, isLoading: false });
       });
   }
@@ -70,8 +69,8 @@ class Weather extends Component {
     let dates = [];
     for (let i = 0; i < arr.length; i++) {
       let dateString = moment(cb(arr[i].dt_txt)).format("MMMM Do YYYY");
-      //   console.log('arr[i].dt_txt: ', arr[i].dt_txt.split(' '));
-      //   console.log('dateString: ', dateString.split(' '));
+      //
+      //
       if (dates.some(e => e.day === dateString)) {
         dates[dates.findIndex(e => e.day === dateString)].hour.push({
           time: cb2(arr[i].dt_txt.split(" ")[1]),
@@ -95,14 +94,13 @@ class Weather extends Component {
         });
       }
     }
-    console.log("dates: ", dates);
+
     return dates;
   };
 
   render() {
     let { findWeatherInfoByDay, getDate, getTime } = this;
     let { weather, isLoading, error } = this.state;
-    console.log("weather: ", weather);
 
     let mappedWeather = findWeatherInfoByDay(weather, getDate, getTime).map(
       (day, index) => {

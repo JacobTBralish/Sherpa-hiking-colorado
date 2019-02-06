@@ -22,15 +22,14 @@ class GeoLocation extends Component {
 
   async componentDidMount() {
     const { fetch } = this.props;
-    console.log("this.props: ", this.props);
-    console.log("fetch: ", fetch);
+
     // Nothing is in local storage, so we need to fetch
     try {
       let fetchedTrails = await fetch(
         this.props.location.state.lat,
         this.props.location.state.long
       );
-      console.log("trails: ", fetchedTrails);
+
       this.setState({
         trailsNearBy: fetchedTrails,
         isLoading: false
@@ -41,10 +40,7 @@ class GeoLocation extends Component {
   }
 
   render() {
-    console.log(this.props);
-    console.log("this: ", this);
     let { trailsNearBy, error, isLoading } = this.state;
-    console.log("trailsNearBy: ", trailsNearBy);
 
     let sortedTrails = trailsNearBy.sort((a, b) => {
       var nameA = a.name.toUpperCase();

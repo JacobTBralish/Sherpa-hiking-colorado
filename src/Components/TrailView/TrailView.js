@@ -31,9 +31,7 @@ class TrailView extends Component {
         this.props.getTrail(res.data.trails);
         this.setState({ isLoading: false });
       })
-      .catch(error => {
-        console.log(error, "Error getting trail.");
-      });
+      .catch(error => {});
   }
 
   openModal() {
@@ -46,12 +44,11 @@ class TrailView extends Component {
 
   render() {
     let { chosenTrail, user } = this.props;
-    console.log("user: ", user);
+
     let { isLoading, error } = this.state;
-    // console.log('this thing', chosenTrail.longitude);
+    //
 
     let mappedChosenTrail = chosenTrail.map((trail, i) => {
-      console.log("trail: ", trail);
       return (
         <div key={i} className="trailViewContainer">
           <div className="trailViewImageContainer">

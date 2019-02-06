@@ -3,7 +3,7 @@ import React from "react";
 import "./TrailCard.scss";
 
 const TrailCard = props => {
-  // console.log('props: ', props);
+  //
   return (
     <div className="cardContainer">
       <div className="cardImageContainer">

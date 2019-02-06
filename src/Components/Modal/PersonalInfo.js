@@ -22,12 +22,9 @@ class PersonalInfo extends Component {
     axios
       .put(`/api/updateuser/${userId}`, { firstName, lastName, email })
       .then(response => {
-        console.log("response: ", response);
         return response.data;
       })
-      .catch(error => {
-        console.log("error: ", error);
-      });
+      .catch(error => {});
   };
   render() {
     let { firstName, lastName, email } = this.state;

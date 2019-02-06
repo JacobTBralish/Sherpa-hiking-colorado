@@ -64,12 +64,9 @@ export function getUser() {
     payload: axios
       .get("/api/user-data")
       .then(response => {
-        console.log("response: ", response.data);
         return response.data;
       })
-      .catch(error => {
-        console.log(error);
-      })
+      .catch(error => {})
   };
 }
 
@@ -114,7 +111,6 @@ export function postVisitedTrail(
       trailDifficulty
     })
     .then(response => {
-      console.log("response: ", response);
       return response.data;
     });
   return {
@@ -143,7 +139,6 @@ export function saveForLater(
       trailDifficulty
     })
     .then(response => {
-      console.log("response: ", response);
       return response.data;
     });
   return {
@@ -158,7 +153,6 @@ export function deleteUserTrail(type, usersTrailId, userId) {
   let trail = axios
     .delete(`/api/${type}/userstrail?id=${usersTrailId}`, { userId })
     .then(response => {
-      console.log("response: ", response);
       return response.data;
     });
   return {
@@ -179,7 +173,7 @@ export function deleteUserTrail(type, usersTrailId, userId) {
 
 // export function saveUserChanges(userId, firstName, lastName, email){
 //     let user = axios.put(`/api/updateuser/${userId}`, { firstName, lastName, email }).then(response => {
-//         console.log('response: ', response);
+//
 //         return response.data
 //     })
 //     return {
@@ -192,7 +186,6 @@ export function deleteUserTrail(type, usersTrailId, userId) {
 
 export function getReviews(trailId) {
   let reviews = axios.get(`/api/trailreview/${trailId}`).then(response => {
-    console.log("response: ", response);
     return response.data;
   });
   return {
@@ -214,7 +207,6 @@ export function postReview(
   userImage,
   userName
 ) {
-  console.log("userSubmittedImage1: ", userSubmittedImage1);
   const date = new Date();
   const months = [
     "January",
@@ -250,7 +242,6 @@ export function postReview(
       userName
     })
     .then(response => {
-      console.log(response.data);
       return response.data;
     });
   return {
@@ -290,7 +281,6 @@ export function editReview(
       reviewId
     })
     .then(response => {
-      console.log(response.data);
       return response.data;
     });
   return {

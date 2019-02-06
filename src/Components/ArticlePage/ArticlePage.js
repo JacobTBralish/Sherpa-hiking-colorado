@@ -16,7 +16,6 @@ class ArticlePage extends Component {
     window.scrollTo(0, 0);
   }
   handlePageChange = pageNumber => {
-    console.log(`active page is ${pageNumber}`);
     this.setState({ activePage: pageNumber });
     window.scrollTo(0, 0);
   };

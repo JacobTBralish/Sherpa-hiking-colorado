@@ -45,7 +45,7 @@ class ReviewForm extends Component {
 
   handlePhotoToggle = () => {
     this.setState(prevState => {
-      //  console.log('prevstate', prevState)
+      //  
       return {
         togglePhotos: !prevState.togglePhotos
       };
@@ -53,17 +53,17 @@ class ReviewForm extends Component {
   };
 
   onDrop(acceptedFiles, rejectedFiles) {
-    console.log("acceptedFiles: ", acceptedFiles);
-    // console.log('Accepted files: ', acceptedFiles[0].name);
+    
+    // 
     var filesToBeSent = this.state.filesToBeSent;
-    // console.log('filesToBeSent: ', filesToBeSent);
+    // 
     if (filesToBeSent.length < this.state.printcount) {
       filesToBeSent.push(acceptedFiles);
       var filesPreview = [];
       for (var i in filesToBeSent) {
         filesPreview.push(<div>{filesToBeSent[i][0].name}</div>);
       }
-      console.log("filesToBeSent: ", filesToBeSent);
+      
       this.setState({ filesPreview });
       this.handleImageUpload(acceptedFiles);
     } else {
@@ -72,7 +72,7 @@ class ReviewForm extends Component {
   }
 
   handleImageUpload = async file => {
-    console.log("file: ", file);
+    
     let submittedImages = [];
     await axios.get("/api/upload").then(response => {
       let formData = new FormData();
@@ -80,13 +80,13 @@ class ReviewForm extends Component {
       formData.append("api_key", "626685399682776");
       formData.append("timestamp", response.data.timestamp);
       formData.append("file", file[0]);
-      console.log("file[0]: ", file[0]);
+      
 
       axios
         .post(CLOUDINARY_UPLOAD_URL, formData)
         .then(response => {
-          console.log("response: ", response);
-          console.log("response.data: ", response.data);
+          
+          
           //    if(response.data.length > 0){
           submittedImages.push(submittedImages);
           //    }
@@ -94,7 +94,7 @@ class ReviewForm extends Component {
             userSubmittedImage1: response.data.secure_url
           });
         })
-        .catch(error => console.log(error));
+        .catch(error => 
     });
   };
 
@@ -106,8 +106,8 @@ class ReviewForm extends Component {
       userSubmittedImage1,
       userSubmittedImage2
     } = this.state;
-    console.log("userSubmittedImages: ", userSubmittedImage1);
-    console.log("userSubmittedImages: ", userSubmittedImage2);
+    
+    
     let { postReview, user, chosenTrail } = this.props;
     return (
       <div className="reviewContainer">
